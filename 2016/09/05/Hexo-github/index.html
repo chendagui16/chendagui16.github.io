@@ -4,19 +4,32 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Hexo</title>
+    <title>Hexo_github | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="John Doe">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="Hexo and github pages SETTINGIntroduction
+因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
+Setting
+安装hexo安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo_github">
+<meta property="og:url" content="http://yoursite.com/2016/09/05/Hexo-github/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo and github pages SETTINGIntroduction
+因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
+Setting
+安装hexo安">
+<meta property="og:updated_time" content="2016-09-05T08:56:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Hexo_github">
+<meta name="twitter:description" content="Hexo and github pages SETTINGIntroduction
+因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
+Setting
+安装hexo安">
 
     
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -70,12 +83,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2016/09/05/Hexo-github/" title="Hexo_github" itemprop="url">Hexo_github</a>
@@ -89,9 +100,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="Hexo-and-github-pages-SETTING"><a href="#Hexo-and-github-pages-SETTING" class="headerlink" title="Hexo and github pages SETTING"></a>Hexo and github pages SETTING</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><hr>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-and-github-pages-SETTING"><span class="toc-number">1.</span> <span class="toc-text">Hexo and github pages SETTING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting"><span class="toc-number">1.2.</span> <span class="toc-text">Setting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装hexo"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装Node-js"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装git"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo-1"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo必备的服务"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">安装hexo必备的服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置github-pages"><span class="toc-number">1.2.2.</span> <span class="toc-text">设置github pages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置hexo"><span class="toc-number">1.2.3.</span> <span class="toc-text">设置hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更换主题与数学公式"><span class="toc-number">1.2.4.</span> <span class="toc-text">更换主题与数学公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.3.</span> <span class="toc-text">命令</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Hexo-and-github-pages-SETTING"><a href="#Hexo-and-github-pages-SETTING" class="headerlink" title="Hexo and github pages SETTING"></a>Hexo and github pages SETTING</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><hr>
 <p>因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。<br>　　<br>这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。</p>
 <h3 id="Setting"><a href="#Setting" class="headerlink" title="Setting"></a>Setting</h3><hr>
 <h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">hexo</a></h4><h5 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h5><p>先安装<a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure></p>
@@ -110,14 +128,9 @@
 <p>在jacman的主题下，设置数学显示包括两步，第一步是更改<strong>主题</strong>内的<em>_config.yml</em>文件。<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
 <p>第二步是在写front-matter内添加一行<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
 <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ hexo init 初始化</div><div class="line">$ hexo new [layout] &lt;title&gt;　新建文档，layout提供默认版式</div><div class="line">$ hexo g[enerate]　[<span class="_">-d</span>]　渲染成静态网页</div><div class="line">$ hexo s[erver] 打开本地服务器</div><div class="line">$ hexo d[eploy] 推送到github</div><div class="line">$ hexo clean　清除原静态文件</div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ hexo init 初始化</div><div class="line">$ hexo new [layout] &lt;title&gt;　新建文档，layout提供默认版式</div><div class="line">$ hexo g[enerate]　[<span class="_">-d</span>]　渲染成静态网页</div><div class="line">$ hexo s[erver] 打开本地服务器</div><div class="line">$ hexo d[eploy] 推送到github</div><div class="line">$ hexo clean　清除原静态文件</div></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -130,82 +143,43 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2016/09/05/Hexo-github/" data-title="Hexo_github | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/09/05/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
-		
-  <p class="article-time">
-    <time datetime="2016-09-05T07:19:35.704Z" itemprop="datePublished"> Published 2016-09-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/05/hello-world/"  title="Hello World">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello World
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-and-github-pages-SETTING"><span class="toc-number">1.</span> <span class="toc-text">Hexo and github pages SETTING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting"><span class="toc-number">1.2.</span> <span class="toc-text">Setting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装hexo"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装Node-js"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装git"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo-1"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo必备的服务"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">安装hexo必备的服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置github-pages"><span class="toc-number">1.2.2.</span> <span class="toc-text">设置github pages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置hexo"><span class="toc-number">1.2.3.</span> <span class="toc-text">设置hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更换主题与数学公式"><span class="toc-number">1.2.4.</span> <span class="toc-text">更换主题与数学公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.3.</span> <span class="toc-text">命令</span></a></li></ol></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -347,12 +321,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -452,4 +503,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   </body>
- </html>
+</html>
