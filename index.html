@@ -104,9 +104,12 @@
 <h4 id="设置hexo"><a href="#设置hexo" class="headerlink" title="设置hexo"></a>设置hexo</h4><p>初始化blog文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> (blog workspace)</div><div class="line">$ hexo init</div></pre></td></tr></table></figure></p>
 <p>编辑配置文件<em>_config.yml</em><br>按照描述更改配置，注意要更改deploy选项。</p>
 <blockquote>
-<p>deploy:<br>         　type: git<br>         　repository: git@github.com:chendagui16/chendagui16.github.io.git<br>         　branch: master
-         　</p>
-<h4 id="更换主题与数学公式"><a href="#更换主题与数学公式" class="headerlink" title="更换主题与数学公式"></a>更换主题与数学公式</h4><p>我采用了<a href="https://github.com/wuchong/jacman" target="_blank" rel="external">jacman</a>的主题，设置方法可进入github中观看。<br>　这个主题中提供了较多的选项，包括如何解决数学公式的显示问题，然而，我只得到了本地页面的显示并没有得到github pages上的显示，问题仍未解决。谁知道了能否告诉我怎么解决。</p>
+<p>deploy:<br>         　type: git<br>         　repository: git@github.com:chendagui16/chendagui16.github.io.git<br>         　branch: master</p>
+</blockquote>
+<p> 这里我使用了ssh协议        　</p>
+<h4 id="更换主题与数学公式"><a href="#更换主题与数学公式" class="headerlink" title="更换主题与数学公式"></a>更换主题与数学公式</h4><p>我采用了<a href="https://github.com/wuchong/jacman" target="_blank" rel="external">jacman</a>的主题，设置方法可进入github中观看。</p>
+<blockquote>
+<p>　这个主题中提供了较多的选项，包括如何解决数学公式的显示问题，然而，我只得到了本地页面的显示并没有得到github pages上的显示，问题仍未解决。谁知道了能否告诉我怎么解决。</p>
 </blockquote>
 <p>在jacman的主题下，设置数学显示包括两步，第一步是更改<strong>主题</strong>内的<em>_config.yml</em>文件。<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
 <p>第二步是在写front-matter内添加一行<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
