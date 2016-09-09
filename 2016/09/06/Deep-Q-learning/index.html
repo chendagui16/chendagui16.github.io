@@ -21,7 +21,7 @@
 <meta property="og:description" content="Deep Q Learning Code Analyze分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载
 文件结构
 代码采用torch框架进行组织，编写的语言均为lua语言，其中包括convnet.lua, convnet_atari3.lua, initen">
-<meta property="og:updated_time" content="2016-09-07T07:46:40.000Z">
+<meta property="og:updated_time" content="2016-09-09T01:15:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep_Q_learning">
 <meta name="twitter:description" content="Deep Q Learning Code Analyze分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载
@@ -159,7 +159,7 @@
 <h5 id="trans-add-recent-state-s-term-trans-add-recent-action-a"><a href="#trans-add-recent-state-s-term-trans-add-recent-action-a" class="headerlink" title="trans:add_recent_state(s,term),trans:add_recent_action(a)"></a>trans:add_recent_state(s,term),trans:add_recent_action(a)</h5><p>这两个函数分别将s，term和a加入recent存储区，注意到由于recent存储区只存储一个状态，因此函数里面有维持recent存储区的大小等于self.recentMemSize的操作。</p>
 <h5 id="trans-get-recent"><a href="#trans-get-recent" class="headerlink" title="trans:get_recent()"></a>trans:get_recent()</h5><p> 从recent存储区取一个状态<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:get_recent</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">return</span> self:concatFrames(<span class="number">1</span>, <span class="keyword">true</span>):float():div(<span class="number">255</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 <h5 id="trans-write-file"><a href="#trans-write-file" class="headerlink" title="trans:write(file)"></a>trans:write(file)</h5><p>将trans类的参数序列化写入文件</p>
-<h5 id="trans-read-file"><a href="#trans-read-file" class="headerlink" title="trans:read(file)"></a>trans:read(file)</h5><p>执行反序列话，从文件中读取参数</p>
+<h5 id="trans-read-file"><a href="#trans-read-file" class="headerlink" title="trans:read(file)"></a>trans:read(file)</h5><p>执行反序列化，从文件中读取参数</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -195,6 +195,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/09/09/Deep-Q-learning-2/" title="Deep-Q-learning-2">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Deep-Q-learning-2</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/09/05/Opinion-SNN/"  title="Opinion_SNN">
@@ -242,7 +250,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>1</sup></a></li>
+			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
 		  
 		
 		  
@@ -259,6 +267,18 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
@@ -268,18 +288,6 @@
 		
 			
 				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>1</sup></a></li>
 			
 		
 		</ul>

@@ -1,0 +1,565 @@
+
+ <!DOCTYPE HTML>
+<html lang="Chinese">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  
+    <title>Deep-Q-learning-2 | My Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Dagui Chen">
+    
+
+    
+    <meta name="description" content="Deep Q Learning Code Analyze分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载
+文件结构
+NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主要制定了深度Q学习的学习规则。同样地，这里对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep-Q-learning-2">
+<meta property="og:url" content="http://yoursite.com/2016/09/09/Deep-Q-learning-2/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="Deep Q Learning Code Analyze分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载
+文件结构
+NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主要制定了深度Q学习的学习规则。同样地，这里对">
+<meta property="og:updated_time" content="2016-09-09T01:15:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep-Q-learning-2">
+<meta name="twitter:description" content="Deep Q Learning Code Analyze分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载
+文件结构
+NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主要制定了深度Q学习的学习规则。同样地，这里对">
+
+    
+    <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="My Blog" title="My Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/09/Deep-Q-learning-2/" title="Deep-Q-learning-2" itemprop="url">Deep-Q-learning-2</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-09T01:13:52.000Z" itemprop="datePublished"> Published 2016-09-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NeuralQLearner-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">NeuralQLearner.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-args"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">nql:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-reset-state"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">nql:reset(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-preprocess-rawstate"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">nql:preprocess(rawstate)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-getQUpdate-args"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">nql:getQUpdate(args)</span></a></li></ol></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Deep-Q-Learning-Code-Analyze"><a href="#Deep-Q-Learning-Code-Analyze" class="headerlink" title="Deep Q Learning Code Analyze"></a>Deep Q Learning Code Analyze</h2><p>分析的源码来自于deepmind在Natrue上发表的论文<a href="http://www.nature.com/nature/journal/v518/n7540/abs/nature14236.html" target="_blank" rel="external">Human-level control through deep reinforcement learning</a>所附的源码。<a href="sites.google.com/a/deepmind.com/dqn">源码下载</a></p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><hr>
+<h4 id="NeuralQLearner-lua"><a href="#NeuralQLearner-lua" class="headerlink" title="NeuralQLearner.lua"></a>NeuralQLearner.lua</h4><p>该文件定义了一个dqn.NerualQLearner的类，该类主要制定了深度Q学习的学习规则。同样地，这里对该类的成员函数一一进行解读。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> nql = torch.class(<span class="string">'dqn.NeuralQLearner'</span>)</div></pre></td></tr></table></figure></p>
+<h5 id="nql-init-args"><a href="#nql-init-args" class="headerlink" title="nql:__init(args)"></a>nql:__init(args)</h5><p>类对象的初始化。由于初始化的对象很多，这里就不一一介绍，主要介绍几个难以理解的成员变量，其他成员变量可参考源文件。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"> self.verbose    = args.verbose  <span class="comment">--verbose，数字越大，训练时所输出的信息越多</span></div><div class="line"> self.best       = args.best  <span class="comment">--布尔型变量，if true，那么载入模型时载入best_model</span></div><div class="line"> </div><div class="line"> self.discount       = args.discount <span class="keyword">or</span> <span class="number">0.99</span> <span class="comment">--在求future discount reward时的衰减因子.</span></div><div class="line"> self.update_freq    = args.update_freq <span class="keyword">or</span> <span class="number">1</span> <span class="comment">--更新频率，每执行多少次action才进行一次学习，即每两次更新中所执行的action次数</span></div><div class="line"> self.n_replay       = args.n_replay <span class="keyword">or</span> <span class="number">1</span> <span class="comment">--每次更新时重复学习的次数</span></div><div class="line"> self.learn_start    = args.learn_start <span class="keyword">or</span> <span class="number">0</span>  <span class="comment">--学习开始时的步数</span></div><div class="line"></div><div class="line"> self.rescale_r      = args.rescale_r  <span class="comment">--布尔型变量，if true，则将reward除以self.r_max。</span></div><div class="line"> self.clip_delta     = args.clip_delta <span class="comment">--如果定义之后，会将输出层的残差限定在[-self.clip_delta,self.clip_delta]之间</span></div><div class="line"> self.target_q       = args.target_q   <span class="comment">--整数，每隔target_q步将update网络的参数copy到target网络</span></div><div class="line"> self.bestq          = <span class="number">0</span>  <span class="comment">--记录网络的最大的q值</span></div><div class="line"> </div><div class="line"> self.ncols          = args.ncols <span class="keyword">or</span> <span class="number">1</span>  <span class="comment">-- 颜色通道数量</span></div><div class="line"> self.preproc        = args.preproc  <span class="comment">-- 预处理网络名</span></div><div class="line"> </div><div class="line"> self.network    = args.network <span class="keyword">or</span> self:createNetwork() <span class="comment">--如果参数给了网络，就载入网络，否则就调用self:createNetwork()函数新建一个网络</span></div><div class="line"></div><div class="line"><span class="comment">--参考TransitionTable.lua文件，初始化transiitons类 </span></div><div class="line"> <span class="keyword">local</span> transition_args = &#123; </div><div class="line">     stateDim = self.state_dim, numActions = self.n_actions,</div><div class="line">     histLen = self.hist_len, gpu = self.gpu,</div><div class="line">     maxSize = self.replay_memory, histType = self.histType,</div><div class="line">     histSpacing = self.histSpacing, nonTermProb = self.nonTermProb,</div><div class="line">     bufferSize = self.bufferSize</div><div class="line"> &#125;</div><div class="line"> self.transitions = dqn.TransitionTable(transition_args)</div><div class="line"> </div><div class="line"> self.numSteps = <span class="number">0</span> <span class="comment">-- 执行的步数.</span></div><div class="line"> self.v_avg = <span class="number">0</span> <span class="comment">-- Validation上的平均q值.</span></div><div class="line"> self.tderr_avg = <span class="number">0</span> <span class="comment">-- target和destination之间的平均误差.</span></div><div class="line"> </div><div class="line"> self.w, self.dw = self.network:getParameters() <span class="comment">--得到网络的参数w和dw</span></div><div class="line"> self.dw:zero()</div><div class="line"> self.deltas = self.dw:clone():fill(<span class="number">0</span>)</div><div class="line"> <span class="comment">--设立中间变量，用来求梯度</span></div><div class="line"> self.tmp= self.dw:clone():fill(<span class="number">0</span>)</div><div class="line"> self.g  = self.dw:clone():fill(<span class="number">0</span>)</div><div class="line"> self.g2 = self.dw:clone():fill(<span class="number">0</span>)</div></pre></td></tr></table></figure></p>
+<p>另外，在初始化的函数中，还调用了lua语言内置的pcall函数来载入网络和预处理网络。例如如下代码：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> msg, err = <span class="built_in">pcall</span>(<span class="built_in">require</span>, self.network)</div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> msg <span class="keyword">then</span></div><div class="line">    <span class="keyword">local</span> err_msg, exp = <span class="built_in">pcall</span>(torch.<span class="built_in">load</span>, self.network)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> err_msg <span class="keyword">then</span></div><div class="line">        <span class="built_in">error</span>(<span class="string">"Could not find network file "</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">if</span> self.best <span class="keyword">and</span> exp.best_model <span class="keyword">then</span></div><div class="line">        self.network = exp.best_model</div><div class="line">    <span class="keyword">else</span></div><div class="line">        self.network = exp.model</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">'Creating Agent Network from '</span> .. self.network)</div><div class="line">    self.network = err</div><div class="line">    self.network = self:network()</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>pcall函数是lua的内置处理函数,一般的使用方法是msg,err=pcall(func,param)，通过调用func(param)函数，如果调用成功，则msg返回true，err返回func(param)的返回值，如果出现错误和异常，则msg返回nil，err返回错误的信息。该函数在lua相当于try，out的作用。</p>
+</blockquote>
+<p>通过使用pcall调用载入函数，可以事先对self.network和self.preproc进行初始化。</p>
+<h5 id="nql-reset-state"><a href="#nql-reset-state" class="headerlink" title="nql:reset(state)"></a>nql:reset(state)</h5><p>重置类对象，主要是载入state.best_network和state.model。然后将self.dw归零，将执行步数self.numSteps置零。</p>
+<h5 id="nql-preprocess-rawstate"><a href="#nql-preprocess-rawstate" class="headerlink" title="nql:preprocess(rawstate)"></a>nql:preprocess(rawstate)</h5><p>将原始状态进行预处理<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">nql:preprocess</span><span class="params">(rawstate)</span></span></div><div class="line">    <span class="keyword">if</span> self.preproc <span class="keyword">then</span></div><div class="line">        <span class="keyword">return</span> self.preproc:forward(rawstate:float())</div><div class="line">                    :clone():reshape(self.state_dim)</div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> rawstate</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="nql-getQUpdate-args"><a href="#nql-getQUpdate-args" class="headerlink" title="nql:getQUpdate(args)"></a>nql:getQUpdate(args)</h5><p>该函数主要以一个transition: &lt; s,a,r,s’,term&gt;作为输入，然后通过计算获得Q值，以及targets，残差等。<br>首先该函数会载入args的参数，包括args.s,args.a,args.r,args.s2,args.term。然后按照下面的程序计算：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- delta = r + (1-terminal) * gamma * max_a Q(s2, a) - Q(s, a)</span></div><div class="line">term = term:clone():float():mul(<span class="number">-1</span>):add(<span class="number">1</span>)  <span class="comment">-- (1-term)</span></div><div class="line"></div><div class="line">q2_max = target_q_net:forward(s2):float():max(<span class="number">2</span>) <span class="comment">--max_a Q(s_2,a)</span></div><div class="line"><span class="comment">-- 计算 q2 = (1-terminal) * gamma * max_a Q(s2, a)</span></div><div class="line">q2 = q2_max:clone():mul(self.discount):cmul(term)</div><div class="line">delta = r:clone():float()</div><div class="line"></div><div class="line"><span class="keyword">if</span> self.rescale_r <span class="keyword">then</span>  <span class="comment">--如果self.rescale_r定义了之后，就将reward除以self.r_max</span></div><div class="line">   delta:div(self.r_max)</div><div class="line"><span class="keyword">end</span></div><div class="line">delta:add(q2)  <span class="comment">--r + (1-terminal) * gamma * max_a Q(s2, a)</span></div><div class="line"><span class="keyword">local</span> q_all = self.network:forward(s):float()  <span class="comment">--q_all矩阵用来存储q值，q_all[i][j]表示batchsize中的第i个输入的第j个action对应的Q值</span></div><div class="line">q = torch.FloatTensor(q_all:size(<span class="number">1</span>))</div><div class="line"><span class="keyword">for</span> i=<span class="number">1</span>,q_all:size(<span class="number">1</span>) <span class="keyword">do</span>  <span class="comment">--q向量，这里q=Q(s,a)</span></div><div class="line">    q[i] = q_all[i][a[i]]</div><div class="line"><span class="keyword">end</span></div><div class="line">delta:add(<span class="number">-1</span>, q)  <span class="comment">--delta = r + (1-terminal) * gamma * max_a Q(s2, a) - Q(s, a)</span></div></pre></td></tr></table></figure></p>
+<p>这里得到了delta=<em>r + (1-terminal) </em> gamma <em> max_a Q(s2, a) - Q(s, a)</em>,注意到，如果定义了self.clip_delta，那么将残差进行<strong>限幅</strong>操作，将幅度不在[-self.clip_delta,self.clip_delta]的delta值强行clip。<br>同时，函数定义了targets矩阵，其中target是一个二维矩阵，第一维表示batch_size，第二维表示actions。这里，我们将delta的值赋给target对应的action位置，其他action处，target=0。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> targets = torch.zeros(self.minibatch_size, self.n_actions):float()</div><div class="line"><span class="keyword">for</span> i=<span class="number">1</span>,<span class="built_in">math</span>.min(self.minibatch_size,a:size(<span class="number">1</span>)) <span class="keyword">do</span></div><div class="line">    targets[i][a[i]] = delta[i]</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>最后函数返回</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/code-analyze/">code analyze</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/reinforcement-learning/">reinforcement learning</a><a href="/tags/Q-learning/">Q-learning</a><a href="/tags/deepmind/">deepmind</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/09/09/Deep-Q-learning-2/" data-title="Deep-Q-learning-2 | My Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/06/Deep-Q-learning/"  title="Deep_Q_learning">
+ <strong>下一篇：</strong><br/> 
+ <span>Deep_Q_learning
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/09/Deep-Q-learning-2/" data-title="Deep-Q-learning-2" data-url="http://yoursite.com/2016/09/09/Deep-Q-learning-2/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NeuralQLearner-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">NeuralQLearner.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-args"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">nql:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-reset-state"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">nql:reset(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-preprocess-rawstate"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">nql:preprocess(rawstate)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-getQUpdate-args"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">nql:getQUpdate(args)</span></a></li></ol></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/software-setting/" title="software setting">software setting<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com" target="_blank" title="github">github</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.tsinghua.edu.cn/publish/newthu/index.html" target="_blank" title="Tsinghua">Tsinghua</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Dagui Chen in Tsinghua University. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/chendagui16" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		<a href="https://www.facebook.com/chendagui16" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:goblin_chen@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Dagui Chen">Dagui Chen</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"chendagui"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+  </body>
+</html>
