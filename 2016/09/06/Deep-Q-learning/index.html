@@ -54,7 +54,7 @@
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -70,7 +70,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:yoursite.com">
 					</form>
 					
@@ -93,14 +93,14 @@
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-06T01:07:49.000Z" itemprop="datePublished"> Published 2016-09-06</time>
+    <time datetime="2016-09-06T01:07:49.000Z" itemprop="datePublished"> 發表於 2016-09-06</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze-1"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze (1)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#initenv-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">initenv.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nnutils-lua"><span class="toc-number">1.1.2.</span> <span class="toc-text">nnutils.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scale-lua"><span class="toc-number">1.1.3.</span> <span class="toc-text">Scale.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rectifier-lua"><span class="toc-number">1.1.4.</span> <span class="toc-text">Rectifier.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#convnet-lua"><span class="toc-number">1.1.5.</span> <span class="toc-text">convnet.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#convnet-atari3-lua"><span class="toc-number">1.1.6.</span> <span class="toc-text">convnet_atari3.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-downsample-2x-full-y-lua"><span class="toc-number">1.1.7.</span> <span class="toc-text">net_downsample_2x_full_y.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TransitionTable-lua"><span class="toc-number">1.1.8.</span> <span class="toc-text">TransitionTable.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-init-args"><span class="toc-number">1.1.8.1.</span> <span class="toc-text">trans:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-reset"><span class="toc-number">1.1.8.2.</span> <span class="toc-text">trans:reset()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-size"><span class="toc-number">1.1.8.3.</span> <span class="toc-text">trans:size()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-empty"><span class="toc-number">1.1.8.4.</span> <span class="toc-text">trans.empty()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-concatFrames-index-use-recent"><span class="toc-number">1.1.8.5.</span> <span class="toc-text">trans.concatFrames(index,use_recent)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-concatActions-index-use-recent"><span class="toc-number">1.1.8.6.</span> <span class="toc-text">trans:concatActions(index,use_recent)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-get-index"><span class="toc-number">1.1.8.7.</span> <span class="toc-text">trans:get(index)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-sample-one"><span class="toc-number">1.1.8.8.</span> <span class="toc-text">trans:sample_one()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-fill-buffer"><span class="toc-number">1.1.8.9.</span> <span class="toc-text">trans:fill_buffer()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-sample-batch-size"><span class="toc-number">1.1.8.10.</span> <span class="toc-text">trans:sample(batch_size)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-add-s-a-r-term"><span class="toc-number">1.1.8.11.</span> <span class="toc-text">trans:add(s,a,r,term)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-add-recent-state-s-term-trans-add-recent-action-a"><span class="toc-number">1.1.8.12.</span> <span class="toc-text">trans:add_recent_state(s,term),trans:add_recent_action(a)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-get-recent"><span class="toc-number">1.1.8.13.</span> <span class="toc-text">trans:get_recent()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-write-file"><span class="toc-number">1.1.8.14.</span> <span class="toc-text">trans:write(file)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-read-file"><span class="toc-number">1.1.8.15.</span> <span class="toc-text">trans:read(file)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下一页"><span class="toc-number">1.2.</span> <span class="toc-text">下一页</span></a></li></ol></li></ol>
 		
@@ -221,22 +221,22 @@
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze-1"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze (1)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#initenv-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">initenv.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nnutils-lua"><span class="toc-number">1.1.2.</span> <span class="toc-text">nnutils.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scale-lua"><span class="toc-number">1.1.3.</span> <span class="toc-text">Scale.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rectifier-lua"><span class="toc-number">1.1.4.</span> <span class="toc-text">Rectifier.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#convnet-lua"><span class="toc-number">1.1.5.</span> <span class="toc-text">convnet.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#convnet-atari3-lua"><span class="toc-number">1.1.6.</span> <span class="toc-text">convnet_atari3.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-downsample-2x-full-y-lua"><span class="toc-number">1.1.7.</span> <span class="toc-text">net_downsample_2x_full_y.lua</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TransitionTable-lua"><span class="toc-number">1.1.8.</span> <span class="toc-text">TransitionTable.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-init-args"><span class="toc-number">1.1.8.1.</span> <span class="toc-text">trans:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-reset"><span class="toc-number">1.1.8.2.</span> <span class="toc-text">trans:reset()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-size"><span class="toc-number">1.1.8.3.</span> <span class="toc-text">trans:size()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-empty"><span class="toc-number">1.1.8.4.</span> <span class="toc-text">trans.empty()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-concatFrames-index-use-recent"><span class="toc-number">1.1.8.5.</span> <span class="toc-text">trans.concatFrames(index,use_recent)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-concatActions-index-use-recent"><span class="toc-number">1.1.8.6.</span> <span class="toc-text">trans:concatActions(index,use_recent)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-get-index"><span class="toc-number">1.1.8.7.</span> <span class="toc-text">trans:get(index)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-sample-one"><span class="toc-number">1.1.8.8.</span> <span class="toc-text">trans:sample_one()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-fill-buffer"><span class="toc-number">1.1.8.9.</span> <span class="toc-text">trans:fill_buffer()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-sample-batch-size"><span class="toc-number">1.1.8.10.</span> <span class="toc-text">trans:sample(batch_size)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-add-s-a-r-term"><span class="toc-number">1.1.8.11.</span> <span class="toc-text">trans:add(s,a,r,term)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-add-recent-state-s-term-trans-add-recent-action-a"><span class="toc-number">1.1.8.12.</span> <span class="toc-text">trans:add_recent_state(s,term),trans:add_recent_action(a)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-get-recent"><span class="toc-number">1.1.8.13.</span> <span class="toc-text">trans:get_recent()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-write-file"><span class="toc-number">1.1.8.14.</span> <span class="toc-text">trans:write(file)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#trans-read-file"><span class="toc-number">1.1.8.15.</span> <span class="toc-text">trans:read(file)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下一页"><span class="toc-number">1.2.</span> <span class="toc-text">下一页</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -246,7 +246,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 		  
@@ -263,7 +263,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -295,7 +295,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -317,11 +317,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
@@ -564,7 +564,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
