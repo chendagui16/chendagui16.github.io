@@ -11,20 +11,20 @@
     
 
     
-    <meta name="description" content="ubantu14.04备份与恢复系统
+    <meta name="description" content="ubuntu14.04备份与恢复系统
 备份首先清空回收站的垃圾，然后使用终端清理一些缓存123sudo apt-get autocleansudo apt-get cleansudo apt-get autoremove
 然后新开一个终端123sudo su #su模式cd /  #进入根文件夹tar cvpzf backup.tgz --exclude=/proc --exclude=/lost">
 <meta property="og:type" content="article">
 <meta property="og:title" content="backup-restore">
 <meta property="og:url" content="http://yoursite.com/2016/09/10/backup-restore/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="ubantu14.04备份与恢复系统
+<meta property="og:description" content="ubuntu14.04备份与恢复系统
 备份首先清空回收站的垃圾，然后使用终端清理一些缓存123sudo apt-get autocleansudo apt-get cleansudo apt-get autoremove
 然后新开一个终端123sudo su #su模式cd /  #进入根文件夹tar cvpzf backup.tgz --exclude=/proc --exclude=/lost">
-<meta property="og:updated_time" content="2016-09-10T11:48:03.000Z">
+<meta property="og:updated_time" content="2016-09-10T11:49:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="backup-restore">
-<meta name="twitter:description" content="ubantu14.04备份与恢复系统
+<meta name="twitter:description" content="ubuntu14.04备份与恢复系统
 备份首先清空回收站的垃圾，然后使用终端清理一些缓存123sudo apt-get autocleansudo apt-get cleansudo apt-get autoremove
 然后新开一个终端123sudo su #su模式cd /  #进入根文件夹tar cvpzf backup.tgz --exclude=/proc --exclude=/lost">
 
@@ -54,7 +54,7 @@
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -70,7 +70,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:yoursite.com">
 					</form>
 					
@@ -93,20 +93,20 @@
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-10T11:25:29.000Z" itemprop="datePublished"> Published 2016-09-10</time>
+    <time datetime="2016-09-10T11:25:29.000Z" itemprop="datePublished"> 发表于 2016-09-10</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ubantu14-04备份与恢复系统"><span class="toc-number">1.</span> <span class="toc-text">ubantu14.04备份与恢复系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份"><span class="toc-number">1.1.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复"><span class="toc-number">1.2.</span> <span class="toc-text">恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ubuntu14-04备份与恢复系统"><span class="toc-number">1.</span> <span class="toc-text">ubuntu14.04备份与恢复系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份"><span class="toc-number">1.1.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复"><span class="toc-number">1.2.</span> <span class="toc-text">恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="ubantu14-04备份与恢复系统"><a href="#ubantu14-04备份与恢复系统" class="headerlink" title="ubantu14.04备份与恢复系统"></a>ubantu14.04备份与恢复系统</h2><hr>
+		<h2 id="ubuntu14-04备份与恢复系统"><a href="#ubuntu14-04备份与恢复系统" class="headerlink" title="ubuntu14.04备份与恢复系统"></a>ubuntu14.04备份与恢复系统</h2><hr>
 <h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>首先清空回收站的垃圾，然后使用终端清理一些缓存<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get autoclean</div><div class="line">sudo apt-get clean</div><div class="line">sudo apt-get autoremove</div></pre></td></tr></table></figure></p>
 <p>然后新开一个终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo su <span class="comment">#su模式</span></div><div class="line"><span class="built_in">cd</span> /  <span class="comment">#进入根文件夹</span></div><div class="line">tar cvpzf backup.tgz --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys --exclude=/home/dagui/Downloads /</div></pre></td></tr></table></figure></p>
 <p>注意到，因为我的文件夹中Downloads包含大量的下载文件，而我不想将它包含在备份的文件夹中，因此我排除了它。</p>
@@ -130,7 +130,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/ubantu/">ubantu</a><a href="/tags/backup/">backup</a>
+  <span></span> <a href="/tags/backup/">backup</a><a href="/tags/ubuntu/">ubuntu</a>
   </div>
 
 </div>
@@ -170,22 +170,22 @@
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ubantu14-04备份与恢复系统"><span class="toc-number">1.</span> <span class="toc-text">ubantu14.04备份与恢复系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份"><span class="toc-number">1.1.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复"><span class="toc-number">1.2.</span> <span class="toc-text">恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ubuntu14-04备份与恢复系统"><span class="toc-number">1.</span> <span class="toc-text">ubuntu14.04备份与恢复系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份"><span class="toc-number">1.1.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复"><span class="toc-number">1.2.</span> <span class="toc-text">恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -195,7 +195,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
@@ -216,7 +216,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
@@ -244,11 +244,13 @@
 			
 		
 			
-				<li><a href="/tags/ubantu/" title="ubantu">ubantu<sup>1</sup></a></li>
+				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
+			
+		
 			
 		
 		</ul>
@@ -256,7 +258,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -278,11 +280,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
@@ -525,7 +527,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
