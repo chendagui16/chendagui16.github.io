@@ -4,25 +4,38 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Opinion_SNN | My Blog</title>
+    <title>texstudio-bugs | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="My Opinions on ONE$$ a=b+1 $$">
+    <meta name="description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
+
+使用的环境是linux英文系统下的texstudio。
+
+texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
+1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Opinion_SNN">
-<meta property="og:url" content="http://yoursite.com/2016/09/05/Opinion-SNN/index.html">
+<meta property="og:title" content="texstudio-bugs">
+<meta property="og:url" content="http://yoursite.com/2016/09/26/texstudio-bugs/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="My Opinions on ONE$$ a=b+1 $$">
-<meta property="og:image" content="http://i2.buimg.com/4851/9c2e0419a806a957.jpg">
-<meta property="og:updated_time" content="2016-09-11T13:46:52.000Z">
+<meta property="og:description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
+
+使用的环境是linux英文系统下的texstudio。
+
+texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
+1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
+<meta property="og:updated_time" content="2016-09-26T11:00:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opinion_SNN">
-<meta name="twitter:description" content="My Opinions on ONE$$ a=b+1 $$">
-<meta name="twitter:image" content="http://i2.buimg.com/4851/9c2e0419a806a957.jpg">
+<meta name="twitter:title" content="texstudio-bugs">
+<meta name="twitter:description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
+
+使用的环境是linux英文系统下的texstudio。
+
+texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
+1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -82,14 +95,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/09/05/Opinion-SNN/" title="Opinion_SNN" itemprop="url">Opinion_SNN</a>
+      <a href="/2016/09/26/texstudio-bugs/" title="texstudio-bugs" itemprop="url">texstudio-bugs</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-05T11:59:01.000Z" itemprop="datePublished"> Published 2016-09-05</time>
+    <time datetime="2016-09-26T10:49:31.000Z" itemprop="datePublished"> Published 2016-09-26</time>
     
   </p>
 </header>
@@ -98,16 +111,34 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Opinions-on-ONE"><span class="toc-number">1.</span> <span class="toc-text">My Opinions on ONE</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Latex使用技巧"><span class="toc-number">1.</span> <span class="toc-text">Latex使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#texstudio中的中文问题"><span class="toc-number">1.1.</span> <span class="toc-text">texstudio中的中文问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-改变build命令，将编译器改成XeLaTeX"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.改变build命令，将编译器改成XeLaTeX</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-将编辑器的默认编码改成UTF-8"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.将编辑器的默认编码改成UTF-8</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-修改tex文件"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3.修改tex文件</span></a></li></ol></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="My-Opinions-on-ONE"><a href="#My-Opinions-on-ONE" class="headerlink" title="My Opinions on ONE"></a>My Opinions on ONE</h2><p>$$ a=b+1 $$<br><img src="http://i2.buimg.com/4851/9c2e0419a806a957.jpg" alt="dd" title="dd"></p>
+		<h2 id="Latex使用技巧"><a href="#Latex使用技巧" class="headerlink" title="Latex使用技巧"></a>Latex使用技巧</h2><p>记录一些使用latex的过程中出现的问题。</p>
+<blockquote>
+<p>使用的环境是linux英文系统下的texstudio。</p>
+</blockquote>
+<h3 id="texstudio中的中文问题"><a href="#texstudio中的中文问题" class="headerlink" title="texstudio中的中文问题"></a>texstudio中的中文问题</h3><p>首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。<br>然后针对texstudio，设置分为三步。</p>
+<h5 id="1-改变build命令，将编译器改成XeLaTeX"><a href="#1-改变build命令，将编译器改成XeLaTeX" class="headerlink" title="1.改变build命令，将编译器改成XeLaTeX"></a>1.改变build命令，将编译器改成XeLaTeX</h5><h5 id="2-将编辑器的默认编码改成UTF-8"><a href="#2-将编辑器的默认编码改成UTF-8" class="headerlink" title="2.将编辑器的默认编码改成UTF-8"></a>2.将编辑器的默认编码改成UTF-8</h5><h5 id="3-修改tex文件"><a href="#3-修改tex文件" class="headerlink" title="3.修改tex文件"></a>3.修改tex文件</h5><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8,12pt]</span><span class="string">&#123;report&#125;</span></span> <span class="comment">%加入UTF-8设置</span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;ctex&#125;</span></span><span class="comment">%使用ctex宏包</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>因为我主要使用英文的系统，所以这里只提供了基本的中文支持。详细的中文使用得需要参考google。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Latex/">Latex</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Latex/">Latex</a><a href="/tags/bugs/">bugs</a>
+  </div>
 
 </div>
 
@@ -115,7 +146,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/09/05/Opinion-SNN/" data-title="Opinion_SNN | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/09/26/texstudio-bugs/" data-title="texstudio-bugs | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -128,19 +159,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/09/06/Deep-Q-learning/" title="Deep_Q_learning">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Deep_Q_learning</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/09/05/Hexo-github/"  title="Hexo_github">
+<a href="/2016/09/23/ubuntu-bugs/"  title="ubuntu-bugs">
  <strong>下一篇：</strong><br/> 
- <span>Hexo_github
+ <span>ubuntu-bugs
 </span>
 </a>
 </div>
@@ -149,7 +172,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/05/Opinion-SNN/" data-title="Opinion_SNN" data-url="http://yoursite.com/2016/09/05/Opinion-SNN/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/26/texstudio-bugs/" data-title="texstudio-bugs" data-url="http://yoursite.com/2016/09/26/texstudio-bugs/"></div>
 </section>
 
 
@@ -159,7 +182,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Opinions-on-ONE"><span class="toc-number">1.</span> <span class="toc-text">My Opinions on ONE</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Latex使用技巧"><span class="toc-number">1.</span> <span class="toc-text">Latex使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#texstudio中的中文问题"><span class="toc-number">1.1.</span> <span class="toc-text">texstudio中的中文问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-改变build命令，将编译器改成XeLaTeX"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.改变build命令，将编译器改成XeLaTeX</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-将编辑器的默认编码改成UTF-8"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.将编辑器的默认编码改成UTF-8</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-修改tex文件"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3.修改tex文件</span></a></li></ol></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -183,11 +206,13 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
+			<li><a href="/categories/Latex/" title="Latex">Latex<sup>1</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/report/" title="report">report<sup>1</sup></a></li>
+			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
+		  
+		
 		  
 		
 		  
@@ -195,7 +220,7 @@
 		  
 		
 		  
-			<li><a href="/categories/work-tips/" title="work tips">work tips<sup>1</sup></a></li>
+			<li><a href="/categories/work-tips/" title="work tips">work tips<sup>2</sup></a></li>
 		  
 		
 		</ul>
@@ -220,6 +245,14 @@
 			
 		
 			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
@@ -232,11 +265,11 @@
 			
 		
 			
-				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
+				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
+				<li><a href="/tags/Latex/" title="Latex">Latex<sup>1</sup></a></li>
 			
 		
 		</ul>
