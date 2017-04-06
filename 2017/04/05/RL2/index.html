@@ -20,7 +20,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <meta property="og:description" content="Reinforcement learninglecture 3 Planning by Dynamic Programming1. introduction1.1 Definition
 Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy">
 <meta property="og:image" content="http://i1.piimg.com/567571/ed3f6444e4b26860.png">
-<meta property="og:updated_time" content="2017-04-06T02:59:21.000Z">
+<meta property="og:updated_time" content="2017-04-06T03:13:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL2">
 <meta name="twitter:description" content="Reinforcement learninglecture 3 Planning by Dynamic Programming1. introduction1.1 Definition
@@ -175,10 +175,10 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Consider a deterministic policy, $a=\pi (s) $</li>
 <li>We can improve the policy by acting greedily </li>
 <li>This improves the value from any state $s$ over one step</li>
-<li>It therefore improves the value function, $v<em>{\pi’} (s) \ge v</em>{\pi} (s) $</li>
-<li>If improvements stop, $q<em>{\pi} (s,\pi’(s)) = v</em>{\pi} (s)$</li>
-<li>Then the Bellman optimality equation has been satisfied $v<em>{\pi} (s) = \max</em>{a\in A} q_{\pi} (s,a)$</li>
-<li>Therefore $v<em>{\pi} (s) = v</em>* (s) $ for all $s\in S$, so $\pi$ is an optimal policy</li>
+<li>It therefore improves the value function, $v_{\pi’} (s) \ge v_{\pi} (s) $</li>
+<li>If improvements stop, $q_{\pi} (s,\pi’(s)) = v_{\pi} (s)$</li>
+<li>Then the Bellman optimality equation has been satisfied $v_{\pi} (s) = \max_{a\in A} q_{\pi} (s,a)$</li>
+<li>Therefore $v_{\pi} (s) = v_* (s) $ for all $s\in S$, so $\pi$ is an optimal policy</li>
 </ol>
 <h4 id="3-2-Extension-to-Policy-Iteration"><a href="#3-2-Extension-to-Policy-Iteration" class="headerlink" title="3.2 Extension to Policy Iteration"></a>3.2 Extension to Policy Iteration</h4><ul>
 <li>Does policy evaluation need to converge to $v_{\pi}$</li>
@@ -191,7 +191,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Followed by an optimal policy from successor state $S’$</li>
 </ul>
 <blockquote>
-<p><strong> Theorem </strong><br>A policy $\pi (a|s)$ achieves the optimal value from state $s$, $v<em>{\pi} (s) = v</em>* (s)$, if and only if </p>
+<p><strong> Theorem </strong><br>A policy $\pi (a|s)$ achieves the optimal value from state $s$, $v_{\pi} (s) = v_* (s)$, if and only if </p>
 <ul>
 <li>For any state $s’$ reachable from s</li>
 <li>$\pi$ achieves the optimal value from state $s’$</li>
@@ -237,9 +237,9 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </tbody>
 </table>
 <ul>
-<li>Algorithms are based on state-value function $v<em>{\pi} (s) $ or $v</em>* (s) $</li>
+<li>Algorithms are based on state-value function $v_{\pi} (s) $ or $v_* (s) $</li>
 <li>Complexity $O(mn^2)$ per iteration, for $m$ action and $n$ states</li>
-<li>Could also apply to action-value function $q<em>{\pi} (s,a)$ or $q</em>* (s,a)$</li>
+<li>Could also apply to action-value function $q_{\pi} (s,a)$ or $q_* (s,a)$</li>
 <li>Complexity $O(m^2 n^2)$ per iteration</li>
 </ul>
 <h3 id="5-Extensions-to-DP"><a href="#5-Extensions-to-DP" class="headerlink" title="5. Extensions to DP"></a>5. Extensions to DP</h3><h4 id="5-1-Asynchronous-DP"><a href="#5-1-Asynchronous-DP" class="headerlink" title="5.1 Asynchronous DP"></a>5.1 Asynchronous DP</h4><ul>
@@ -262,7 +262,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </li>
 <li><p>Real-time dynamic programming </p>
 <blockquote>
-<p>Idea: only states that are relevant to agent<br>Use agent’s experience to guide the selection of states<br>After each time-step $S_t,A<em>t,R</em>{t+1}$<br>Backup the state $S_t$</p>
+<p>Idea: only states that are relevant to agent<br>Use agent’s experience to guide the selection of states<br>After each time-step $S_t,A_t,R_{t+1}$<br>Backup the state $S_t$</p>
 </blockquote>
 </li>
 </ul>

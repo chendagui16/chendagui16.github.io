@@ -25,7 +25,7 @@ no supervisor, only a reward signal
 delayed feedback
 time matters
 agent’s actions affect the subse">
-<meta property="og:updated_time" content="2017-04-05T09:20:21.000Z">
+<meta property="og:updated_time" content="2017-04-06T03:20:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL(1-2)">
 <meta name="twitter:description" content="reinforcement learninglecture 1 Introduction to Reinforcement Learningreinforcement learning feature
@@ -180,7 +180,7 @@ agent’s actions affect the subse">
 </ol>
 <h2 id="lecture-2-Markov-decision-Processes"><a href="#lecture-2-Markov-decision-Processes" class="headerlink" title="lecture 2 Markov decision Processes"></a>lecture 2 Markov decision Processes</h2><p>MDP formally describe an environment for RL, where the environment is fully observable</p>
 <blockquote>
-<p><strong>Markov Property</strong><br>The future is independent of the past given the present<br>$$ P(S<em>{t+1} | S</em>{t} ) = P(S_{t+1} | S_1,S_2,\dots,S_t) $$<br>The state is sufficient statistic of the future</p>
+<p><strong>Markov Property</strong><br>The future is independent of the past given the present<br>$$ P(S_{t+1} | S_{t} ) = P(S_{t+1} | S_1,S_2,\dots,S_t) $$<br>The state is sufficient statistic of the future</p>
 </blockquote>
 <h3 id="Markov-Process"><a href="#Markov-Process" class="headerlink" title="Markov Process"></a>Markov Process</h3><p>A Markov Process is a memoryless random process</p>
 <blockquote>
@@ -196,13 +196,13 @@ agent’s actions affect the subse">
 <ul>
 <li>S is a finite set of states</li>
 <li>P is a state transition probability matrix</li>
-<li>R is a reward function: $ R<em>s = E[R</em>{t+1}|S_t=s] $</li>
+<li>R is a reward function: $ R_s = E[R_{t+1}|S_t=s] $</li>
 <li>y is a discount factor</li>
 </ul>
 </blockquote>
 <p>Return</p>
 <blockquote>
-<p><strong>Return</strong><br>The return $G_t$ is the total discounted reward from time-step t.<br>$$ G<em>t = \sum</em>{k=0}^{\infty} y^k R_{t+k+1}$$</p>
+<p><strong>Return</strong><br>The return $G_t$ is the total discounted reward from time-step t.<br>$$ G_t = \sum_{k=0}^{\infty} y^k R_{t+k+1}$$</p>
 </blockquote>
 <p>Why discount?</p>
 <ol>
@@ -247,18 +247,18 @@ agent’s actions affect the subse">
 </blockquote>
 <h4 id="Value-function"><a href="#Value-function" class="headerlink" title="Value function"></a>Value function</h4><p><strong> State Value function </strong></p>
 <blockquote>
-<p>The state value function v<em>{\pi}(s) of an MDP is the expected return starting from state $s$, and then following policy $\pi$<br>$$ v</em>{\pi} (s)  = E_{\pi} [G_t |S_t=s] $$</p>
+<p>The state value function $v_{\pi}(s)$ of an MDP is the expected return starting from state $s$, and then following policy $\pi$<br>$$ v_{\pi} (s)  = E_{\pi} [G_t |S_t=s] $$</p>
 </blockquote>
 <p><strong> Action value function </strong></p>
 <blockquote>
-<p>The action value function q<em>{\pi}(s,a) is expected return starting from state $s$, taking action $a$, and then following policy $\pi$<br>$$ q</em>{s,a} = E_{\pi} [G_t |S_t=s,A_t=a]$$</p>
+<p>The action value function $q_{\pi}(s,a)$ is expected return starting from state $s$, taking action $a$, and then following policy $\pi$<br>$$ q_{s,a} = E_{\pi} [G_t |S_t=s,A_t=a]$$</p>
 </blockquote>
-<h4 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h4><p>The state-value function/action-value function can be decomposed into immediate reward plus discounted value of successor state.<br><strong> For $V^{\pi}$ </strong><br>$$ V<em>{\pi} (s) = \sum</em>{a \in A} \pi (a|s) q_{\pi} (s,a) $$</p>
-<p><strong> For $Q^{\pi}$ </strong><br>$$ q<em>{\pi} (s,a) = R</em>{s}^{a} + y \sum<em>{s’ \in S} P</em>{ss’}^{a} v_{\pi} (s’) $$</p>
-<p><strong> For $V^{\pi}$ (2) </strong><br>$$ V<em>{\pi} (s) = \sum</em>{a \in A} \pi (a|s) R<em>{s}^{a} + y \sum</em>{s’ \in S} P<em>{ss’}^{a} v</em>{\pi} (s’) $$</p>
-<p><strong> For $Q^{\pi}$ (2)</strong><br>$$ q<em>{\pi} (s,a) = R</em>{s}^{a} + y \sum<em>{a \in A} \pi (a’|s’) q</em>{\pi} (s’,a’) $$</p>
+<h4 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h4><p>The state-value function/action-value function can be decomposed into immediate reward plus discounted value of successor state.<br><strong> For $V^{\pi}$ </strong><br>$$ V_{\pi} (s) = \sum_{a \in A} \pi (a|s) q_{\pi} (s,a) $$</p>
+<p><strong> For $Q^{\pi}$ </strong><br>$$ q_{\pi} (s,a) = R_{s}^{a} + y \sum_{s’ \in S} P_{ss’}^{a} v_{\pi} (s’) $$</p>
+<p><strong> For $V^{\pi}$ (2) </strong><br>$$ V_{\pi} (s) = \sum_{a \in A} \pi (a|s) R_{s}^{a} + y \sum_{s’ \in S} P_{ss’}^{a} v_{\pi} (s’) $$</p>
+<p><strong> For $Q^{\pi}$ (2)</strong><br>$$ q_{\pi} (s,a) = R_{s}^{a} + y \sum_{a \in A} \pi (a’|s’) q_{\pi} (s’,a’) $$</p>
 <blockquote>
-<p>Matrix form<br>$$ v<em>{\pi} = R^{\pi} + yP^{\pi} v</em>{\pi}$$</p>
+<p>Matrix form<br>$$ v_{\pi} = R^{\pi} + yP^{\pi} v_{\pi}$$</p>
 </blockquote>
 <h4 id="Optimal-value-function"><a href="#Optimal-value-function" class="headerlink" title="Optimal value function"></a>Optimal value function</h4><blockquote>
 <p><strong>Definition</strong><br>The optimal state-value function is the maximum value function over all policies<br>The optimal action-value function is the maximum action-value function over all policies</p>
@@ -267,7 +267,7 @@ agent’s actions affect the subse">
 <li>The optimal value function specifies the best possible performance in the MDP.</li>
 <li>An MDP is “solved” when we know the optimal value fn</li>
 </ul>
-<h4 id="Optimal-Policy"><a href="#Optimal-Policy" class="headerlink" title="Optimal Policy"></a>Optimal Policy</h4><p>Define a partial ordering over policies<br>$$ \pi \ge \pi’, v<em>{\pi} (s) \ge v</em>{\pi ‘} (s) $$</p>
+<h4 id="Optimal-Policy"><a href="#Optimal-Policy" class="headerlink" title="Optimal Policy"></a>Optimal Policy</h4><p>Define a partial ordering over policies<br>$$ \pi \ge \pi’, v_{\pi} (s) \ge v_{\pi ‘} (s) $$</p>
 <blockquote>
 <p><strong> Theorem </strong><br>For any Markov Decision Process</p>
 <ul>
@@ -282,13 +282,13 @@ agent’s actions affect the subse">
 <li>If we know optimal q function, we immediately have the optimal policy</li>
 </ul>
 <h4 id="Bellman-Optimality-Equation"><a href="#Bellman-Optimality-Equation" class="headerlink" title="Bellman Optimality Equation"></a>Bellman Optimality Equation</h4><p><strong> For $v_*$ </strong></p>
-<p>$$v<em>* (s) = \max</em>{a} q_* (s,a)  $$</p>
+<p>$$v_* (s) = \max_{a} q_* (s,a)  $$</p>
 <p><strong> For $Q^*$ </strong></p>
-<p>$$ q_<em> (s,a) = R<em>s^a + y \sum</em>{s’ \in S} P<em>{ss’}^{a} v</em></em> (s’) $$</p>
+<p>$$ q_* (s,a) = R_s^a + y \sum_{s’ \in S} P_{ss’}^{a} v_* (s’) $$</p>
 <p><strong> For $V^*$ </strong></p>
-<p>$$ v<em>*(s) = \max</em>{a} R<em>s^a + y \sum</em>{s’ \in S} P<em>{ss’}^a v</em>* (s’) $$</p>
+<p>$$ v_*(s) = \max_{a} R_s^a + y \sum_{s’ \in S} P_{ss’}^a v_* (s’) $$</p>
 <p><strong> For $Q^*$ </strong></p>
-<p>$$ q_<em> (s,a) = R<em>s^a + y \sum</em>{s’ in S} P<em>{ss’}^a \max</em>{a’} q_</em> (s’,a’) $$</p>
+<p>$$ q_* (s,a) = R_s^a + y \sum_{s’ \in S} P_{ss’}^a \max_{a’} q_* (s’,a’) $$</p>
 <h4 id="Solving-the-Bellman-Optimality-Equation"><a href="#Solving-the-Bellman-Optimality-Equation" class="headerlink" title="Solving the Bellman Optimality Equation"></a>Solving the Bellman Optimality Equation</h4><ul>
 <li>Bellman Optimality Equation is non-linear</li>
 <li>No closed form solution (in general)</li>
@@ -327,7 +327,7 @@ agent’s actions affect the subse">
 <p><strong> Belief States </strong></p>
 <ul>
 <li>A history $H_t$ is a sequence of actions, observations and rewards</li>
-<li>$$ H_t = A_0, O_1, R<em>1, \dots, A</em>{t-1}, O_t, R_t $$</li>
+<li>$$ H_t = A_0, O_1, R_1, \dots, A_{t-1}, O_t, R_t $$</li>
 <li>A belief state $b(h)$ is a probability distribution over states conditioned on the history h</li>
 <li>$$ b(h) = (P[S_t = s^1 |H_t = h], \dots, P[S_t=s^n |H_t =h]) $$</li>
 </ul>
@@ -339,7 +339,7 @@ agent’s actions affect the subse">
 <li>Aperiodic: each state is visited without any systematic period</li>
 </ul>
 <blockquote>
-<p><strong> Theorem </strong><br>An ergodic Markov process has a limiting stationary distribution $d^{\pi} (s)$ with the property<br>$$ d^{\pi} (s) = \sum<em>{s’ \in S} d^{\pi} (s’) P</em>{s’s} $$</p>
+<p><strong> Theorem </strong><br>An ergodic Markov process has a limiting stationary distribution $d^{\pi} (s)$ with the property<br>$$ d^{\pi} (s) = \sum_{s’ \in S} d^{\pi} (s’) P_{s’s} $$</p>
 </blockquote>
 <p><strong> Ergodic MDP </strong><br>An MDP is ergodic if the Markov chain induced by any policy is ergodic.</p>
 <p>For any policy $\pi$, an ergodic MDP has an average reward per time-step that is independent of start state</p>
