@@ -4,27 +4,36 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>RL(3) | My Blog</title>
+    <title>RL3 Planning by Dynamic Programming | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="Reinforcement learninglecture 3 Planning by Dynamic Programming1. introduction1.1 Definition
-Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy">
+    <meta name="description" content="lecture 3 Planning by Dynamic ProgrammingintroductionDefinition
+Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy
+
+
+A method for solving comple">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL(3)">
-<meta property="og:url" content="http://yoursite.com/2017/04/05/RL2/index.html">
+<meta property="og:title" content="RL3 Planning by Dynamic Programming">
+<meta property="og:url" content="http://yoursite.com/2017/04/05/RL3/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="Reinforcement learninglecture 3 Planning by Dynamic Programming1. introduction1.1 Definition
-Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy">
+<meta property="og:description" content="lecture 3 Planning by Dynamic ProgrammingintroductionDefinition
+Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy
+
+
+A method for solving comple">
 <meta property="og:image" content="http://i1.piimg.com/567571/ed3f6444e4b26860.png">
-<meta property="og:updated_time" content="2017-04-06T11:21:14.000Z">
+<meta property="og:updated_time" content="2017-04-06T12:24:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RL(3)">
-<meta name="twitter:description" content="Reinforcement learninglecture 3 Planning by Dynamic Programming1. introduction1.1 Definition
-Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy">
+<meta name="twitter:title" content="RL3 Planning by Dynamic Programming">
+<meta name="twitter:description" content="lecture 3 Planning by Dynamic ProgrammingintroductionDefinition
+Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a policy
+
+
+A method for solving comple">
 <meta name="twitter:image" content="http://i1.piimg.com/567571/ed3f6444e4b26860.png">
 
     
@@ -51,7 +60,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h2 class="blog-motto">This is my blog to record some knowledge</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -85,7 +94,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/05/RL2/" title="RL(3)" itemprop="url">RL(3)</a>
+      <a href="/2017/04/05/RL3/" title="RL3 Planning by Dynamic Programming" itemprop="url">RL3 Planning by Dynamic Programming</a>
   </h1>
   <p class="article-author">By
        
@@ -101,11 +110,11 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reinforcement-learning"><span class="toc-number">1.</span> <span class="toc-text">Reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-3-Planning-by-Dynamic-Programming"><span class="toc-number">1.1.</span> <span class="toc-text">lecture 3 Planning by Dynamic Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Definition"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1.1 Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Requirements"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">1.2 Requirements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-Planning-by-DP"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">1.3 Planning by DP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Policy-Evaluation"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. Policy Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Iterative-Policy-Evaluation"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">2.1 Iterative Policy Evaluation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Policy-Iteration"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-Policy-Improvement"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">3.1 Policy Improvement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-Extension-to-Policy-Iteration"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">3.2 Extension to Policy Iteration</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Value-Iteration"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-Principle-of-Optimality"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">4.1 Principle of Optimality</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-Deterministic-Value-Iteration"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">4.2 Deterministic Value Iteration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-Value-Iteration"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">4.3 Value Iteration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-Summary-of-DP-algorithms"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">4.4 Summary of DP algorithms</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Extensions-to-DP"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. Extensions to DP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-Asynchronous-DP"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">5.1 Asynchronous DP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-Full-width-and-sample-backups"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">5.2 Full-width and sample backups</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-Approximate-Dynamic-Programming"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">5.3 Approximate Dynamic Programming</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Contraction-Mapping"><span class="toc-number">1.1.6.</span> <span class="toc-text">6. Contraction Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-Value-function-Space"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">6.1 Value function Space</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-Bellman-Expectation-Backup-is-a-Contraction"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">6.2 Bellman Expectation Backup is a Contraction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-Bellman-Optimality-Backup-is-a-Contraction"><span class="toc-number">1.1.6.3.</span> <span class="toc-text">6.3 Bellman Optimality Backup is a Contraction</span></a></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-3-Planning-by-Dynamic-Programming"><span class="toc-number">1.</span> <span class="toc-text">lecture 3 Planning by Dynamic Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-number">1.1.</span> <span class="toc-text">introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Definition"><span class="toc-number">1.1.1.</span> <span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requirements"><span class="toc-number">1.1.2.</span> <span class="toc-text">Requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Planning-by-DP"><span class="toc-number">1.1.3.</span> <span class="toc-text">Planning by DP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Policy-Evaluation"><span class="toc-number">1.2.</span> <span class="toc-text">Policy Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterative-Policy-Evaluation"><span class="toc-number">1.2.1.</span> <span class="toc-text">Iterative Policy Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Policy-Iteration"><span class="toc-number">1.3.</span> <span class="toc-text">Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-Improvement"><span class="toc-number">1.3.1.</span> <span class="toc-text">Policy Improvement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extension-to-Policy-Iteration"><span class="toc-number">1.3.2.</span> <span class="toc-text">Extension to Policy Iteration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value-Iteration"><span class="toc-number">1.4.</span> <span class="toc-text">Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Principle-of-Optimality"><span class="toc-number">1.4.1.</span> <span class="toc-text">Principle of Optimality</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Value-Iteration"><span class="toc-number">1.4.2.</span> <span class="toc-text">Deterministic Value Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-Iteration-1"><span class="toc-number">1.4.3.</span> <span class="toc-text">Value Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-DP-algorithms"><span class="toc-number">1.4.4.</span> <span class="toc-text">Summary of DP algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extensions-to-DP"><span class="toc-number">1.5.</span> <span class="toc-text">Extensions to DP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronous-DP"><span class="toc-number">1.5.1.</span> <span class="toc-text">Asynchronous DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-width-and-sample-backups"><span class="toc-number">1.5.2.</span> <span class="toc-text">Full-width and sample backups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approximate-Dynamic-Programming"><span class="toc-number">1.5.3.</span> <span class="toc-text">Approximate Dynamic Programming</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contraction-Mapping"><span class="toc-number">1.6.</span> <span class="toc-text">Contraction Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-function-Space"><span class="toc-number">1.6.1.</span> <span class="toc-text">Value function Space</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Expectation-Backup-is-a-Contraction"><span class="toc-number">1.6.2.</span> <span class="toc-text">Bellman Expectation Backup is a Contraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Optimality-Backup-is-a-Contraction"><span class="toc-number">1.6.3.</span> <span class="toc-text">Bellman Optimality Backup is a Contraction</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="Reinforcement-learning"><a href="#Reinforcement-learning" class="headerlink" title="Reinforcement learning"></a>Reinforcement learning</h1><h2 id="lecture-3-Planning-by-Dynamic-Programming"><a href="#lecture-3-Planning-by-Dynamic-Programming" class="headerlink" title="lecture 3 Planning by Dynamic Programming"></a>lecture 3 Planning by Dynamic Programming</h2><h3 id="1-introduction"><a href="#1-introduction" class="headerlink" title="1. introduction"></a>1. introduction</h3><h4 id="1-1-Definition"><a href="#1-1-Definition" class="headerlink" title="1.1 Definition"></a>1.1 Definition</h4><blockquote>
+		<h1 id="lecture-3-Planning-by-Dynamic-Programming"><a href="#lecture-3-Planning-by-Dynamic-Programming" class="headerlink" title="lecture 3 Planning by Dynamic Programming"></a>lecture 3 Planning by Dynamic Programming</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><blockquote>
 <p>Dynamic: sequential or temporal component to the problem<br>Programming: optimising a “program”, i.e. a policy</p>
 </blockquote>
 <ul>
@@ -116,7 +125,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </ul>
 </li>
 </ul>
-<h4 id="1-2-Requirements"><a href="#1-2-Requirements" class="headerlink" title="1.2 Requirements"></a>1.2 Requirements</h4><p>Dynamic Programming is a very general solution method for problems which have two properties:</p>
+<h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h3><p>Dynamic Programming is a very general solution method for problems which have two properties:</p>
 <ol>
 <li>Optimal substructure<ul>
 <li>Principle of optimality applies</li>
@@ -134,7 +143,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Bellman equation gives recursive decomposition</li>
 <li>Value function stores and reuses solutions</li>
 </ul>
-<h4 id="1-3-Planning-by-DP"><a href="#1-3-Planning-by-DP" class="headerlink" title="1.3 Planning by DP"></a>1.3 Planning by DP</h4><ul>
+<h3 id="Planning-by-DP"><a href="#Planning-by-DP" class="headerlink" title="Planning by DP"></a>Planning by DP</h3><ul>
 <li>DP assumes full knowledge of the MDP</li>
 <li>It is used for planning in an MDP</li>
 <li>For prediction<ul>
@@ -150,7 +159,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </ul>
 </li>
 </ul>
-<h3 id="2-Policy-Evaluation"><a href="#2-Policy-Evaluation" class="headerlink" title="2. Policy Evaluation"></a>2. Policy Evaluation</h3><h4 id="2-1-Iterative-Policy-Evaluation"><a href="#2-1-Iterative-Policy-Evaluation" class="headerlink" title="2.1 Iterative Policy Evaluation"></a>2.1 Iterative Policy Evaluation</h4><ul>
+<h2 id="Policy-Evaluation"><a href="#Policy-Evaluation" class="headerlink" title="Policy Evaluation"></a>Policy Evaluation</h2><h3 id="Iterative-Policy-Evaluation"><a href="#Iterative-Policy-Evaluation" class="headerlink" title="Iterative Policy Evaluation"></a>Iterative Policy Evaluation</h3><ul>
 <li>Problem: evaluate a given policy $\pi$</li>
 <li>Solution: iterative application of Bellman expectation backup</li>
 <li>Using synchronous backups<ul>
@@ -161,7 +170,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </ul>
 </li>
 </ul>
-<h3 id="3-Policy-Iteration"><a href="#3-Policy-Iteration" class="headerlink" title="3. Policy Iteration"></a>3. Policy Iteration</h3><h4 id="3-1-Policy-Improvement"><a href="#3-1-Policy-Improvement" class="headerlink" title="3.1 Policy Improvement"></a>3.1 Policy Improvement</h4><ul>
+<h2 id="Policy-Iteration"><a href="#Policy-Iteration" class="headerlink" title="Policy Iteration"></a>Policy Iteration</h2><h3 id="Policy-Improvement"><a href="#Policy-Improvement" class="headerlink" title="Policy Improvement"></a>Policy Improvement</h3><ul>
 <li>Given a policy $\pi$<ul>
 <li>Evaluate the policy $\pi$</li>
 <li>Improve the policy by acting greedily with respect to $v_{\pi}$</li>
@@ -180,12 +189,12 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Then the Bellman optimality equation has been satisfied $v_{\pi} (s) = \max_{a\in A} q_{\pi} (s,a)$</li>
 <li>Therefore $v_{\pi} (s) = v_* (s) $ for all $s\in S$, so $\pi$ is an optimal policy</li>
 </ol>
-<h4 id="3-2-Extension-to-Policy-Iteration"><a href="#3-2-Extension-to-Policy-Iteration" class="headerlink" title="3.2 Extension to Policy Iteration"></a>3.2 Extension to Policy Iteration</h4><ul>
+<h3 id="Extension-to-Policy-Iteration"><a href="#Extension-to-Policy-Iteration" class="headerlink" title="Extension to Policy Iteration"></a>Extension to Policy Iteration</h3><ul>
 <li>Does policy evaluation need to converge to $v_{\pi}$</li>
 <li>Or should we introduce a stopping condition</li>
 <li>Or simply stop after k iterations of iterative policy evaluation</li>
 </ul>
-<h3 id="4-Value-Iteration"><a href="#4-Value-Iteration" class="headerlink" title="4. Value Iteration"></a>4. Value Iteration</h3><h4 id="4-1-Principle-of-Optimality"><a href="#4-1-Principle-of-Optimality" class="headerlink" title="4.1 Principle of Optimality"></a>4.1 Principle of Optimality</h4><p>Any optimal policy can be subdivided into two components</p>
+<h2 id="Value-Iteration"><a href="#Value-Iteration" class="headerlink" title="Value Iteration"></a>Value Iteration</h2><h3 id="Principle-of-Optimality"><a href="#Principle-of-Optimality" class="headerlink" title="Principle of Optimality"></a>Principle of Optimality</h3><p>Any optimal policy can be subdivided into two components</p>
 <ul>
 <li>An optimal first action $A_*$</li>
 <li>Followed by an optimal policy from successor state $S’$</li>
@@ -197,20 +206,20 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>$\pi$ achieves the optimal value from state $s’$</li>
 </ul>
 </blockquote>
-<h4 id="4-2-Deterministic-Value-Iteration"><a href="#4-2-Deterministic-Value-Iteration" class="headerlink" title="4.2 Deterministic Value Iteration"></a>4.2 Deterministic Value Iteration</h4><ul>
+<h3 id="Deterministic-Value-Iteration"><a href="#Deterministic-Value-Iteration" class="headerlink" title="Deterministic Value Iteration"></a>Deterministic Value Iteration</h3><ul>
 <li>If we know the solution to sub-problems $v_*(s’)$</li>
 <li>Then solution $v_*(s)$ can be found by one-step lookahead</li>
 <li>The idea of value iteration is to apply these updates iteratively</li>
 <li>Intuition: start with final rewards and work backwards</li>
 <li>Still works with loopy, stochastic MDPs</li>
 </ul>
-<h4 id="4-3-Value-Iteration"><a href="#4-3-Value-Iteration" class="headerlink" title="4.3 Value Iteration"></a>4.3 Value Iteration</h4><ul>
+<h3 id="Value-Iteration-1"><a href="#Value-Iteration-1" class="headerlink" title="Value Iteration"></a>Value Iteration</h3><ul>
 <li><strong>Problem</strong>: find optimal policy $\pi$</li>
 <li><strong>Solution</strong>: iterative application of Bellman optimality backup</li>
 <li>Unlike policy iteration, there is no explicit policy</li>
 <li>Intermediate value functions may not correspond to any policy</li>
 </ul>
-<h4 id="4-4-Summary-of-DP-algorithms"><a href="#4-4-Summary-of-DP-algorithms" class="headerlink" title="4.4 Summary of DP algorithms"></a>4.4 Summary of DP algorithms</h4><table>
+<h3 id="Summary-of-DP-algorithms"><a href="#Summary-of-DP-algorithms" class="headerlink" title="Summary of DP algorithms"></a>Summary of DP algorithms</h3><table>
 <thead>
 <tr>
 <th style="text-align:left">Problem</th>
@@ -242,7 +251,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Could also apply to action-value function $q_{\pi} (s,a)$ or $q_* (s,a)$</li>
 <li>Complexity $O(m^2 n^2)$ per iteration</li>
 </ul>
-<h3 id="5-Extensions-to-DP"><a href="#5-Extensions-to-DP" class="headerlink" title="5. Extensions to DP"></a>5. Extensions to DP</h3><h4 id="5-1-Asynchronous-DP"><a href="#5-1-Asynchronous-DP" class="headerlink" title="5.1 Asynchronous DP"></a>5.1 Asynchronous DP</h4><ul>
+<h2 id="Extensions-to-DP"><a href="#Extensions-to-DP" class="headerlink" title="Extensions to DP"></a>Extensions to DP</h2><h3 id="Asynchronous-DP"><a href="#Asynchronous-DP" class="headerlink" title="Asynchronous DP"></a>Asynchronous DP</h3><ul>
 <li>Asynchronous DP backs up states individually, in any order</li>
 <li>For each selected state, apply the appropriate backup</li>
 <li>Can significantly reduce computation</li>
@@ -266,7 +275,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </blockquote>
 </li>
 </ul>
-<h4 id="5-2-Full-width-and-sample-backups"><a href="#5-2-Full-width-and-sample-backups" class="headerlink" title="5.2 Full-width and sample backups"></a>5.2 Full-width and sample backups</h4><p><strong>Full-width Backups</strong></p>
+<h3 id="Full-width-and-sample-backups"><a href="#Full-width-and-sample-backups" class="headerlink" title="Full-width and sample backups"></a>Full-width and sample backups</h3><p><strong>Full-width Backups</strong></p>
 <ul>
 <li>DP uses full-width backups</li>
 <li>For each backup (sync or async)<ul>
@@ -288,20 +297,20 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 </ul>
 </li>
 </ul>
-<h4 id="5-3-Approximate-Dynamic-Programming"><a href="#5-3-Approximate-Dynamic-Programming" class="headerlink" title="5.3 Approximate Dynamic Programming"></a>5.3 Approximate Dynamic Programming</h4><ul>
+<h3 id="Approximate-Dynamic-Programming"><a href="#Approximate-Dynamic-Programming" class="headerlink" title="Approximate Dynamic Programming"></a>Approximate Dynamic Programming</h3><ul>
 <li>Approximate the value function</li>
 <li>Using a function approximator $\hat{v} (s,w)$</li>
 <li>Apply dynamic programming to $\hat{v} (\cdot,w)$</li>
 </ul>
-<h3 id="6-Contraction-Mapping"><a href="#6-Contraction-Mapping" class="headerlink" title="6. Contraction Mapping"></a>6. Contraction Mapping</h3><p>Contraction Mapping resolves that convergence problem such as converge or not, uniqueness, and converge speed</p>
-<h4 id="6-1-Value-function-Space"><a href="#6-1-Value-function-Space" class="headerlink" title="6.1 Value function Space"></a>6.1 Value function Space</h4><ul>
+<h2 id="Contraction-Mapping"><a href="#Contraction-Mapping" class="headerlink" title="Contraction Mapping"></a>Contraction Mapping</h2><p>Contraction Mapping resolves that convergence problem such as converge or not, uniqueness, and converge speed</p>
+<h3 id="Value-function-Space"><a href="#Value-function-Space" class="headerlink" title="Value function Space"></a>Value function Space</h3><ul>
 <li>Consider the vector space $V$ over value functions</li>
 <li>There are |S| dimensions</li>
 <li>Each points in this space fully specifies a value function</li>
 <li>Bellman backup brings values functions closer</li>
 <li>And therefore the backups must converge on a unique solution</li>
 </ul>
-<h4 id="6-2-Bellman-Expectation-Backup-is-a-Contraction"><a href="#6-2-Bellman-Expectation-Backup-is-a-Contraction" class="headerlink" title="6.2 Bellman Expectation Backup is a Contraction"></a>6.2 Bellman Expectation Backup is a Contraction</h4><p>When use the $\infty$ norm as the distance metric, we have</p>
+<h3 id="Bellman-Expectation-Backup-is-a-Contraction"><a href="#Bellman-Expectation-Backup-is-a-Contraction" class="headerlink" title="Bellman Expectation Backup is a Contraction"></a>Bellman Expectation Backup is a Contraction</h3><p>When use the $\infty$ norm as the distance metric, we have</p>
 <ul>
 <li>Define the Bellman expectation backup operator $T^{\pi}$<br>$$ T^{\pi} (v) = R^{\pi} + yP^{\pi} v $$</li>
 <li>This operator is a y-contraction, it makes value functions closer by at least y<br><img src="http://i1.piimg.com/567571/ed3f6444e4b26860.png" alt="Contraction mapping"></li>
@@ -321,7 +330,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 <li>Iterative policy evaluation converges on $v_{\pi}$</li>
 <li>Policy iteration converges on $v_*$</li>
 </ul>
-<h4 id="6-3-Bellman-Optimality-Backup-is-a-Contraction"><a href="#6-3-Bellman-Optimality-Backup-is-a-Contraction" class="headerlink" title="6.3 Bellman Optimality Backup is a Contraction"></a>6.3 Bellman Optimality Backup is a Contraction</h4><ul>
+<h3 id="Bellman-Optimality-Backup-is-a-Contraction"><a href="#Bellman-Optimality-Backup-is-a-Contraction" class="headerlink" title="Bellman Optimality Backup is a Contraction"></a>Bellman Optimality Backup is a Contraction</h3><ul>
 <li>Define the Bellman optimality backup operator $T^*$<br>$$ T^* (v) = \max_{a\in A} R^a + y P^a v$$</li>
 <li>This operator is a y-contraction, it makes value function closer by at least $y$<br>$$ ||T^* (u) - T^* (v) ||_{\infty} \le y||u-v||_{\infty} $$</li>
 </ul>
@@ -354,7 +363,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/04/05/RL2/" data-title="RL(3) | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/04/05/RL3/" data-title="RL3 Planning by Dynamic Programming | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -367,11 +376,19 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2017/04/06/RL4/" title="RL4 Model-Free Prediction">
+  <strong>上一篇：</strong><br/>
+  <span>
+  RL4 Model-Free Prediction</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2017/03/30/RL/"  title="RL(1-2)">
+<a href="/2017/03/30/RL/"  title="RL1 Introduction to RL">
  <strong>下一篇：</strong><br/> 
- <span>RL(1-2)
+ <span>RL1 Introduction to RL
 </span>
 </a>
 </div>
@@ -380,7 +397,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/04/05/RL2/" data-title="RL(3)" data-url="http://yoursite.com/2017/04/05/RL2/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/05/RL3/" data-title="RL3 Planning by Dynamic Programming" data-url="http://yoursite.com/2017/04/05/RL3/"></div>
 </section>
 
 
@@ -390,7 +407,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Reinforcement-learning"><span class="toc-number">1.</span> <span class="toc-text">Reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-3-Planning-by-Dynamic-Programming"><span class="toc-number">1.1.</span> <span class="toc-text">lecture 3 Planning by Dynamic Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Definition"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1.1 Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Requirements"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">1.2 Requirements</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-Planning-by-DP"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">1.3 Planning by DP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Policy-Evaluation"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. Policy Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-Iterative-Policy-Evaluation"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">2.1 Iterative Policy Evaluation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Policy-Iteration"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-Policy-Improvement"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">3.1 Policy Improvement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-Extension-to-Policy-Iteration"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">3.2 Extension to Policy Iteration</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Value-Iteration"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-Principle-of-Optimality"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">4.1 Principle of Optimality</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-Deterministic-Value-Iteration"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">4.2 Deterministic Value Iteration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-Value-Iteration"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">4.3 Value Iteration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-Summary-of-DP-algorithms"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">4.4 Summary of DP algorithms</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Extensions-to-DP"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. Extensions to DP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-Asynchronous-DP"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">5.1 Asynchronous DP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-Full-width-and-sample-backups"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">5.2 Full-width and sample backups</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-Approximate-Dynamic-Programming"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">5.3 Approximate Dynamic Programming</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Contraction-Mapping"><span class="toc-number">1.1.6.</span> <span class="toc-text">6. Contraction Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-Value-function-Space"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">6.1 Value function Space</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-Bellman-Expectation-Backup-is-a-Contraction"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">6.2 Bellman Expectation Backup is a Contraction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-Bellman-Optimality-Backup-is-a-Contraction"><span class="toc-number">1.1.6.3.</span> <span class="toc-text">6.3 Bellman Optimality Backup is a Contraction</span></a></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-3-Planning-by-Dynamic-Programming"><span class="toc-number">1.</span> <span class="toc-text">lecture 3 Planning by Dynamic Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-number">1.1.</span> <span class="toc-text">introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Definition"><span class="toc-number">1.1.1.</span> <span class="toc-text">Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requirements"><span class="toc-number">1.1.2.</span> <span class="toc-text">Requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Planning-by-DP"><span class="toc-number">1.1.3.</span> <span class="toc-text">Planning by DP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Policy-Evaluation"><span class="toc-number">1.2.</span> <span class="toc-text">Policy Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterative-Policy-Evaluation"><span class="toc-number">1.2.1.</span> <span class="toc-text">Iterative Policy Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Policy-Iteration"><span class="toc-number">1.3.</span> <span class="toc-text">Policy Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-Improvement"><span class="toc-number">1.3.1.</span> <span class="toc-text">Policy Improvement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extension-to-Policy-Iteration"><span class="toc-number">1.3.2.</span> <span class="toc-text">Extension to Policy Iteration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Value-Iteration"><span class="toc-number">1.4.</span> <span class="toc-text">Value Iteration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Principle-of-Optimality"><span class="toc-number">1.4.1.</span> <span class="toc-text">Principle of Optimality</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Value-Iteration"><span class="toc-number">1.4.2.</span> <span class="toc-text">Deterministic Value Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-Iteration-1"><span class="toc-number">1.4.3.</span> <span class="toc-text">Value Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-DP-algorithms"><span class="toc-number">1.4.4.</span> <span class="toc-text">Summary of DP algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extensions-to-DP"><span class="toc-number">1.5.</span> <span class="toc-text">Extensions to DP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronous-DP"><span class="toc-number">1.5.1.</span> <span class="toc-text">Asynchronous DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-width-and-sample-backups"><span class="toc-number">1.5.2.</span> <span class="toc-text">Full-width and sample backups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approximate-Dynamic-Programming"><span class="toc-number">1.5.3.</span> <span class="toc-text">Approximate Dynamic Programming</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contraction-Mapping"><span class="toc-number">1.6.</span> <span class="toc-text">Contraction Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-function-Space"><span class="toc-number">1.6.1.</span> <span class="toc-text">Value function Space</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Expectation-Backup-is-a-Contraction"><span class="toc-number">1.6.2.</span> <span class="toc-text">Bellman Expectation Backup is a Contraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Optimality-Backup-is-a-Contraction"><span class="toc-number">1.6.3.</span> <span class="toc-text">Bellman Optimality Backup is a Contraction</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -418,11 +435,15 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 		  
 		
 		  
+			<li><a href="/categories/algorithm/" title="algorithm">algorithm<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>2</sup></a></li>
+			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>5</sup></a></li>
 		  
 		
 		  
@@ -447,11 +468,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>4</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
+				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>7</sup></a></li>
 			
 		
 			
@@ -459,15 +476,15 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 			
 		
 			
-				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
 			
 		
 			
@@ -475,11 +492,11 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 			
 		
 			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -496,6 +513,14 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 		
 			
 				<li><a href="/tags/Latex/" title="Latex">Latex<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -541,7 +566,7 @@ Dynamic: sequential or temporal component to the problemProgramming: optimising 
 	
 	<section class="info">
 		<p> Hello ,I&#39;m Dagui Chen in Tsinghua University. <br/>
-			This is my blog,believe it or not.</p>
+			This is my blog, believe it or not.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">

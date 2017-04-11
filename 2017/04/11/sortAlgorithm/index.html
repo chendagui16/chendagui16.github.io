@@ -4,32 +4,23 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>Hexo_github | My Blog</title>
+    <title>sortAlgorithm | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="Hexo and github pages SETTINGIntroduction
-因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
-Setting
-安装hexo安">
+    <meta name="description" content="Several pseudo-code for sort algorithmbubble sortworst time complexity: $O(n^2)$best time complexity $O(n)$average time complexity $O(n^2)$additional space complexity $O(1)$12345bubble_sort(list, p, r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo_github">
-<meta property="og:url" content="http://yoursite.com/2016/09/05/Hexo-github/index.html">
+<meta property="og:title" content="sortAlgorithm">
+<meta property="og:url" content="http://yoursite.com/2017/04/11/sortAlgorithm/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="Hexo and github pages SETTINGIntroduction
-因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
-Setting
-安装hexo安">
-<meta property="og:updated_time" content="2016-09-06T01:06:21.000Z">
+<meta property="og:description" content="Several pseudo-code for sort algorithmbubble sortworst time complexity: $O(n^2)$best time complexity $O(n)$average time complexity $O(n^2)$additional space complexity $O(1)$12345bubble_sort(list, p, r">
+<meta property="og:updated_time" content="2017-04-11T11:44:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo_github">
-<meta name="twitter:description" content="Hexo and github pages SETTINGIntroduction
-因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
-Setting
-安装hexo安">
+<meta name="twitter:title" content="sortAlgorithm">
+<meta name="twitter:description" content="Several pseudo-code for sort algorithmbubble sortworst time complexity: $O(n^2)$best time complexity $O(n)$average time complexity $O(n^2)$additional space complexity $O(1)$12345bubble_sort(list, p, r">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -89,14 +80,14 @@ Setting
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/09/05/Hexo-github/" title="Hexo_github" itemprop="url">Hexo_github</a>
+      <a href="/2017/04/11/sortAlgorithm/" title="sortAlgorithm" itemprop="url">sortAlgorithm</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-05T08:02:22.000Z" itemprop="datePublished"> Published 2016-09-05</time>
+    <time datetime="2017-04-11T01:15:32.000Z" itemprop="datePublished"> Published 2017-04-11</time>
     
   </p>
 </header>
@@ -105,47 +96,29 @@ Setting
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-and-github-pages-SETTING"><span class="toc-number">1.</span> <span class="toc-text">Hexo and github pages SETTING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting"><span class="toc-number">1.2.</span> <span class="toc-text">Setting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装hexo"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装Node-js"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装git"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo-1"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo必备的服务"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">安装hexo必备的服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置github-pages"><span class="toc-number">1.2.2.</span> <span class="toc-text">设置github pages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置hexo"><span class="toc-number">1.2.3.</span> <span class="toc-text">设置hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更换主题与数学公式"><span class="toc-number">1.2.4.</span> <span class="toc-text">更换主题与数学公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.3.</span> <span class="toc-text">命令</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Several-pseudo-code-for-sort-algorithm"><span class="toc-number">1.</span> <span class="toc-text">Several pseudo-code for sort algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bubble-sort"><span class="toc-number">1.1.</span> <span class="toc-text">bubble sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selection-sort"><span class="toc-number">1.2.</span> <span class="toc-text">selection sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-sort"><span class="toc-number">1.3.</span> <span class="toc-text">Merge sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-sort"><span class="toc-number">1.4.</span> <span class="toc-text">Quick sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#heap-sort"><span class="toc-number">1.5.</span> <span class="toc-text">heap sort</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="Hexo-and-github-pages-SETTING"><a href="#Hexo-and-github-pages-SETTING" class="headerlink" title="Hexo and github pages SETTING"></a>Hexo and github pages SETTING</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><hr>
-<p>因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。<br>　　<br>这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。</p>
-<h3 id="Setting"><a href="#Setting" class="headerlink" title="Setting"></a>Setting</h3><hr>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">hexo</a></h4><h5 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h5><p>先安装<a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure></p>
-<p>nvm 安装完之后，<strong>重启终端</strong>，然后安装Node.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install stable</div></pre></td></tr></table></figure></p>
-<p>也可以通过<a href="http://nodejs.org/" target="_blank" rel="external">源码</a>来安装</p>
-<h5 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install git-core</div></pre></td></tr></table></figure>
-<h5 id="安装hexo-1"><a href="#安装hexo-1" class="headerlink" title="安装hexo"></a>安装hexo</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
-<h5 id="安装hexo必备的服务"><a href="#安装hexo必备的服务" class="headerlink" title="安装hexo必备的服务"></a>安装hexo必备的服务</h5><p>安装server和git服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> (blog workspace)</div><div class="line">$ npm install hexo-server　 --save</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
-<h4 id="设置github-pages"><a href="#设置github-pages" class="headerlink" title="设置github pages"></a>设置github pages</h4><p>github账号下，需要建立对应的仓库，其名字必须为(username).github.io。否则将无法得到正确的github pages显示。</p>
-<h4 id="设置hexo"><a href="#设置hexo" class="headerlink" title="设置hexo"></a>设置hexo</h4><p>初始化blog文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> (blog workspace)</div><div class="line">$ hexo init</div></pre></td></tr></table></figure></p>
-<p>编辑配置文件<em>_config.yml</em><br>按照描述更改配置，注意要更改deploy选项。</p>
-<blockquote>
-<p>deploy:<br>         　type: git<br>         　repository: git@github.com:chendagui16/chendagui16.github.io.git<br>         　branch: master</p>
-</blockquote>
-<p> 这里我使用了ssh协议        　</p>
-<h4 id="更换主题与数学公式"><a href="#更换主题与数学公式" class="headerlink" title="更换主题与数学公式"></a>更换主题与数学公式</h4><p>我采用了<a href="https://github.com/wuchong/jacman" target="_blank" rel="external">jacman</a>的主题，设置方法可进入github中观看。</p>
-<blockquote>
-<p>　这个主题中提供了较多的选项，包括如何解决数学公式的显示问题，然而，我只得到了本地页面的显示并没有得到github pages上的显示，问题仍未解决。谁知道了能否告诉我怎么解决。</p>
-</blockquote>
-<p>在jacman的主题下，设置数学显示包括两步，第一步是更改<strong>主题</strong>内的<em>_config.yml</em>文件。<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
-<p>第二步是在写front-matter内添加一行<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ hexo init 初始化</div><div class="line">$ hexo new [layout] &lt;title&gt;　新建文档，layout提供默认版式</div><div class="line">$ hexo g[enerate]　[<span class="_">-d</span>]　渲染成静态网页</div><div class="line">$ hexo s[erver] 打开本地服务器</div><div class="line">$ hexo d[eploy] 推送到github</div><div class="line">$ hexo clean　清除原静态文件</div></pre></td></tr></table></figure>  
+		<h1 id="Several-pseudo-code-for-sort-algorithm"><a href="#Several-pseudo-code-for-sort-algorithm" class="headerlink" title="Several pseudo-code for sort algorithm"></a>Several pseudo-code for sort algorithm</h1><h2 id="bubble-sort"><a href="#bubble-sort" class="headerlink" title="bubble sort"></a>bubble sort</h2><p>worst time complexity: $O(n^2)$<br>best time complexity $O(n)$<br>average time complexity $O(n^2)$<br>additional space complexity $O(1)$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bubble_sort(list, p, r):</div><div class="line">for i = p to r-1</div><div class="line">   for j = i+1 to r</div><div class="line">     if list[i] &gt; list[j]</div><div class="line">         swap(list[i],list[j])</div></pre></td></tr></table></figure></p>
+<h2 id="selection-sort"><a href="#selection-sort" class="headerlink" title="selection sort"></a>selection sort</h2><p>average time complexity $O(n^2)$<br>additional space complexity $O(1)$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">selection_sort(list, p, r):</div><div class="line">for i = p to r-1</div><div class="line">    min = i</div><div class="line">    for j = i+1 to r</div><div class="line">        if list[j] &lt; min</div><div class="line">            min = j</div><div class="line">    if min!=i</div><div class="line">        swap(list[i], list[min])</div></pre></td></tr></table></figure></p>
+<h2 id="Merge-sort"><a href="#Merge-sort" class="headerlink" title="Merge sort"></a>Merge sort</h2><p>time complexity: $O(n\log n)$<br>space complexity: $O(n)$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">merge_sort(list, p, r):</div><div class="line">if p &gt;= r</div><div class="line">    return</div><div class="line">mid = ceil(p+r)</div><div class="line">merge_sort(list, p, mid)</div><div class="line">merge_sort(list, mid+1, r)</div><div class="line">i = p</div><div class="line">j = mid+1</div><div class="line">k = 1</div><div class="line">while(i&lt;=mid &amp;&amp; j &lt;= r)</div><div class="line">    if list[i] &gt; list[j]</div><div class="line">        tmp[k++] = list[j++]</div><div class="line">    else</div><div class="line">        tmp[k++] = list[i++]</div><div class="line">while(i&lt;=mid)</div><div class="line">    tmp[k++] = list[i++]</div><div class="line">while(j&lt;=r)</div><div class="line">    tmp[k++] = list[j++]</div><div class="line">list[p..r] = tmp</div></pre></td></tr></table></figure></p>
+<h2 id="Quick-sort"><a href="#Quick-sort" class="headerlink" title="Quick sort"></a>Quick sort</h2><p>worst time complexity: $O(n^2)$<br>best time complexity: $O(n\log n)$<br>average time complexity: $O(n \log n)$<br>additional space complexity: $O(1)$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">quick_sort(list, p, r):</div><div class="line">if p&gt;=r</div><div class="line">    return</div><div class="line">else</div><div class="line">    mid = partition(list, p, r)</div><div class="line">    quick_sort(list, p, mid-1)</div><div class="line">    quick_sort(list, mid+1, r)</div><div class="line"></div><div class="line">partition(list, p, r):</div><div class="line">tmp = list[r]</div><div class="line">i = p</div><div class="line">j = r-1</div><div class="line">while(i&lt;j)</div><div class="line">    while(i&lt;j &amp;&amp; list[i] &lt;= tmp) </div><div class="line">        i++</div><div class="line">    while(i&lt;j &amp;&amp; list[j] &gt;= tmp)</div><div class="line">        j--</div><div class="line">    if(i&lt;j) </div><div class="line">        swap(list[i], list[j])</div><div class="line">swap(list[i], list[r])</div><div class="line">return i</div></pre></td></tr></table></figure></p>
+<h2 id="heap-sort"><a href="#heap-sort" class="headerlink" title="heap sort"></a>heap sort</h2><p>time complexity: $O(n\log n)$<br>additional space complexity $O(1)$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">MAX-HEAPIFY(A, i):</div><div class="line">l = LEFT(i)</div><div class="line">r = RIGHT(i)</div><div class="line">if l &lt;= A.heap-size and A[l]&gt;A[i]</div><div class="line">    largest = l</div><div class="line">else</div><div class="line">    largest = i</div><div class="line">if r &lt;= A.heap-size and A[r]&gt;A[largest]</div><div class="line">    largest = r</div><div class="line">if largest != i</div><div class="line">    swap(A[i], A[largest])</div><div class="line">    MAX-HEAPIFY(A, i)</div><div class="line"></div><div class="line">BUILD-MAX-HEAP(A):</div><div class="line">A.heap-size = A.length</div><div class="line">for i = ceil(A.length/2) downto 1</div><div class="line">    MAX-HEAPFIFY(A,i)</div><div class="line"></div><div class="line">HEAPSORT(A):</div><div class="line">BUILD-MAX-HEAP(A)</div><div class="line">for i=A.length downto 2</div><div class="line">    swap(A[1], A[i])</div><div class="line">    A.heap-size = A.heap-size - 1 </div><div class="line">    MAX-HEAPIFY(A,1)</div></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/software-setting/">software setting</a>
+  <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/hexo/">hexo</a><a href="/tags/githup-pages/">githup pages</a><a href="/tags/blog/">blog</a>
+  <span></span> <a href="/tags/algorithm/">algorithm</a>
   </div>
 
 </div>
@@ -154,7 +127,7 @@ Setting
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/09/05/Hexo-github/" data-title="Hexo_github | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/04/11/sortAlgorithm/" data-title="sortAlgorithm | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -167,20 +140,20 @@ Setting
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/09/06/Deep-Q-learning/" title="Deep_Q_learning">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Deep_Q_learning</span>
+
+<div class="next">
+<a href="/2017/04/10/RL5/"  title="RL5 Model-Free Control">
+ <strong>下一篇：</strong><br/> 
+ <span>RL5 Model-Free Control
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/05/Hexo-github/" data-title="Hexo_github" data-url="http://yoursite.com/2016/09/05/Hexo-github/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/11/sortAlgorithm/" data-title="sortAlgorithm" data-url="http://yoursite.com/2017/04/11/sortAlgorithm/"></div>
 </section>
 
 
@@ -190,7 +163,7 @@ Setting
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-and-github-pages-SETTING"><span class="toc-number">1.</span> <span class="toc-text">Hexo and github pages SETTING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting"><span class="toc-number">1.2.</span> <span class="toc-text">Setting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装hexo"><span class="toc-number">1.2.1.</span> <span class="toc-text">安装hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装Node-js"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装git"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo-1"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装hexo必备的服务"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">安装hexo必备的服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置github-pages"><span class="toc-number">1.2.2.</span> <span class="toc-text">设置github pages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置hexo"><span class="toc-number">1.2.3.</span> <span class="toc-text">设置hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更换主题与数学公式"><span class="toc-number">1.2.4.</span> <span class="toc-text">更换主题与数学公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-number">1.3.</span> <span class="toc-text">命令</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Several-pseudo-code-for-sort-algorithm"><span class="toc-number">1.</span> <span class="toc-text">Several pseudo-code for sort algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bubble-sort"><span class="toc-number">1.1.</span> <span class="toc-text">bubble sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selection-sort"><span class="toc-number">1.2.</span> <span class="toc-text">selection sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-sort"><span class="toc-number">1.3.</span> <span class="toc-text">Merge sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-sort"><span class="toc-number">1.4.</span> <span class="toc-text">Quick sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#heap-sort"><span class="toc-number">1.5.</span> <span class="toc-text">heap sort</span></a></li></ol></li></ol>
  
   </div>
 

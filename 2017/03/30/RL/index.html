@@ -4,35 +4,44 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>RL(1-2) | My Blog</title>
+    <title>RL1 Introduction to RL | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="reinforcement learninglecture 1 Introduction to Reinforcement Learningreinforcement learning feature
+    <meta name="description" content="lecture 1 Introduction to Reinforcement Learningreinforcement learning feature
 no supervisor, only a reward signal 
 delayed feedback
 time matters
-agent’s actions affect the subse">
+agent’s actions affect the subsequent data
+
+
+Reward Hy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL(1-2)">
+<meta property="og:title" content="RL1 Introduction to RL">
 <meta property="og:url" content="http://yoursite.com/2017/03/30/RL/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="reinforcement learninglecture 1 Introduction to Reinforcement Learningreinforcement learning feature
+<meta property="og:description" content="lecture 1 Introduction to Reinforcement Learningreinforcement learning feature
 no supervisor, only a reward signal 
 delayed feedback
 time matters
-agent’s actions affect the subse">
-<meta property="og:updated_time" content="2017-04-06T03:20:13.000Z">
+agent’s actions affect the subsequent data
+
+
+Reward Hy">
+<meta property="og:updated_time" content="2017-04-06T15:10:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RL(1-2)">
-<meta name="twitter:description" content="reinforcement learninglecture 1 Introduction to Reinforcement Learningreinforcement learning feature
+<meta name="twitter:title" content="RL1 Introduction to RL">
+<meta name="twitter:description" content="lecture 1 Introduction to Reinforcement Learningreinforcement learning feature
 no supervisor, only a reward signal 
 delayed feedback
 time matters
-agent’s actions affect the subse">
+agent’s actions affect the subsequent data
+
+
+Reward Hy">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -58,7 +67,7 @@ agent’s actions affect the subse">
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h2 class="blog-motto">This is my blog to record some knowledge</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
@@ -92,7 +101,7 @@ agent’s actions affect the subse">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/30/RL/" title="RL(1-2)" itemprop="url">RL(1-2)</a>
+      <a href="/2017/03/30/RL/" title="RL1 Introduction to RL" itemprop="url">RL1 Introduction to RL</a>
   </h1>
   <p class="article-author">By
        
@@ -108,30 +117,24 @@ agent’s actions affect the subse">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#reinforcement-learning"><span class="toc-number">1.</span> <span class="toc-text">reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-1-Introduction-to-Reinforcement-Learning"><span class="toc-number">1.1.</span> <span class="toc-text">lecture 1 Introduction to Reinforcement Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reinforcement-learning-feature"><span class="toc-number">1.1.1.</span> <span class="toc-text">reinforcement learning feature</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#environment-state-and-agent-state"><span class="toc-number">1.1.2.</span> <span class="toc-text">environment state and agent state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fully-Observable-Environments-and-Partially-Observable-Environments"><span class="toc-number">1.1.3.</span> <span class="toc-text">Fully Observable Environments and Partially Observable Environments</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Major-Components-of-an-RL-Agent"><span class="toc-number">1.1.4.</span> <span class="toc-text">Major Components of an RL Agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Categorize-RL-agents"><span class="toc-number">1.1.5.</span> <span class="toc-text">Categorize RL agents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Learning-and-Planning"><span class="toc-number">1.1.6.</span> <span class="toc-text">Learning and Planning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploration-and-Exploitation"><span class="toc-number">1.1.7.</span> <span class="toc-text">Exploration and Exploitation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prediction-and-Control"><span class="toc-number">1.1.8.</span> <span class="toc-text">Prediction and Control</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-2-Markov-decision-Processes"><span class="toc-number">1.2.</span> <span class="toc-text">lecture 2 Markov decision Processes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Process"><span class="toc-number">1.2.1.</span> <span class="toc-text">Markov Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Reward-Process"><span class="toc-number">1.2.2.</span> <span class="toc-text">Markov Reward Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-Function"><span class="toc-number">1.2.3.</span> <span class="toc-text">Value Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Equation-for-MRPs"><span class="toc-number">1.2.4.</span> <span class="toc-text">Bellman Equation for MRPs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Decision-Process"><span class="toc-number">1.2.5.</span> <span class="toc-text">Markov Decision Process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Policy"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-function"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">Value function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bellman-Expectation-Equation"><span class="toc-number">1.2.5.3.</span> <span class="toc-text">Bellman Expectation Equation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimal-value-function"><span class="toc-number">1.2.5.4.</span> <span class="toc-text">Optimal value function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimal-Policy"><span class="toc-number">1.2.5.5.</span> <span class="toc-text">Optimal Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bellman-Optimality-Equation"><span class="toc-number">1.2.5.6.</span> <span class="toc-text">Bellman Optimality Equation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solving-the-Bellman-Optimality-Equation"><span class="toc-number">1.2.5.7.</span> <span class="toc-text">Solving the Bellman Optimality Equation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensions-to-MDPs"><span class="toc-number">1.2.6.</span> <span class="toc-text">Extensions to MDPs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Infinite-and-continuous-MDPs"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">Infinite and continuous MDPs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Partially-observable-MDPs"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">Partially observable MDPs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Undiscounted-average-reward-MDPs"><span class="toc-number">1.2.6.3.</span> <span class="toc-text">Undiscounted, average reward MDPs</span></a></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-1-Introduction-to-Reinforcement-Learning"><span class="toc-number">1.</span> <span class="toc-text">lecture 1 Introduction to Reinforcement Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#reinforcement-learning-feature"><span class="toc-number">1.1.</span> <span class="toc-text">reinforcement learning feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#environment-state-and-agent-state"><span class="toc-number">1.2.</span> <span class="toc-text">environment state and agent state</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fully-Observable-Environments-and-Partially-Observable-Environments"><span class="toc-number">1.3.</span> <span class="toc-text">Fully Observable Environments and Partially Observable Environments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Major-Components-of-an-RL-Agent"><span class="toc-number">1.4.</span> <span class="toc-text">Major Components of an RL Agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Categorize-RL-agents"><span class="toc-number">1.5.</span> <span class="toc-text">Categorize RL agents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-and-Planning"><span class="toc-number">1.6.</span> <span class="toc-text">Learning and Planning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploration-and-Exploitation"><span class="toc-number">1.7.</span> <span class="toc-text">Exploration and Exploitation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prediction-and-Control"><span class="toc-number">1.8.</span> <span class="toc-text">Prediction and Control</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="reinforcement-learning"><a href="#reinforcement-learning" class="headerlink" title="reinforcement learning"></a>reinforcement learning</h1><h2 id="lecture-1-Introduction-to-Reinforcement-Learning"><a href="#lecture-1-Introduction-to-Reinforcement-Learning" class="headerlink" title="lecture 1 Introduction to Reinforcement Learning"></a>lecture 1 Introduction to Reinforcement Learning</h2><h3 id="reinforcement-learning-feature"><a href="#reinforcement-learning-feature" class="headerlink" title="reinforcement learning feature"></a>reinforcement learning feature</h3><ol>
+		<h1 id="lecture-1-Introduction-to-Reinforcement-Learning"><a href="#lecture-1-Introduction-to-Reinforcement-Learning" class="headerlink" title="lecture 1 Introduction to Reinforcement Learning"></a>lecture 1 Introduction to Reinforcement Learning</h1><h2 id="reinforcement-learning-feature"><a href="#reinforcement-learning-feature" class="headerlink" title="reinforcement learning feature"></a>reinforcement learning feature</h2><ol>
 <li>no supervisor, only a reward signal </li>
 <li>delayed feedback</li>
 <li>time matters</li>
 <li>agent’s actions affect the subsequent data</li>
 </ol>
 <blockquote>
-<p>Reward Hypothesis</p>
+<p><strong>Reward Hypothesis</strong><br>all goal can be described by the maximisation of expected cumulative reward.</p>
+</blockquote>
+<h2 id="environment-state-and-agent-state"><a href="#environment-state-and-agent-state" class="headerlink" title="environment state and agent state"></a>environment state and agent state</h2><p>environment state : whatever data to environment<br>agent state: whatever data to agent</p>
 <blockquote>
-<p>all goal can be described by the maximisation of expected cumulative reward.</p>
+<p><strong>information state</strong><br>Information state is Markov</p>
 </blockquote>
-</blockquote>
-<h3 id="environment-state-and-agent-state"><a href="#environment-state-and-agent-state" class="headerlink" title="environment state and agent state"></a>environment state and agent state</h3><p>environment state : whatever data to environment<br>agent state: whatever data to agent</p>
-<blockquote>
-<p>information state</p>
-<blockquote>
-<p>Information state is Markov</p>
-</blockquote>
-</blockquote>
-<h3 id="Fully-Observable-Environments-and-Partially-Observable-Environments"><a href="#Fully-Observable-Environments-and-Partially-Observable-Environments" class="headerlink" title="Fully Observable Environments and Partially Observable Environments"></a>Fully Observable Environments and Partially Observable Environments</h3><h3 id="Major-Components-of-an-RL-Agent"><a href="#Major-Components-of-an-RL-Agent" class="headerlink" title="Major Components of an RL Agent"></a>Major Components of an RL Agent</h3><ol>
+<h2 id="Fully-Observable-Environments-and-Partially-Observable-Environments"><a href="#Fully-Observable-Environments-and-Partially-Observable-Environments" class="headerlink" title="Fully Observable Environments and Partially Observable Environments"></a>Fully Observable Environments and Partially Observable Environments</h2><h2 id="Major-Components-of-an-RL-Agent"><a href="#Major-Components-of-an-RL-Agent" class="headerlink" title="Major Components of an RL Agent"></a>Major Components of an RL Agent</h2><ol>
 <li>Policy</li>
 <li>Value function</li>
 <li>Model<ol>
@@ -144,7 +147,7 @@ agent’s actions affect the subse">
 <blockquote>
 <p><strong>Maze Example</strong><br>Agent may have an internal model of the environment<br>Dynamics: how actions change the state<br>Rewards: how much reward from each state<br>The model may be imperfect</p>
 </blockquote>
-<h3 id="Categorize-RL-agents"><a href="#Categorize-RL-agents" class="headerlink" title="Categorize RL agents"></a>Categorize RL agents</h3><ul>
+<h2 id="Categorize-RL-agents"><a href="#Categorize-RL-agents" class="headerlink" title="Categorize RL agents"></a>Categorize RL agents</h2><ul>
 <li>value based</li>
 <li>policy based</li>
 <li><p>Actor Critic</p>
@@ -153,7 +156,7 @@ agent’s actions affect the subse">
 </li>
 <li>Model Based</li>
 </ul>
-<h3 id="Learning-and-Planning"><a href="#Learning-and-Planning" class="headerlink" title="Learning and Planning"></a>Learning and Planning</h3><p>Two fundamental problems in sequential decision making</p>
+<h2 id="Learning-and-Planning"><a href="#Learning-and-Planning" class="headerlink" title="Learning and Planning"></a>Learning and Planning</h2><p>Two fundamental problems in sequential decision making</p>
 <ol>
 <li>Reinforcement learning <ul>
 <li>The environment is initially unknown</li>
@@ -168,182 +171,16 @@ agent’s actions affect the subse">
 </ul>
 </li>
 </ol>
-<h3 id="Exploration-and-Exploitation"><a href="#Exploration-and-Exploitation" class="headerlink" title="Exploration and Exploitation"></a>Exploration and Exploitation</h3><ol>
+<h2 id="Exploration-and-Exploitation"><a href="#Exploration-and-Exploitation" class="headerlink" title="Exploration and Exploitation"></a>Exploration and Exploitation</h2><ol>
 <li>Reinforcement learning is like trail-and-error learning</li>
 <li>the agent should discover a good policy</li>
 <li>From its experience of the environment </li>
 <li>Without losing too much reward along the way</li>
 </ol>
-<h3 id="Prediction-and-Control"><a href="#Prediction-and-Control" class="headerlink" title="Prediction and Control"></a>Prediction and Control</h3><ol>
+<h2 id="Prediction-and-Control"><a href="#Prediction-and-Control" class="headerlink" title="Prediction and Control"></a>Prediction and Control</h2><ol>
 <li>Prediction: evaluate the future, <strong>given a policy</strong></li>
 <li>Control: optimize the future, <strong>find the best policy</strong></li>
 </ol>
-<h2 id="lecture-2-Markov-decision-Processes"><a href="#lecture-2-Markov-decision-Processes" class="headerlink" title="lecture 2 Markov decision Processes"></a>lecture 2 Markov decision Processes</h2><p>MDP formally describe an environment for RL, where the environment is fully observable</p>
-<blockquote>
-<p><strong>Markov Property</strong><br>The future is independent of the past given the present<br>$$ P(S_{t+1} | S_{t} ) = P(S_{t+1} | S_1,S_2,\dots,S_t) $$<br>The state is sufficient statistic of the future</p>
-</blockquote>
-<h3 id="Markov-Process"><a href="#Markov-Process" class="headerlink" title="Markov Process"></a>Markov Process</h3><p>A Markov Process is a memoryless random process</p>
-<blockquote>
-<p><strong>Definition</strong><br>A Markov Process (Markov Chain) is a tuple (S,P)</p>
-<ul>
-<li>S is a (finite) set of states</li>
-<li>P is a state transition probability matrix.</li>
-</ul>
-</blockquote>
-<h3 id="Markov-Reward-Process"><a href="#Markov-Reward-Process" class="headerlink" title="Markov Reward Process"></a>Markov Reward Process</h3><p>A Markov reward process is a Markov chain with variable</p>
-<blockquote>
-<p><strong>Definition</strong><br>A Markov Reward Process is a tuple (S,P,R,y)</p>
-<ul>
-<li>S is a finite set of states</li>
-<li>P is a state transition probability matrix</li>
-<li>R is a reward function: $ R_s = E[R_{t+1}|S_t=s] $</li>
-<li>y is a discount factor</li>
-</ul>
-</blockquote>
-<p>Return</p>
-<blockquote>
-<p><strong>Return</strong><br>The return $G_t$ is the total discounted reward from time-step t.<br>$$ G_t = \sum_{k=0}^{\infty} y^k R_{t+k+1}$$</p>
-</blockquote>
-<p>Why discount?</p>
-<ol>
-<li>Mathematically convenient to discount reward</li>
-<li>Avoids infinite returns in cyclic Markov processed</li>
-<li>Uncertainty about the future may not be fully represented</li>
-<li>If the reward is financial, immediate rewards may earn more interest than delayed rewards</li>
-<li>Animal/human behaviour shows preference for immediate reward</li>
-<li>It is sometimes possible to use undiscounted Markov reward processes</li>
-</ol>
-<h3 id="Value-Function"><a href="#Value-Function" class="headerlink" title="Value Function"></a>Value Function</h3><p>The value function gives the long-term value of state s</p>
-<blockquote>
-<p><strong>Definition</strong><br>The state value function $v(s)$ of an MRP is the expected return starting from state s<br>$$ v(s) = E[G_t | S_t = s]$$</p>
-</blockquote>
-<h3 id="Bellman-Equation-for-MRPs"><a href="#Bellman-Equation-for-MRPs" class="headerlink" title="Bellman Equation for MRPs"></a>Bellman Equation for MRPs</h3><p>The value function can be decomposed into two patrs</p>
-<ul>
-<li>immediate reward $R_{t+1}$</li>
-<li>discounted value of successor state $y v(S_{t+1})$</li>
-</ul>
-<p>The Bellman equation can be expressed concisely using matrices,<br>$$ v = R + y P v $$<br>where $v$ is a column vector with one entry per states</p>
-<p><strong>Solving Bellman Equation</strong></p>
-<ul>
-<li>linear equation and can be solved directly</li>
-<li>Computational complexity is $O(n^3)$ for $n$ states</li>
-<li>Direct solution only possible for small MRPs</li>
-<li>Many iterative methods for large MRPs<blockquote>
-<ul>
-<li>Dynamic Programming</li>
-<li>Monte-Carlo evaluation</li>
-<li>Temporal-Difference learning</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="Markov-Decision-Process"><a href="#Markov-Decision-Process" class="headerlink" title="Markov Decision Process"></a>Markov Decision Process</h3><h4 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h4><blockquote>
-<p><strong>Definition</strong><br>A policy $\pi$ is a distribution over actions given states,<br>$$ \pi(a|s) = P[A_t=a|S_t=s]$$<br>MDP policies depend on the current state (not the history)</p>
-<p>Given an MDP M =(S,A,P,R,y) and a Policy $\pi$</p>
-<ul>
-<li>The state sequence $S_1,S_2,\dots$ is a Markov process $ (S,P^{\pi}) $</li>
-<li>The state and reward sequence is a Markov reward process $ (S,P^{\pi},R^{\pi},y) $</li>
-</ul>
-</blockquote>
-<h4 id="Value-function"><a href="#Value-function" class="headerlink" title="Value function"></a>Value function</h4><p><strong> State Value function </strong></p>
-<blockquote>
-<p>The state value function $v_{\pi}(s)$ of an MDP is the expected return starting from state $s$, and then following policy $\pi$<br>$$ v_{\pi} (s)  = E_{\pi} [G_t |S_t=s] $$</p>
-</blockquote>
-<p><strong> Action value function </strong></p>
-<blockquote>
-<p>The action value function $q_{\pi}(s,a)$ is expected return starting from state $s$, taking action $a$, and then following policy $\pi$<br>$$ q_{s,a} = E_{\pi} [G_t |S_t=s,A_t=a]$$</p>
-</blockquote>
-<h4 id="Bellman-Expectation-Equation"><a href="#Bellman-Expectation-Equation" class="headerlink" title="Bellman Expectation Equation"></a>Bellman Expectation Equation</h4><p>The state-value function/action-value function can be decomposed into immediate reward plus discounted value of successor state.<br><strong> For $V^{\pi}$ </strong><br>$$ V_{\pi} (s) = \sum_{a \in A} \pi (a|s) q_{\pi} (s,a) $$</p>
-<p><strong> For $Q^{\pi}$ </strong><br>$$ q_{\pi} (s,a) = R_{s}^{a} + y \sum_{s’ \in S} P_{ss’}^{a} v_{\pi} (s’) $$</p>
-<p><strong> For $V^{\pi}$ (2) </strong><br>$$ V_{\pi} (s) = \sum_{a \in A} \pi (a|s) R_{s}^{a} + y \sum_{s’ \in S} P_{ss’}^{a} v_{\pi} (s’) $$</p>
-<p><strong> For $Q^{\pi}$ (2)</strong><br>$$ q_{\pi} (s,a) = R_{s}^{a} + y \sum_{a \in A} \pi (a’|s’) q_{\pi} (s’,a’) $$</p>
-<blockquote>
-<p>Matrix form<br>$$ v_{\pi} = R^{\pi} + yP^{\pi} v_{\pi}$$</p>
-</blockquote>
-<h4 id="Optimal-value-function"><a href="#Optimal-value-function" class="headerlink" title="Optimal value function"></a>Optimal value function</h4><blockquote>
-<p><strong>Definition</strong><br>The optimal state-value function is the maximum value function over all policies<br>The optimal action-value function is the maximum action-value function over all policies</p>
-</blockquote>
-<ul>
-<li>The optimal value function specifies the best possible performance in the MDP.</li>
-<li>An MDP is “solved” when we know the optimal value fn</li>
-</ul>
-<h4 id="Optimal-Policy"><a href="#Optimal-Policy" class="headerlink" title="Optimal Policy"></a>Optimal Policy</h4><p>Define a partial ordering over policies<br>$$ \pi \ge \pi’, v_{\pi} (s) \ge v_{\pi ‘} (s) $$</p>
-<blockquote>
-<p><strong> Theorem </strong><br>For any Markov Decision Process</p>
-<ul>
-<li>There exists an optimal policy that is better than or equal to all other policies</li>
-<li>All optimal policies achieve the optimal value function</li>
-<li>All optimal policies achieve the optimal action-value function</li>
-</ul>
-</blockquote>
-<p>An optimal policy can be found by maximising over optimal q function</p>
-<ul>
-<li>There is always a deterministic optimal policy for any MDP</li>
-<li>If we know optimal q function, we immediately have the optimal policy</li>
-</ul>
-<h4 id="Bellman-Optimality-Equation"><a href="#Bellman-Optimality-Equation" class="headerlink" title="Bellman Optimality Equation"></a>Bellman Optimality Equation</h4><p><strong> For $v_*$ </strong></p>
-<p>$$v_* (s) = \max_{a} q_* (s,a)  $$</p>
-<p><strong> For $Q^*$ </strong></p>
-<p>$$ q_* (s,a) = R_s^a + y \sum_{s’ \in S} P_{ss’}^{a} v_* (s’) $$</p>
-<p><strong> For $V^*$ </strong></p>
-<p>$$ v_*(s) = \max_{a} R_s^a + y \sum_{s’ \in S} P_{ss’}^a v_* (s’) $$</p>
-<p><strong> For $Q^*$ </strong></p>
-<p>$$ q_* (s,a) = R_s^a + y \sum_{s’ \in S} P_{ss’}^a \max_{a’} q_* (s’,a’) $$</p>
-<h4 id="Solving-the-Bellman-Optimality-Equation"><a href="#Solving-the-Bellman-Optimality-Equation" class="headerlink" title="Solving the Bellman Optimality Equation"></a>Solving the Bellman Optimality Equation</h4><ul>
-<li>Bellman Optimality Equation is non-linear</li>
-<li>No closed form solution (in general)</li>
-<li>Many iterative solution methods<ul>
-<li>value iteration</li>
-<li>policy iteration</li>
-<li>q-learning</li>
-<li>Sarsa</li>
-</ul>
-</li>
-</ul>
-<h3 id="Extensions-to-MDPs"><a href="#Extensions-to-MDPs" class="headerlink" title="Extensions to MDPs"></a>Extensions to MDPs</h3><h4 id="Infinite-and-continuous-MDPs"><a href="#Infinite-and-continuous-MDPs" class="headerlink" title="Infinite and continuous MDPs"></a>Infinite and continuous MDPs</h4><ul>
-<li>Countably infinite state and/or action spaces</li>
-<li>Continuous state and/or action spaces</li>
-<li>Continuous time<ul>
-<li>Requires partial differential equations</li>
-<li>Hamilton-Jacob-Bellman (HJB) equation</li>
-<li>Limiting case of Bellman equation as time-step –&gt; 0</li>
-</ul>
-</li>
-</ul>
-<h4 id="Partially-observable-MDPs"><a href="#Partially-observable-MDPs" class="headerlink" title="Partially observable MDPs"></a>Partially observable MDPs</h4><p>POMDPs (Partially Observable MDPs)</p>
-<p>A Partially Observable Markov Decision Process is an MDP with hidden states. It is a hidden Markov model with actions.</p>
-<blockquote>
-<p><strong>Definition</strong><br>A POMDP is a tuple (S,A,O,P,R,Z,y)</p>
-<ul>
-<li>S is a finite set of states</li>
-<li>A is a finite set of actions</li>
-<li>O is a finite set of observations</li>
-<li>P is a state transition probability matrix</li>
-<li>R is a reward function</li>
-<li>Z is an observable function</li>
-<li>y is a discount factor</li>
-</ul>
-</blockquote>
-<p><strong> Belief States </strong></p>
-<ul>
-<li>A history $H_t$ is a sequence of actions, observations and rewards</li>
-<li>$$ H_t = A_0, O_1, R_1, \dots, A_{t-1}, O_t, R_t $$</li>
-<li>A belief state $b(h)$ is a probability distribution over states conditioned on the history h</li>
-<li>$$ b(h) = (P[S_t = s^1 |H_t = h], \dots, P[S_t=s^n |H_t =h]) $$</li>
-</ul>
-<p><strong> Reductions of POMDPs </strong></p>
-<ul>
-<li>The history $H_t$ satisfies the Markov property</li>
-<li>The belief state $b(H_t)$ satisfies the Markov property<h4 id="Undiscounted-average-reward-MDPs"><a href="#Undiscounted-average-reward-MDPs" class="headerlink" title="Undiscounted, average reward MDPs"></a>Undiscounted, average reward MDPs</h4><strong> Ergodic Markov Process </strong><br>An ergodic Markov process is </li>
-<li>Recurrent: each state is visited an infinite number of times</li>
-<li>Aperiodic: each state is visited without any systematic period</li>
-</ul>
-<blockquote>
-<p><strong> Theorem </strong><br>An ergodic Markov process has a limiting stationary distribution $d^{\pi} (s)$ with the property<br>$$ d^{\pi} (s) = \sum_{s’ \in S} d^{\pi} (s’) P_{s’s} $$</p>
-</blockquote>
-<p><strong> Ergodic MDP </strong><br>An MDP is ergodic if the Markov chain induced by any policy is ergodic.</p>
-<p>For any policy $\pi$, an ergodic MDP has an average reward per time-step that is independent of start state</p>
-<p><strong> Average Reward Value Function </strong><br>The value function of an undiscounted, ergodic MDP can be expressed in terms of average reward.</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -366,7 +203,7 @@ agent’s actions affect the subse">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/03/30/RL/" data-title="RL(1-2) | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/03/30/RL/" data-title="RL1 Introduction to RL | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -380,18 +217,18 @@ agent’s actions affect the subse">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/05/RL2/" title="RL(3)">
+ <a href="/2017/04/05/RL3/" title="RL3 Planning by Dynamic Programming">
   <strong>上一篇：</strong><br/>
   <span>
-  RL(3)</span>
+  RL3 Planning by Dynamic Programming</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/03/16/keyboard-shortcuts/"  title="keyboard_shortcuts">
+<a href="/2017/03/30/RL2/"  title="RL2 Markov decision Processes">
  <strong>下一篇：</strong><br/> 
- <span>keyboard_shortcuts
+ <span>RL2 Markov decision Processes
 </span>
 </a>
 </div>
@@ -400,7 +237,7 @@ agent’s actions affect the subse">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/30/RL/" data-title="RL(1-2)" data-url="http://yoursite.com/2017/03/30/RL/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/30/RL/" data-title="RL1 Introduction to RL" data-url="http://yoursite.com/2017/03/30/RL/"></div>
 </section>
 
 
@@ -410,7 +247,7 @@ agent’s actions affect the subse">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#reinforcement-learning"><span class="toc-number">1.</span> <span class="toc-text">reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-1-Introduction-to-Reinforcement-Learning"><span class="toc-number">1.1.</span> <span class="toc-text">lecture 1 Introduction to Reinforcement Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#reinforcement-learning-feature"><span class="toc-number">1.1.1.</span> <span class="toc-text">reinforcement learning feature</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#environment-state-and-agent-state"><span class="toc-number">1.1.2.</span> <span class="toc-text">environment state and agent state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fully-Observable-Environments-and-Partially-Observable-Environments"><span class="toc-number">1.1.3.</span> <span class="toc-text">Fully Observable Environments and Partially Observable Environments</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Major-Components-of-an-RL-Agent"><span class="toc-number">1.1.4.</span> <span class="toc-text">Major Components of an RL Agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Categorize-RL-agents"><span class="toc-number">1.1.5.</span> <span class="toc-text">Categorize RL agents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Learning-and-Planning"><span class="toc-number">1.1.6.</span> <span class="toc-text">Learning and Planning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploration-and-Exploitation"><span class="toc-number">1.1.7.</span> <span class="toc-text">Exploration and Exploitation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prediction-and-Control"><span class="toc-number">1.1.8.</span> <span class="toc-text">Prediction and Control</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lecture-2-Markov-decision-Processes"><span class="toc-number">1.2.</span> <span class="toc-text">lecture 2 Markov decision Processes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Process"><span class="toc-number">1.2.1.</span> <span class="toc-text">Markov Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Reward-Process"><span class="toc-number">1.2.2.</span> <span class="toc-text">Markov Reward Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-Function"><span class="toc-number">1.2.3.</span> <span class="toc-text">Value Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bellman-Equation-for-MRPs"><span class="toc-number">1.2.4.</span> <span class="toc-text">Bellman Equation for MRPs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-Decision-Process"><span class="toc-number">1.2.5.</span> <span class="toc-text">Markov Decision Process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Policy"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-function"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">Value function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bellman-Expectation-Equation"><span class="toc-number">1.2.5.3.</span> <span class="toc-text">Bellman Expectation Equation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimal-value-function"><span class="toc-number">1.2.5.4.</span> <span class="toc-text">Optimal value function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimal-Policy"><span class="toc-number">1.2.5.5.</span> <span class="toc-text">Optimal Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bellman-Optimality-Equation"><span class="toc-number">1.2.5.6.</span> <span class="toc-text">Bellman Optimality Equation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solving-the-Bellman-Optimality-Equation"><span class="toc-number">1.2.5.7.</span> <span class="toc-text">Solving the Bellman Optimality Equation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extensions-to-MDPs"><span class="toc-number">1.2.6.</span> <span class="toc-text">Extensions to MDPs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Infinite-and-continuous-MDPs"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">Infinite and continuous MDPs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Partially-observable-MDPs"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">Partially observable MDPs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Undiscounted-average-reward-MDPs"><span class="toc-number">1.2.6.3.</span> <span class="toc-text">Undiscounted, average reward MDPs</span></a></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-1-Introduction-to-Reinforcement-Learning"><span class="toc-number">1.</span> <span class="toc-text">lecture 1 Introduction to Reinforcement Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#reinforcement-learning-feature"><span class="toc-number">1.1.</span> <span class="toc-text">reinforcement learning feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#environment-state-and-agent-state"><span class="toc-number">1.2.</span> <span class="toc-text">environment state and agent state</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fully-Observable-Environments-and-Partially-Observable-Environments"><span class="toc-number">1.3.</span> <span class="toc-text">Fully Observable Environments and Partially Observable Environments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Major-Components-of-an-RL-Agent"><span class="toc-number">1.4.</span> <span class="toc-text">Major Components of an RL Agent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Categorize-RL-agents"><span class="toc-number">1.5.</span> <span class="toc-text">Categorize RL agents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-and-Planning"><span class="toc-number">1.6.</span> <span class="toc-text">Learning and Planning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploration-and-Exploitation"><span class="toc-number">1.7.</span> <span class="toc-text">Exploration and Exploitation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prediction-and-Control"><span class="toc-number">1.8.</span> <span class="toc-text">Prediction and Control</span></a></li></ol></li></ol>
  
   </div>
 
@@ -438,11 +275,15 @@ agent’s actions affect the subse">
 		  
 		
 		  
+			<li><a href="/categories/algorithm/" title="algorithm">algorithm<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/code-analyze/" title="code analyze">code analyze<sup>2</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>2</sup></a></li>
+			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>5</sup></a></li>
 		  
 		
 		  
@@ -467,11 +308,7 @@ agent’s actions affect the subse">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>4</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
+				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>7</sup></a></li>
 			
 		
 			
@@ -479,15 +316,15 @@ agent’s actions affect the subse">
 			
 		
 			
-				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
 			
 		
 			
@@ -495,11 +332,11 @@ agent’s actions affect the subse">
 			
 		
 			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -516,6 +353,14 @@ agent’s actions affect the subse">
 		
 			
 				<li><a href="/tags/Latex/" title="Latex">Latex<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -561,7 +406,7 @@ agent’s actions affect the subse">
 	
 	<section class="info">
 		<p> Hello ,I&#39;m Dagui Chen in Tsinghua University. <br/>
-			This is my blog,believe it or not.</p>
+			This is my blog, believe it or not.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">
