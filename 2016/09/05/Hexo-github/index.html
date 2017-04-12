@@ -17,7 +17,7 @@ Setting
 安装hexo安">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo_github">
-<meta property="og:url" content="http://yoursite.com/2016/09/05/Hexo-github/index.html">
+<meta property="og:url" content="/2016/09/05/Hexo-github/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="Hexo and github pages SETTINGIntroduction
 因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。
@@ -74,7 +74,7 @@ Setting
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
-						<input type="hidden" name="q" value="site:yoursite.com">
+						<input type="hidden" name="q" value="site:">
 					</form>
 					
 					</li>
@@ -154,8 +154,30 @@ Setting
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/09/05/Hexo-github/" data-title="Hexo_github | My Blog" data-tsina="null" class="share clearfix">
-	  </div>
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2130803" charset="utf-8"></script>      
+
+	 </div>
 	
 	</div>
 
@@ -180,7 +202,7 @@ Setting
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/05/Hexo-github/" data-title="Hexo_github" data-url="http://yoursite.com/2016/09/05/Hexo-github/"></div>
+	<div class="ds-thread" data-thread-key="2016/09/05/Hexo-github/" data-title="Hexo_github" data-url="/2016/09/05/Hexo-github/"></div>
 </section>
 
 
@@ -466,55 +488,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<div class="hoverqrcode clearfix"></div>',
-  '<a class="overlay" id="qrcode"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-
-  $('.hoverqrcode').hide();
-
-  var myWidth = 0;
-  function updatehoverqrcode(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-    var qrsize = myWidth > 1024 ? 200:100;
-    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
-    var p = $('.article-share-qrcode').position();
-    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
-                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
-                          .qrcode(options);
-  };
-  $(window).resize(function(){
-    $('.hoverqrcode').hide();
-  });
-  $('.article-share-qrcode').click(function(){
-    updatehoverqrcode();
-    $('.hoverqrcode').toggle();
-  });
-  $('.article-share-qrcode').hover(function(){}, function(){
-      $('.hoverqrcode').hide();
-  });
-});   
-</script>
 
 
 
