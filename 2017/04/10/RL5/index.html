@@ -25,7 +25,12 @@ Model-free control can solve these problems, either:
 
 MDP model is unknown, but experience can be sampled
 MDP mod">
-<meta property="og:updated_time" content="2017-04-11T01:15:06.000Z">
+<meta property="og:image" content="http://i1.piimg.com/567571/ded877ca6da675a4.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/aabc3342a37e0958.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/820b3bf364cbe260.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/f3670d774cd7c68e.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/44bcc7082678b5f5.png">
+<meta property="og:updated_time" content="2017-04-12T06:15:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL5 Model-Free Control">
 <meta name="twitter:description" content="lecture 5: Model-Free ControlIntroductionOptimise the value function of an unknown MDP
@@ -33,6 +38,7 @@ Model-free control can solve these problems, either:
 
 MDP model is unknown, but experience can be sampled
 MDP mod">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/ded877ca6da675a4.png">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -108,7 +114,7 @@ MDP mod">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-5-Model-Free-Control"><span class="toc-number">1.</span> <span class="toc-text">lecture 5: Model-Free Control</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-Policy-Monte-Carlo-Control"><span class="toc-number">1.2.</span> <span class="toc-text">On-Policy Monte-Carlo Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generalised-Policy-Iteration"><span class="toc-number">1.2.1.</span> <span class="toc-text">Generalised Policy Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epsilon-Greedy-Exploration"><span class="toc-number">1.2.2.</span> <span class="toc-text">$\epsilon$-Greedy Exploration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GLIE"><span class="toc-number">1.2.3.</span> <span class="toc-text">GLIE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-policy-Temporal-Difference-Learning"><span class="toc-number">1.3.</span> <span class="toc-text">On-policy Temporal-Difference Learning</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-5-Model-Free-Control"><span class="toc-number">1.</span> <span class="toc-text">lecture 5: Model-Free Control</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-Policy-Monte-Carlo-Control"><span class="toc-number">1.2.</span> <span class="toc-text">On-Policy Monte-Carlo Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generalised-Policy-Iteration"><span class="toc-number">1.2.1.</span> <span class="toc-text">Generalised Policy Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epsilon-Greedy-Exploration"><span class="toc-number">1.2.2.</span> <span class="toc-text">$\epsilon$-Greedy Exploration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GLIE"><span class="toc-number">1.2.3.</span> <span class="toc-text">GLIE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-policy-Temporal-Difference-Learning"><span class="toc-number">1.3.</span> <span class="toc-text">On-policy Temporal-Difference Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sarsa-lambda"><span class="toc-number">1.3.1.</span> <span class="toc-text">Sarsa($\lambda$)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Off-Policy-Learning"><span class="toc-number">1.4.</span> <span class="toc-text">Off-Policy Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance-Sampling"><span class="toc-number">1.4.1.</span> <span class="toc-text">Importance Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-learning"><span class="toc-number">1.4.2.</span> <span class="toc-text">Q-learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-policy-Control-with-Q-learning"><span class="toc-number">1.4.3.</span> <span class="toc-text">Off-policy Control with Q-learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-learning-Algorithm-for-Off-Policy-Control"><span class="toc-number">1.4.4.</span> <span class="toc-text">Q-learning Algorithm for Off-Policy Control</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.5.</span> <span class="toc-text">Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-between-DP-and-TD"><span class="toc-number">1.5.1.</span> <span class="toc-text">Relationship between DP and TD</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -189,7 +195,84 @@ MDP mod">
 </ul>
 </li>
 </ul>
-<p><strong>Sarsa($\lambda$)</strong></p>
+<h3 id="Sarsa-lambda"><a href="#Sarsa-lambda" class="headerlink" title="Sarsa($\lambda$)"></a>Sarsa($\lambda$)</h3><p>Updating Action-Value Functions with Sarsa<br>$$ Q(S,A) \leftarrow Q(S,A) + \alpha(R+\gamma Q(S’,A’) -Q(S,A)) $$</p>
+<p>On-Policy Control With Sarsa<br>Every time-step:<br>Policy evaluation Sarsa, $Q\approx q_{\pi} $<br>Policy improvement $\epsilon$-greedy policy improvement</p>
+<p><strong>Sarsa Algorithm for On-Policy Control</strong><br><img src="http://i1.piimg.com/567571/ded877ca6da675a4.png" alt="Sarsa Algorithm for On-Policy Control"></p>
+<p><strong>Convergence of Sarsa</strong></p>
+<blockquote>
+<p><strong>Theorem</strong><br>Sarsa converges to the optimal action-value function, $Q(s,a) \rightarrow q_* (s,a)$, under the following conditions:</p>
+<ul>
+<li>GLIE sequence of policies $\pi_t (a|s)$</li>
+<li>Robbins-Monro sequence of step-sizes $\alpha_t$<br>$$ \sum_{t=1}^{\infty} \alpha_t = \infty \qquad \sum_{t=1}^{\infty} \alpha_t^2 &lt; \infty $$</li>
+</ul>
+</blockquote>
+<p><strong>n-Step Sarsa</strong></p>
+<ul>
+<li>Define the n-step Q-return<br>$$ q_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^{n-1} R_{t+n} + \gamma^n Q(S_{t+n}) $$</li>
+<li>n-step Sarsa updates $Q(s,a)$ towards the n-step Q-return<br>$$ Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha (q_t^{(n)} - Q(S_t,A_t)) $$</li>
+</ul>
+<p><strong>Forward View Sarsa($\lambda$)</strong></p>
+<ul>
+<li>The $q^\lambda$ return combines all n-step Q-return $q_t^{(n)}$</li>
+<li>Using weight $(1-\lambda)\lambda^{n-1}$<br>$$ q_t^{\lambda} = (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1} q_t^{(n)} $$</li>
+<li>Forward-view Sarsa($\lambda$)<br>$$ Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha (q_t^\lambda - Q(S_t,A_t)) $$</li>
+</ul>
+<p><strong>Backward View Sarsa($\lambda$)</strong></p>
+<ul>
+<li>Just like TD($\lambda$), we use eligibility traces in an online algorithm</li>
+<li>But Sarsa($\lambda$) has one eligibility trace for each state-action pair<br>$$ E_0 (s,a) = 0 \qquad E_t(s,a) = \gamma \lambda E_{t-1} (s,a) + 1(S_t = s,A_t =a) $$</li>
+<li>$Q(s,a)$ is updated for every state $s$ and action $a$</li>
+<li>In proportion to TD-error $\delta_t$ and eligibility trace $E_t(s,a)$<br>$$ \delta_t = R_{t+1} + \gamma Q(S_{t+1},A_{t+1}) -Q(S_t,A_t)$$<br>$$ Q(s,a) \leftarrow Q(s,a) + \alpha \delta_t E_t(s,a) $$</li>
+</ul>
+<p><strong>Sarsa($\lambda$) Algorithm</strong><br><img src="http://i4.buimg.com/567571/aabc3342a37e0958.png" alt="Sarsa($\lambda$) Algorithm"></p>
+<h2 id="Off-Policy-Learning"><a href="#Off-Policy-Learning" class="headerlink" title="Off-Policy Learning"></a>Off-Policy Learning</h2><ul>
+<li>Evaluate target policy $\pi(a|s)$ to compute $v_\pi (s)$ or $q_\pi (s,a)$</li>
+<li>While following behaviour policy $\mu(a|s)$<br>$$ (S_1,A_1,R_2,\dots,S_T) \sim \mu $$</li>
+<li>Why is this important?<ul>
+<li>Learn from observing humans or other agents</li>
+<li>Re-use experience generated from old policies $\pi_1,\pi_2,\dots,\pi_{t-1}$</li>
+<li>Learn about optimal policy while following exploratory policy</li>
+<li>Learn about multiple policies while following one policy</li>
+</ul>
+</li>
+</ul>
+<h3 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h3><p>Estimate the expectation of a different distribution<br>$$ E_{X\sim P} [f(X)] = \sum P(X) f(X) = \sum Q(X) \frac{P(X)}{Q(X)} f(X) = E_{X\sim Q} \left[ \frac{P(X)}{Q(X)} f(X)\right] $$</p>
+<p><strong>Importance Sampling for Off-Policy Monte-Carlo</strong></p>
+<ul>
+<li>Use returns generated from $\mu$ to evaluate $\pi$</li>
+<li>Weight return $G_t$ according to similarity between policies</li>
+<li>Multiply importance sampling corrections along whole episode<br>$$ G_t^{\pi/\mu} = \frac{\pi(A_t|S_t) \pi(A_{t+1}|S_{t+1}) \dots \pi(A_T|S_T)}{\mu(A_t|S_t) \mu(A_{t+1}|S_{t+1}) \dots \mu(A_t|S_t)}G_t $$</li>
+<li>Update value towards corrected return<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (G_t^{\pi/\mu} - V(S_t)) $$</li>
+<li>Cannot use if $\mu$ is zero when $\pi$ is non-zero</li>
+<li>Importance sampling can dramatically increase variance</li>
+</ul>
+<p>On the other hand, we can get lower variance using TD as follow:</p>
+<ul>
+<li>Use TD target generated from $\mu$ to evaluate $\pi$</li>
+<li>Weight TD target $R+\gamma V(S’)$ by importance sampling </li>
+<li>Only need a single importance sampling correction<br>$$ V(S_t) \leftarrow V(S_t) + \alpha \left( \frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}(R_{t+1} + \gamma V(S_{t+1})) -V(S_t) \right)$$</li>
+<li>Much lower variance than Monte-Carlo importance sampling</li>
+<li>Policies only need to be similar over a single step</li>
+</ul>
+<h3 id="Q-learning"><a href="#Q-learning" class="headerlink" title="Q-learning"></a>Q-learning</h3><ul>
+<li>We now consider off-policy learning of action-values $Q(s,a)$</li>
+<li>No importance sampling is required</li>
+<li>Next action is chosen using behaviour policy $A_{t+1} \sim \mu (\cdot |S_t) $</li>
+<li>But we consider alternative successor action $A’ \sim \pi(\cdot| S_t)$</li>
+<li>And update $Q(S_t,A_t)$ towards value of alternative action<br>$$ Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha (R_{t+1} + \gamma Q(S_{t+1},A’) - Q(S_t,A_t)) $$</li>
+</ul>
+<h3 id="Off-policy-Control-with-Q-learning"><a href="#Off-policy-Control-with-Q-learning" class="headerlink" title="Off-policy Control with Q-learning"></a>Off-policy Control with Q-learning</h3><ul>
+<li>We now allow both behaviour and target policies to improve</li>
+<li>The target policy $\pi$ is greedy w.r.t $Q(s,a)$<br>$$ \pi (S_{t+1}) = \arg\max_{a’} Q(S_{t+1},a’) $$</li>
+<li>The behaviour policy $\mu$ is e.g. $\epsilon$ w.r.t $Q(s,a)$</li>
+<li>The Q-learning target then simplifies<br>$$ R_{t+1} + \gamma Q(S_{t+1},A’) = R_{t+1} + \gamma Q(S_{t+1},\arg\max_{a’} Q(S_{t+1},a’) ) = R_{t+1}+ \max_{a’} \gamma Q(S_{t+1},a’) $$</li>
+</ul>
+<blockquote>
+<p><strong>Theorem</strong><br>Q-learning control converges to the optimal action-value function $Q(s,a) \rightarrow q_* (s,a) $</p>
+</blockquote>
+<h3 id="Q-learning-Algorithm-for-Off-Policy-Control"><a href="#Q-learning-Algorithm-for-Off-Policy-Control" class="headerlink" title="Q-learning Algorithm for Off-Policy Control"></a>Q-learning Algorithm for Off-Policy Control</h3><p><img src="http://i1.piimg.com/567571/820b3bf364cbe260.png" alt="Q-learning Algorithm for Off-Policy Control"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="Relationship-between-DP-and-TD"><a href="#Relationship-between-DP-and-TD" class="headerlink" title="Relationship between DP and TD"></a>Relationship between DP and TD</h3><p><img src="http://i1.piimg.com/567571/f3670d774cd7c68e.png" alt="Realtionship between DP and TD"></p>
+<p><img src="http://i1.piimg.com/567571/44bcc7082678b5f5.png" alt="Relationship between DP and TD(2)"><br>where $x \leftarrow^{\alpha} y \iff x \leftarrow x + \alpha (y-x) $</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -250,13 +333,19 @@ MDP mod">
 </section>
 
 
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-5-Model-Free-Control"><span class="toc-number">1.</span> <span class="toc-text">lecture 5: Model-Free Control</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-Policy-Monte-Carlo-Control"><span class="toc-number">1.2.</span> <span class="toc-text">On-Policy Monte-Carlo Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generalised-Policy-Iteration"><span class="toc-number">1.2.1.</span> <span class="toc-text">Generalised Policy Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epsilon-Greedy-Exploration"><span class="toc-number">1.2.2.</span> <span class="toc-text">$\epsilon$-Greedy Exploration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GLIE"><span class="toc-number">1.2.3.</span> <span class="toc-text">GLIE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-policy-Temporal-Difference-Learning"><span class="toc-number">1.3.</span> <span class="toc-text">On-policy Temporal-Difference Learning</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-5-Model-Free-Control"><span class="toc-number">1.</span> <span class="toc-text">lecture 5: Model-Free Control</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-Policy-Monte-Carlo-Control"><span class="toc-number">1.2.</span> <span class="toc-text">On-Policy Monte-Carlo Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generalised-Policy-Iteration"><span class="toc-number">1.2.1.</span> <span class="toc-text">Generalised Policy Iteration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#epsilon-Greedy-Exploration"><span class="toc-number">1.2.2.</span> <span class="toc-text">$\epsilon$-Greedy Exploration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GLIE"><span class="toc-number">1.2.3.</span> <span class="toc-text">GLIE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#On-policy-Temporal-Difference-Learning"><span class="toc-number">1.3.</span> <span class="toc-text">On-policy Temporal-Difference Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sarsa-lambda"><span class="toc-number">1.3.1.</span> <span class="toc-text">Sarsa($\lambda$)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Off-Policy-Learning"><span class="toc-number">1.4.</span> <span class="toc-text">Off-Policy Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance-Sampling"><span class="toc-number">1.4.1.</span> <span class="toc-text">Importance Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-learning"><span class="toc-number">1.4.2.</span> <span class="toc-text">Q-learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-policy-Control-with-Q-learning"><span class="toc-number">1.4.3.</span> <span class="toc-text">Off-policy Control with Q-learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-learning-Algorithm-for-Off-Policy-Control"><span class="toc-number">1.4.4.</span> <span class="toc-text">Q-learning Algorithm for Off-Policy Control</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.5.</span> <span class="toc-text">Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-between-DP-and-TD"><span class="toc-number">1.5.1.</span> <span class="toc-text">Relationship between DP and TD</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -590,6 +679,26 @@ $(document).ready(function(){
   })();
 </script> 
 
+
+<script type="text/javascript">
+
+var disqus_shortname = 'chendagui16';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
 
 
 
