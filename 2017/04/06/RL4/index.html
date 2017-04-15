@@ -63,7 +63,7 @@ MC is model-free: no knowledge of">
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
 				<h2 class="blog-motto">This is my blog to record some knowledge</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -79,7 +79,7 @@ MC is model-free: no knowledge of">
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:chendagui16.github.io">
 					</form>
 					
@@ -102,14 +102,14 @@ MC is model-free: no knowledge of">
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-06T11:22:03.000Z" itemprop="datePublished"> 发表于 2017-04-06</time>
+    <time datetime="2017-04-06T11:22:03.000Z" itemprop="datePublished"> Published 2017-04-06</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-4-Model-Free-Prediction"><span class="toc-number">1.</span> <span class="toc-text">Lecture 4 Model-Free Prediction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Monte-Carlo-Reinforcement-learning"><span class="toc-number">1.1.</span> <span class="toc-text">Monte-Carlo Reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MC-Policy-Evaluation"><span class="toc-number">1.1.1.</span> <span class="toc-text">MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Visit-MC-Policy-Evaluation"><span class="toc-number">1.1.2.</span> <span class="toc-text">First-Visit MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Every-Visit-MC-Policy-Evaluation"><span class="toc-number">1.1.3.</span> <span class="toc-text">Every-Visit MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-MC"><span class="toc-number">1.1.4.</span> <span class="toc-text">Incremental MC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Temporal-Difference-Learning"><span class="toc-number">1.2.</span> <span class="toc-text">Temporal-Difference Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TD-algorithm"><span class="toc-number">1.2.1.</span> <span class="toc-text">TD algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bias-Variance-Trade-off"><span class="toc-number">1.2.2.</span> <span class="toc-text">Bias/Variance Trade-off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-MC-and-TD"><span class="toc-number">1.2.3.</span> <span class="toc-text">Batch MC and TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Certainty-Equivalence"><span class="toc-number">1.2.4.</span> <span class="toc-text">Certainty Equivalence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantages-and-Disadvantages-of-MC-vs-TD"><span class="toc-number">1.2.5.</span> <span class="toc-text">Advantages and Disadvantages of MC vs. TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unified-View"><span class="toc-number">1.2.6.</span> <span class="toc-text">Unified View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrapping-and-Sampling"><span class="toc-number">1.2.7.</span> <span class="toc-text">Bootstrapping and Sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TD-lambda"><span class="toc-number">1.3.</span> <span class="toc-text">TD($\lambda$)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#n-Step-Return"><span class="toc-number">1.3.1.</span> <span class="toc-text">n-Step Return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Averaging-n-Step-Returns"><span class="toc-number">1.3.2.</span> <span class="toc-text">Averaging n-Step Returns</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-return"><span class="toc-number">1.3.3.</span> <span class="toc-text">$\lambda$ return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-view-TD-lambda"><span class="toc-number">1.3.4.</span> <span class="toc-text">Forward-view TD($\lambda$)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Backward-view-TD-lambda"><span class="toc-number">1.3.5.</span> <span class="toc-text">Backward-view TD($\lambda$)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-Between-Forward-and-Backward-TD"><span class="toc-number">1.3.6.</span> <span class="toc-text">Relationship Between Forward and Backward TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-and-Backward-Equivalence"><span class="toc-number">1.3.7.</span> <span class="toc-text">Forward and Backward Equivalence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Forward-and-Backward-TD-lambda"><span class="toc-number">1.3.8.</span> <span class="toc-text">Summary of Forward and Backward TD($\lambda$)</span></a></li></ol></li></ol></li></ol>
 		
@@ -400,22 +400,22 @@ MC is model-free: no knowledge of">
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-4-Model-Free-Prediction"><span class="toc-number">1.</span> <span class="toc-text">Lecture 4 Model-Free Prediction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Monte-Carlo-Reinforcement-learning"><span class="toc-number">1.1.</span> <span class="toc-text">Monte-Carlo Reinforcement learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MC-Policy-Evaluation"><span class="toc-number">1.1.1.</span> <span class="toc-text">MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#First-Visit-MC-Policy-Evaluation"><span class="toc-number">1.1.2.</span> <span class="toc-text">First-Visit MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Every-Visit-MC-Policy-Evaluation"><span class="toc-number">1.1.3.</span> <span class="toc-text">Every-Visit MC Policy Evaluation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-MC"><span class="toc-number">1.1.4.</span> <span class="toc-text">Incremental MC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Temporal-Difference-Learning"><span class="toc-number">1.2.</span> <span class="toc-text">Temporal-Difference Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TD-algorithm"><span class="toc-number">1.2.1.</span> <span class="toc-text">TD algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bias-Variance-Trade-off"><span class="toc-number">1.2.2.</span> <span class="toc-text">Bias/Variance Trade-off</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch-MC-and-TD"><span class="toc-number">1.2.3.</span> <span class="toc-text">Batch MC and TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Certainty-Equivalence"><span class="toc-number">1.2.4.</span> <span class="toc-text">Certainty Equivalence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantages-and-Disadvantages-of-MC-vs-TD"><span class="toc-number">1.2.5.</span> <span class="toc-text">Advantages and Disadvantages of MC vs. TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unified-View"><span class="toc-number">1.2.6.</span> <span class="toc-text">Unified View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrapping-and-Sampling"><span class="toc-number">1.2.7.</span> <span class="toc-text">Bootstrapping and Sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TD-lambda"><span class="toc-number">1.3.</span> <span class="toc-text">TD($\lambda$)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#n-Step-Return"><span class="toc-number">1.3.1.</span> <span class="toc-text">n-Step Return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Averaging-n-Step-Returns"><span class="toc-number">1.3.2.</span> <span class="toc-text">Averaging n-Step Returns</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda-return"><span class="toc-number">1.3.3.</span> <span class="toc-text">$\lambda$ return</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-view-TD-lambda"><span class="toc-number">1.3.4.</span> <span class="toc-text">Forward-view TD($\lambda$)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Backward-view-TD-lambda"><span class="toc-number">1.3.5.</span> <span class="toc-text">Backward-view TD($\lambda$)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship-Between-Forward-and-Backward-TD"><span class="toc-number">1.3.6.</span> <span class="toc-text">Relationship Between Forward and Backward TD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Forward-and-Backward-Equivalence"><span class="toc-number">1.3.7.</span> <span class="toc-text">Forward and Backward Equivalence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Forward-and-Backward-TD-lambda"><span class="toc-number">1.3.8.</span> <span class="toc-text">Summary of Forward and Backward TD($\lambda$)</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -425,7 +425,7 @@ MC is model-free: no knowledge of">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -434,8 +434,6 @@ MC is model-free: no knowledge of">
 		
 		  
 			<li><a href="/categories/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
-		  
-		
 		  
 		
 		  
@@ -460,7 +458,7 @@ MC is model-free: no knowledge of">
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -472,11 +470,15 @@ MC is model-free: no knowledge of">
 			
 		
 			
-				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
 			
 		
 			
@@ -488,11 +490,15 @@ MC is model-free: no knowledge of">
 			
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
+				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -519,22 +525,12 @@ MC is model-free: no knowledge of">
 				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
-			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
-			
-		
-			
-		
 		</ul>
 </div>
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -556,7 +552,7 @@ MC is model-free: no knowledge of">
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
 </aside>
@@ -817,7 +813,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

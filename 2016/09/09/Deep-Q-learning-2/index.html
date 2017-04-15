@@ -54,7 +54,7 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
 				<h2 class="blog-motto">This is my blog to record some knowledge</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -70,7 +70,7 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:chendagui16.github.io">
 					</form>
 					
@@ -93,14 +93,14 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-09T01:13:52.000Z" itemprop="datePublished"> 发表于 2016-09-09</time>
+    <time datetime="2016-09-09T01:13:52.000Z" itemprop="datePublished"> Published 2016-09-09</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze-2"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze (2)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构-续上"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构   续上</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NeuralQLearner-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">NeuralQLearner.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-args"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">nql:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-reset-state"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">nql:reset(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-preprocess-rawstate"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">nql:preprocess(rawstate)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-getQUpdate-args"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">nql:getQUpdate(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-qLearnMinibatch"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">nql:qLearnMinibatch()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-sample-validation-data"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">nql:sample_validation_data()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-compute-validation-statistics"><span class="toc-number">1.1.1.7.</span> <span class="toc-text">nql:compute_validation_statistics()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-eGreedy"><span class="toc-number">1.1.1.8.</span> <span class="toc-text">nql:eGreedy()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-greedy-state"><span class="toc-number">1.1.1.9.</span> <span class="toc-text">nql:greedy(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-perceive-reward-rawstate-terminal-testing-testing-ep"><span class="toc-number">1.1.1.10.</span> <span class="toc-text">nql:perceive(reward,rawstate,terminal,testing,testing_ep)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-createNetwork"><span class="toc-number">1.1.1.11.</span> <span class="toc-text">nql:createNetwork()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-loadNet"><span class="toc-number">1.1.1.12.</span> <span class="toc-text">nql:_loadNet()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-arg"><span class="toc-number">1.1.1.13.</span> <span class="toc-text">nql:init(arg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-report"><span class="toc-number">1.1.1.14.</span> <span class="toc-text">nql:report()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#train-agent-lua"><span class="toc-number">1.1.2.</span> <span class="toc-text">train_agent.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#初始化"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">训练</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练（在特定的步数上进行验证）"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">训练（在特定的步数上进行验证）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练（在特定的步数上进行保存）"><span class="toc-number">1.1.2.4.</span> <span class="toc-text">训练（在特定的步数上进行保存）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上一页"><span class="toc-number">1.2.</span> <span class="toc-text">上一页</span></a></li></ol></li></ol>
 		
@@ -224,22 +224,22 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deep-Q-Learning-Code-Analyze-2"><span class="toc-number">1.</span> <span class="toc-text">Deep Q Learning Code Analyze (2)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构-续上"><span class="toc-number">1.1.</span> <span class="toc-text">文件结构   续上</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NeuralQLearner-lua"><span class="toc-number">1.1.1.</span> <span class="toc-text">NeuralQLearner.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-args"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">nql:__init(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-reset-state"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">nql:reset(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-preprocess-rawstate"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">nql:preprocess(rawstate)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-getQUpdate-args"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">nql:getQUpdate(args)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-qLearnMinibatch"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">nql:qLearnMinibatch()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-sample-validation-data"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">nql:sample_validation_data()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-compute-validation-statistics"><span class="toc-number">1.1.1.7.</span> <span class="toc-text">nql:compute_validation_statistics()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-eGreedy"><span class="toc-number">1.1.1.8.</span> <span class="toc-text">nql:eGreedy()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-greedy-state"><span class="toc-number">1.1.1.9.</span> <span class="toc-text">nql:greedy(state)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-perceive-reward-rawstate-terminal-testing-testing-ep"><span class="toc-number">1.1.1.10.</span> <span class="toc-text">nql:perceive(reward,rawstate,terminal,testing,testing_ep)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-createNetwork"><span class="toc-number">1.1.1.11.</span> <span class="toc-text">nql:createNetwork()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-loadNet"><span class="toc-number">1.1.1.12.</span> <span class="toc-text">nql:_loadNet()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-init-arg"><span class="toc-number">1.1.1.13.</span> <span class="toc-text">nql:init(arg)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nql-report"><span class="toc-number">1.1.1.14.</span> <span class="toc-text">nql:report()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#train-agent-lua"><span class="toc-number">1.1.2.</span> <span class="toc-text">train_agent.lua</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#初始化"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">训练</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练（在特定的步数上进行验证）"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">训练（在特定的步数上进行验证）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#训练（在特定的步数上进行保存）"><span class="toc-number">1.1.2.4.</span> <span class="toc-text">训练（在特定的步数上进行保存）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上一页"><span class="toc-number">1.2.</span> <span class="toc-text">上一页</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -249,7 +249,7 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -258,8 +258,6 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 		
 		  
 			<li><a href="/categories/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
-		  
-		
 		  
 		
 		  
@@ -284,7 +282,7 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -296,11 +294,15 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 			
 		
 			
-				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
+				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/deepmind/" title="deepmind">deepmind<sup>2</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Q-learning/" title="Q-learning">Q-learning<sup>2</sup></a></li>
 			
 		
 			
@@ -312,11 +314,15 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 			
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
+				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
 			
 		
 			
@@ -343,22 +349,12 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
-			
-				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
-			
-		
-			
-		
 		</ul>
 </div>
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -380,7 +376,7 @@ NeuralQLearner.lua该文件定义了一个dqn.NerualQLearner的类，该类主�
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
 </aside>
@@ -641,7 +637,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
