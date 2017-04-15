@@ -4,38 +4,28 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>texstudio-bugs | My Blog</title>
+    <title>RL6 Value Function Approximation | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
-
-使用的环境是linux英文系统下的texstudio。
-
-texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
-1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
+    <meta name="description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function ApproximationValue Function by a lookup ta">
 <meta property="og:type" content="article">
-<meta property="og:title" content="texstudio-bugs">
-<meta property="og:url" content="https://chendagui16.github.io/2016/09/26/texstudio-bugs/index.html">
+<meta property="og:title" content="RL6 Value Function Approximation">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/12/RL6/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
-
-使用的环境是linux英文系统下的texstudio。
-
-texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
-1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
-<meta property="og:updated_time" content="2016-09-26T11:00:58.000Z">
+<meta property="og:description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function ApproximationValue Function by a lookup ta">
+<meta property="og:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
+<meta property="og:updated_time" content="2017-04-12T13:14:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="texstudio-bugs">
-<meta name="twitter:description" content="Latex使用技巧记录一些使用latex的过程中出现的问题。
-
-使用的环境是linux英文系统下的texstudio。
-
-texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。然后针对texstudio，设置分为三步。
-1.改变build命令，将编译器改成XeLaTeX2.将编辑器的默认编码改成UTF-83.修改tex文件12\docum">
+<meta name="twitter:title" content="RL6 Value Function Approximation">
+<meta name="twitter:description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function ApproximationValue Function by a lookup ta">
+<meta name="twitter:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -95,14 +85,14 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/09/26/texstudio-bugs/" title="texstudio-bugs" itemprop="url">texstudio-bugs</a>
+      <a href="/2017/04/12/RL6/" title="RL6 Value Function Approximation" itemprop="url">RL6 Value Function Approximation</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2016-09-26T10:49:31.000Z" itemprop="datePublished"> 发表于 2016-09-26</time>
+    <time datetime="2017-04-12T12:05:28.000Z" itemprop="datePublished"> 发表于 2017-04-12</time>
     
   </p>
 </header>
@@ -111,19 +101,49 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Latex使用技巧"><span class="toc-number">1.</span> <span class="toc-text">Latex使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#texstudio中的中文问题"><span class="toc-number">1.1.</span> <span class="toc-text">texstudio中的中文问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-改变build命令，将编译器改成XeLaTeX"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.改变build命令，将编译器改成XeLaTeX</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-将编辑器的默认编码改成UTF-8"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.将编辑器的默认编码改成UTF-8</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-修改tex文件"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3.修改tex文件</span></a></li></ol></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="Latex使用技巧"><a href="#Latex使用技巧" class="headerlink" title="Latex使用技巧"></a>Latex使用技巧</h2><p>记录一些使用latex的过程中出现的问题。</p>
-<blockquote>
-<p>使用的环境是linux英文系统下的texstudio。</p>
-</blockquote>
-<h3 id="texstudio中的中文问题"><a href="#texstudio中的中文问题" class="headerlink" title="texstudio中的中文问题"></a>texstudio中的中文问题</h3><p>首先要更新ubuntu的对中文的语言支持，确保存在着中文的字体，同时安装中文输入法。<br>然后针对texstudio，设置分为三步。</p>
-<h5 id="1-改变build命令，将编译器改成XeLaTeX"><a href="#1-改变build命令，将编译器改成XeLaTeX" class="headerlink" title="1.改变build命令，将编译器改成XeLaTeX"></a>1.改变build命令，将编译器改成XeLaTeX</h5><h5 id="2-将编辑器的默认编码改成UTF-8"><a href="#2-将编辑器的默认编码改成UTF-8" class="headerlink" title="2.将编辑器的默认编码改成UTF-8"></a>2.将编辑器的默认编码改成UTF-8</h5><h5 id="3-修改tex文件"><a href="#3-修改tex文件" class="headerlink" title="3.修改tex文件"></a>3.修改tex文件</h5><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[UTF8,12pt]</span><span class="string">&#123;report&#125;</span></span> <span class="comment">%加入UTF-8设置</span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;ctex&#125;</span></span><span class="comment">%使用ctex宏包</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>因为我主要使用英文的系统，所以这里只提供了基本的中文支持。详细的中文使用得需要参考google。</p>
-</blockquote>
+		<h1 id="lecture-6-Value-Function-Approximation"><a href="#lecture-6-Value-Function-Approximation" class="headerlink" title="lecture 6 Value Function Approximation"></a>lecture 6 Value Function Approximation</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Large-Scale Reinforcement Learning</strong><br>Reinforcement learning can be used to solve large problems</p>
+<p><strong>Value Function Approximation</strong><br>Value Function by a lookup table</p>
+<ul>
+<li>Every state $s$ has an entry Q(s,a) </li>
+<li>Or every state-action pair $s,a$ has an entry $Q(s,a)$<br>Problem with larger MDPs</li>
+<li>There are many states and/or actions to store in memory</li>
+<li>It is too slow to learn the value of each state individually<br>Solution for large MDPs</li>
+<li>Estimate value functions with function approximation $ \hat{v} (s,w) \approx v_{\pi}(s) $ or $ \hat{q} (s,a,w) \approx q_\pi (s,a) $</li>
+<li>Generalise from seen states to unseen states</li>
+<li>Update parameters w using MC or TD learning</li>
+</ul>
+<h3 id="Types-of-value-function-approximation"><a href="#Types-of-value-function-approximation" class="headerlink" title="Types of value function approximation"></a>Types of value function approximation</h3><p><img src="http://i2.muimg.com/567571/7a57308447c99963.png" alt="types of value function approximation"><br>We consider differentiable function approximators </p>
+<ol>
+<li>Linear combinations of features</li>
+<li>Neural network</li>
+<li>Decision tree</li>
+<li>Nearest neighbour</li>
+<li>Fourier/wavelet bases</li>
+<li>$\dots$<br>Furthermore, we require a training method that is suitable for non-stationary, non-iid data</li>
+</ol>
+<h2 id="Incremental-Methods"><a href="#Incremental-Methods" class="headerlink" title="Incremental Methods"></a>Incremental Methods</h2><h3 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h3><ul>
+<li>Goal: find parameters vector $w$ minimising mean-squared error between approximate value fn $\hat{v}(s,w)$ and true value fn $v_{\pi} (s) $<br>$$ J(w) = E_\pi [(v_\pi (S) -\hat{v} (S,w) )^2] $$</li>
+<li>Gradient descent finds a local minimum<br>$$ \Delta w = -\frac{1}{2} \alpha \nabla_w J(w)= \alpha E_\pi \left[ (v_\pi(S) -\hat{v}(S,w))\nabla_w \hat{v} (S,w) \right] $$</li>
+<li>Stochastic gradient descent samples the gradient<br>$$ \Delta w = \alpha (v_\pi (S) - \hat{v} (S,w)) \nabla_w \hat{v} (S,w) $$</li>
+<li>Expected update is equal to full gradient update</li>
+</ul>
+<h3 id="Linear-Function-Approximation"><a href="#Linear-Function-Approximation" class="headerlink" title="Linear Function Approximation"></a>Linear Function Approximation</h3><p><strong>Linear Value Function Approximation</strong></p>
+<ul>
+<li>Represent value function by a linear combination of features<br>$$ \hat{S,w} = x(S)^T w = \sum_{j=1}^{n} x_j (S) w_j $$</li>
+<li>Objective function is quadratic in parameters $w$<br>$$ J(w) = E_\pi \left[ (v_\pi(S) - x(S)^T w)^2\right] $$</li>
+<li>Stochastic gradient descent converges on global optimum</li>
+<li>Update rule is particularly simple<br><em>Updata = step-size $\times$ prediction error $\times$ feature value</em></li>
+</ul>
+<p><strong>Table Lookup Features</strong></p>
+<ul>
+<li>Table lookup is special case of linear value function approximation</li>
+<li>Using table lookup features<br>$$ x^{table} (S) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} $$</li>
+<li>Parameter vector $w$ gives value of each individual state<br>$$ \hat{v} (S,w) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} \cdot \begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix} $$</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -131,13 +151,13 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Latex/">Latex</a>
+  <a class="article-category-link" href="/categories/reinforcement-learning/">reinforcement learning</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Latex/">Latex</a><a href="/tags/bugs/">bugs</a>
+  <span></span> <a href="/tags/reinforcement-learning/">reinforcement learning</a><a href="/tags/machine-learning/">machine learning</a>
   </div>
 
 </div>
@@ -146,7 +166,7 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://chendagui16.github.io/2016/09/26/texstudio-bugs/" data-title="texstudio-bugs | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="https://chendagui16.github.io/2017/04/12/RL6/" data-title="RL6 Value Function Approximation | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -160,18 +180,18 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/11/13/runR/" title="runR">
+ <a href="/2017/04/14/data-structure/" title="data structure">
   <strong>上一篇：</strong><br/>
   <span>
-  runR</span>
+  data structure</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/09/23/ubuntu-bugs/"  title="ubuntu-bugs">
+<a href="/2017/04/11/sortAlgorithm/"  title="sortAlgorithm">
  <strong>下一篇：</strong><br/> 
- <span>ubuntu-bugs
+ <span>sortAlgorithm
 </span>
 </a>
 </div>
@@ -180,7 +200,7 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/09/26/texstudio-bugs/" data-title="texstudio-bugs" data-url="https://chendagui16.github.io/2016/09/26/texstudio-bugs/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/12/RL6/" data-title="RL6 Value Function Approximation" data-url="https://chendagui16.github.io/2017/04/12/RL6/"></div>
 </section>
 
 
@@ -196,7 +216,7 @@ texstudio中的中文问题首先要更新ubuntu的对中文的语言支持，�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Latex使用技巧"><span class="toc-number">1.</span> <span class="toc-text">Latex使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#texstudio中的中文问题"><span class="toc-number">1.1.</span> <span class="toc-text">texstudio中的中文问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-改变build命令，将编译器改成XeLaTeX"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.改变build命令，将编译器改成XeLaTeX</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-将编辑器的默认编码改成UTF-8"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.将编辑器的默认编码改成UTF-8</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-修改tex文件"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3.修改tex文件</span></a></li></ol></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
