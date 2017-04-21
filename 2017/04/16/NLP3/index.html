@@ -4,26 +4,35 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>keyboard_shortcuts | My Blog</title>
+    <title>NLP3 | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
+    <meta name="description" content="referencecs224n
+lecture 3 More Word VectorsStochastic gradients with word vectors
+But in each window, we only have at most $2m+1$ words, so $\nabla_\theta J_t(\theta)$ is very sparse!
+We may as well o">
 <meta property="og:type" content="article">
-<meta property="og:title" content="keyboard_shortcuts">
-<meta property="og:url" content="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/index.html">
+<meta property="og:title" content="NLP3">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/16/NLP3/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
-<meta property="og:updated_time" content="2017-04-12T13:10:42.000Z">
+<meta property="og:description" content="referencecs224n
+lecture 3 More Word VectorsStochastic gradients with word vectors
+But in each window, we only have at most $2m+1$ words, so $\nabla_\theta J_t(\theta)$ is very sparse!
+We may as well o">
+<meta property="og:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/fae4be3e93caaa6f.png">
+<meta property="og:updated_time" content="2017-04-17T12:20:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="keyboard_shortcuts">
-<meta name="twitter:description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
+<meta name="twitter:title" content="NLP3">
+<meta name="twitter:description" content="referencecs224n
+lecture 3 More Word VectorsStochastic gradients with word vectors
+But in each window, we only have at most $2m+1$ words, so $\nabla_\theta J_t(\theta)$ is very sparse!
+We may as well o">
+<meta name="twitter:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -83,14 +92,14 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/16/keyboard-shortcuts/" title="keyboard_shortcuts" itemprop="url">keyboard_shortcuts</a>
+      <a href="/2017/04/16/NLP3/" title="NLP3" itemprop="url">NLP3</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-16T08:39:23.000Z" itemprop="datePublished"> 发表于 2017-03-16</time>
+    <time datetime="2017-04-16T07:52:42.000Z" itemprop="datePublished"> 发表于 2017-04-16</time>
     
   </p>
 </header>
@@ -99,12 +108,81 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这里记录一些快捷键"><span class="toc-number">1.</span> <span class="toc-text">这里记录一些快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu的快捷键"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu的快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim快捷键"><span class="toc-number">1.2.</span> <span class="toc-text">vim快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#help模式下"><span class="toc-number">1.2.1.</span> <span class="toc-text">help模式下</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-3-More-Word-Vectors"><span class="toc-number">1.</span> <span class="toc-text">lecture 3 More Word Vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stochastic-gradients-with-word-vectors"><span class="toc-number">1.1.</span> <span class="toc-text">Stochastic gradients with word vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approximations"><span class="toc-number">1.1.1.</span> <span class="toc-text">Approximations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Negative-sampling"><span class="toc-number">1.2.</span> <span class="toc-text">Negative sampling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-Pair-and-“Phrases”"><span class="toc-number">1.2.1.</span> <span class="toc-text">Word Pair and “Phrases”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sub-sampling-Frequent-Words"><span class="toc-number">1.2.2.</span> <span class="toc-text">Sub-sampling Frequent Words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Negative-sampling-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">Negative sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-of-word2vec"><span class="toc-number">1.3.</span> <span class="toc-text">Summary of word2vec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation-word-vectors"><span class="toc-number">1.4.</span> <span class="toc-text">Evaluation word vectors</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="这里记录一些快捷键"><a href="#这里记录一些快捷键" class="headerlink" title="这里记录一些快捷键"></a>这里记录一些快捷键</h1><h2 id="Ubuntu的快捷键"><a href="#Ubuntu的快捷键" class="headerlink" title="Ubuntu的快捷键"></a>Ubuntu的快捷键</h2><p>alt+F7 : 移动窗口<br>alt+F9 : 最小化窗口<br>alt+F10: 最大化窗口</p>
-<h2 id="vim快捷键"><a href="#vim快捷键" class="headerlink" title="vim快捷键"></a>vim快捷键</h2><h3 id="help模式下"><a href="#help模式下" class="headerlink" title="help模式下"></a>help模式下</h3><p>Ctrl+] 跳转到链接位置<br>Ctrl+t 返回上次的页面</p>
+		<p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
+<h1 id="lecture-3-More-Word-Vectors"><a href="#lecture-3-More-Word-Vectors" class="headerlink" title="lecture 3 More Word Vectors"></a>lecture 3 More Word Vectors</h1><h2 id="Stochastic-gradients-with-word-vectors"><a href="#Stochastic-gradients-with-word-vectors" class="headerlink" title="Stochastic gradients with word vectors"></a>Stochastic gradients with word vectors</h2><ul>
+<li>But in each window, we only have at most $2m+1$ words, so $\nabla_\theta J_t(\theta)$ is very sparse!</li>
+<li>We may as well only update the word vectors that actually appear!</li>
+<li><strong>Solution</strong>: either you need sparse matrix update operations to only update columns of full embedding matrices $U$ and $V$, or you need to keep around a hash for word vectors</li>
+<li>If you have millions of word vectors and do distributed computing, it is important to not have to send gigantic updates around!</li>
+</ul>
+<h3 id="Approximations"><a href="#Approximations" class="headerlink" title="Approximations"></a>Approximations</h3><ul>
+<li>The normalization factor is too computationally expensive<br>$$ p(o|c) = \frac{\exp (u_o^T v_c)}{\sum_{w=1}^V \exp (u_w^T v_c)} $$</li>
+<li>Implement the skip-gram model with <strong>negative sampling</strong></li>
+<li>Main idea: train binary logistic regressions for a true pair (center word and word in its context window) versus a couple of noise pairs (the center word paired with a random word)</li>
+</ul>
+<p><strong>The skip-gram model and negative sampling</strong></p>
+<ul>
+<li>From paper <em>Distributed Representations of Words and Phrases and their Compositionality (Mikolov et al. 2013)</em></li>
+<li>Overall objective function: $J(\theta) = \frac{1}{T} \sum_{t=1}^{T} J_t(\theta)$<br>$$J_t(\theta) = \log \sigma(u_o^T v_c) + \sum_{i=1}^{k} E_{j\sim P(\omega)} \left[ \log \sigma (-u_j^T v_c)\right] $$</li>
+<li>Where $k$ is the number of negative samples and we use</li>
+<li>$\sigma$ is sigmoid function</li>
+<li>So we maximize the probability of two words co-occurring in first log</li>
+</ul>
+<h2 id="Negative-sampling"><a href="#Negative-sampling" class="headerlink" title="Negative sampling"></a>Negative sampling</h2><p>word2vec is a <strong>huge</strong> neural network!<br>The author of Word2Vec addressed the issue in their second <a href="https://arxiv.org/pdf/1310.4546.pdf" target="_blank" rel="external">paper</a><br>There are <strong>three</strong> innovations in this second paper:</p>
+<ol>
+<li>Treating common word pairs or phrases as a single “words” in their model</li>
+<li>Sub-sampling frequent words to decrease the number of training examples</li>
+<li>Modifying the optimization objective with a technique they called “Negative Sampling”, which causes each training sample to update only a small percentage of the model’s weights</li>
+</ol>
+<p><strong>Note</strong>: Sub-sampling frequent words and applying Negative Sampling not only reduced the compute burden of the training process, but also improved the quality of their resulting word vectors as well.</p>
+<h3 id="Word-Pair-and-“Phrases”"><a href="#Word-Pair-and-“Phrases”" class="headerlink" title="Word Pair and “Phrases”"></a>Word Pair and “Phrases”</h3><p>Example: a word pair like “Boston Globe” has a much different meaning than the individual words “Boston” and “Globe”. So it makes sense to treat “Boston Globe” as a single word</p>
+<p><strong>Method of phrase detection</strong>: it is covered in the “Learning Phrases” section of <a href="http://arxiv.org/pdf/1310.4546.pdf" target="_blank" rel="external">paper</a>. And the code is available in <em>word2phrase.c</em> of their published <a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="external">code</a></p>
+<h3 id="Sub-sampling-Frequent-Words"><a href="#Sub-sampling-Frequent-Words" class="headerlink" title="Sub-sampling Frequent Words"></a>Sub-sampling Frequent Words</h3><p>As this example<br><img src="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png" alt="example"></p>
+<p>There are two problems with common words like <em>the</em>:</p>
+<ol>
+<li>When looking at word pairs, ( <em>fox</em>, <em>the</em> ) doesn’t tell use much about the meaning of <em>fox</em>. <em>the</em> appears in the context of pretty much every word.</li>
+<li>We will have many more samples of ( <em>the</em>, $\dots$) than we need to learn a good vector for <em>the</em>.</li>
+</ol>
+<blockquote>
+<p>Word2Vec implements a “sub-sampling” scheme to address this. For each word we encounter in training text, there is a chance that we will effectively delete it from the text. The probability that we cut the word is related to the word’s frequency</p>
+</blockquote>
+<p>If we have a window size of 10, and we remove a specific instance of <em>the from our text</em>:</p>
+<ol>
+<li>As we train on the remaining words, <em>the</em> will not appear in any of their context windows.</li>
+<li>We’ll have 10 fewer training samples where <em>the</em> is the input word.</li>
+</ol>
+<p><strong>Sampling rate</strong><br>For any word $w_i$, $z(w_i)$ is the fraction of the total words in the corpus that are that word.<br>$P(w_i)$ is the probability of <em>keeping</em> the word:<br>$$ P(w_i) = \left( \sqrt{\frac{z(w_i)}{0.001}}+1\right) \frac{0.001}{z(w_i)}$$<br><img src="http://i2.muimg.com/567571/fae4be3e93caaa6f.png" alt="sampling rate"></p>
+<h3 id="Negative-sampling-1"><a href="#Negative-sampling-1" class="headerlink" title="Negative sampling"></a>Negative sampling</h3><p>Negative sampling addresses the problem (<strong>tremendous number of weight</strong>) by having each training sample only modify a small percentage of the weights, rather than all of them.</p>
+<p>When training the network on the word pair (<em>fox</em>,<em>quick</em>), output neuron corresponding to <em>quick</em> should output 1 (positive), and for all of the <strong>other</strong> output neurons should output 0 (negative). With negative sampling, we are instead going to randomly select just a small number of “negative” words to update the weights for. We will also still update the weights for our “positive” word.</p>
+<p>Recall that the output layer of our model has a weight matrix that’s $300 \times 10000$. So we will just be updating the weights for our positive word (“quick”), plus the weights for 5 other words that we want to output 0. That’s a total of 6 output neurons, and 1800 weight value total. That’s only $0.06\%$ of the 3M weights in the output layer.</p>
+<p>In the hidden layer, only the weights for the input word are updated.</p>
+<p><strong>Selecting Negative Samples</strong><br>The probability for selecting a word as a negative sample is related to its frequency, with more frequent words being more likely to be selected as negative samples.<br>$$ P(w_i) = \frac{f(w_i)^{3/4}}{\sum_{j=0}^n \left( f(w_j)^{3/4}\right)}$$</p>
+<h2 id="Summary-of-word2vec"><a href="#Summary-of-word2vec" class="headerlink" title="Summary of word2vec"></a>Summary of word2vec</h2><ul>
+<li>Go through each word of the whole corpus</li>
+<li>Predict surrounding words of each word</li>
+<li>This captures co-occurrence of words one at a time</li>
+</ul>
+<h2 id="Evaluation-word-vectors"><a href="#Evaluation-word-vectors" class="headerlink" title="Evaluation word vectors"></a>Evaluation word vectors</h2><ul>
+<li>Related to general evaluation in NLP: Intrinsic vs extrinsic</li>
+<li>Intrinsic:<ul>
+<li>Evaluation on a specific/intermediate subtask</li>
+<li>Fast to compute</li>
+<li>Helps to understand that system</li>
+<li>Not clear if really helpful unless correlation to real task is established</li>
+</ul>
+</li>
+<li>Extrinsic:<ul>
+<li>Evaluation on a real task</li>
+<li>Can take a long time to compute accuracy</li>
+<li>Unclear if the subsystem is the problem or its interaction or other subsystems</li>
+<li>If replacing exactly one subsystem with another improves accuracy</li>
+</ul>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -112,13 +190,13 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/work-tips/">work tips</a>
+  <a class="article-category-link" href="/categories/NLP/">NLP</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/work-tips/">work tips</a>
+  <span></span> <a href="/tags/machine-learning/">machine learning</a><a href="/tags/NLP/">NLP</a>
   </div>
 
 </div>
@@ -127,7 +205,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/" data-title="keyboard_shortcuts | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="https://chendagui16.github.io/2017/04/16/NLP3/" data-title="NLP3 | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -141,18 +219,18 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/30/RL2/" title="RL2 Markov decision Processes">
+ <a href="/2017/04/18/RL7/" title="RL7 Policy Gradient">
   <strong>上一篇：</strong><br/>
   <span>
-  RL2 Markov decision Processes</span>
+  RL7 Policy Gradient</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/11/13/runR/"  title="runR">
+<a href="/2017/04/16/NLP2/"  title="NLP2 Word Vectors">
  <strong>下一篇：</strong><br/> 
- <span>runR
+ <span>NLP2 Word Vectors
 </span>
 </a>
 </div>
@@ -161,7 +239,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/16/keyboard-shortcuts/" data-title="keyboard_shortcuts" data-url="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/16/NLP3/" data-title="NLP3" data-url="https://chendagui16.github.io/2017/04/16/NLP3/"></div>
 </section>
 
 
@@ -177,7 +255,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这里记录一些快捷键"><span class="toc-number">1.</span> <span class="toc-text">这里记录一些快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu的快捷键"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu的快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim快捷键"><span class="toc-number">1.2.</span> <span class="toc-text">vim快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#help模式下"><span class="toc-number">1.2.1.</span> <span class="toc-text">help模式下</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-3-More-Word-Vectors"><span class="toc-number">1.</span> <span class="toc-text">lecture 3 More Word Vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stochastic-gradients-with-word-vectors"><span class="toc-number">1.1.</span> <span class="toc-text">Stochastic gradients with word vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approximations"><span class="toc-number">1.1.1.</span> <span class="toc-text">Approximations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Negative-sampling"><span class="toc-number">1.2.</span> <span class="toc-text">Negative sampling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Word-Pair-and-“Phrases”"><span class="toc-number">1.2.1.</span> <span class="toc-text">Word Pair and “Phrases”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sub-sampling-Frequent-Words"><span class="toc-number">1.2.2.</span> <span class="toc-text">Sub-sampling Frequent Words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Negative-sampling-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">Negative sampling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-of-word2vec"><span class="toc-number">1.3.</span> <span class="toc-text">Summary of word2vec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Evaluation-word-vectors"><span class="toc-number">1.4.</span> <span class="toc-text">Evaluation word vectors</span></a></li></ol></li></ol>
  
   </div>
 

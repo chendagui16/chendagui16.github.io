@@ -4,26 +4,44 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>keyboard_shortcuts | My Blog</title>
+    <title>NLP2 Word Vectors | My Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Dagui Chen">
     
 
     
-    <meta name="description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
+    <meta name="description" content="referencecs224n
+lecture 2 Word VectorsWord meaningDefinition: meaning
+
+the idea that is represented by a word, phrase, etc.
+the idea that a person wants to express by using words, signs, etc.
+the idea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="keyboard_shortcuts">
-<meta property="og:url" content="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/index.html">
+<meta property="og:title" content="NLP2 Word Vectors">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/16/NLP2/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
-<meta property="og:updated_time" content="2017-04-12T13:10:42.000Z">
+<meta property="og:description" content="referencecs224n
+lecture 2 Word VectorsWord meaningDefinition: meaning
+
+the idea that is represented by a word, phrase, etc.
+the idea that a person wants to express by using words, signs, etc.
+the idea">
+<meta property="og:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/61b440b00b028d9f.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/297e4570b1723090.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/ae499869a4a9ea58.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/314a54b706896593.png">
+<meta property="og:updated_time" content="2017-04-16T07:52:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="keyboard_shortcuts">
-<meta name="twitter:description" content="这里记录一些快捷键Ubuntu的快捷键alt+F7 : 移动窗口alt+F9 : 最小化窗口alt+F10: 最大化窗口
-vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页面">
+<meta name="twitter:title" content="NLP2 Word Vectors">
+<meta name="twitter:description" content="referencecs224n
+lecture 2 Word VectorsWord meaningDefinition: meaning
+
+the idea that is represented by a word, phrase, etc.
+the idea that a person wants to express by using words, signs, etc.
+the idea">
+<meta name="twitter:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
 
     
     <link rel="alternative" href="/atom.xml" title="My Blog" type="application/atom+xml">
@@ -83,14 +101,14 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/16/keyboard-shortcuts/" title="keyboard_shortcuts" itemprop="url">keyboard_shortcuts</a>
+      <a href="/2017/04/16/NLP2/" title="NLP2 Word Vectors" itemprop="url">NLP2 Word Vectors</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-16T08:39:23.000Z" itemprop="datePublished"> 发表于 2017-03-16</time>
+    <time datetime="2017-04-16T02:41:40.000Z" itemprop="datePublished"> 发表于 2017-04-16</time>
     
   </p>
 </header>
@@ -99,12 +117,74 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这里记录一些快捷键"><span class="toc-number">1.</span> <span class="toc-text">这里记录一些快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu的快捷键"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu的快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim快捷键"><span class="toc-number">1.2.</span> <span class="toc-text">vim快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#help模式下"><span class="toc-number">1.2.1.</span> <span class="toc-text">help模式下</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-2-Word-Vectors"><span class="toc-number">1.</span> <span class="toc-text">lecture 2 Word Vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-meaning"><span class="toc-number">1.1.</span> <span class="toc-text">Word meaning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#One-hot-vector-meaning-in-computer"><span class="toc-number">1.1.1.</span> <span class="toc-text">One-hot vector(meaning in computer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distributional-similarity-based-representations"><span class="toc-number">1.1.2.</span> <span class="toc-text">Distributional similarity based representations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-idea-of-learning-neural-network-word-embeddings"><span class="toc-number">1.1.3.</span> <span class="toc-text">Basic idea of learning neural network word embeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Directly-learning-low-dimensional-word-vectors"><span class="toc-number">1.1.4.</span> <span class="toc-text">Directly learning low-dimensional word vectors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-idea-of-word2vec"><span class="toc-number">1.2.</span> <span class="toc-text">Main idea of word2vec</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-skip-gram-model"><span class="toc-number">1.2.1.</span> <span class="toc-text">The skip-gram model</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="这里记录一些快捷键"><a href="#这里记录一些快捷键" class="headerlink" title="这里记录一些快捷键"></a>这里记录一些快捷键</h1><h2 id="Ubuntu的快捷键"><a href="#Ubuntu的快捷键" class="headerlink" title="Ubuntu的快捷键"></a>Ubuntu的快捷键</h2><p>alt+F7 : 移动窗口<br>alt+F9 : 最小化窗口<br>alt+F10: 最大化窗口</p>
-<h2 id="vim快捷键"><a href="#vim快捷键" class="headerlink" title="vim快捷键"></a>vim快捷键</h2><h3 id="help模式下"><a href="#help模式下" class="headerlink" title="help模式下"></a>help模式下</h3><p>Ctrl+] 跳转到链接位置<br>Ctrl+t 返回上次的页面</p>
+		<p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
+<h1 id="lecture-2-Word-Vectors"><a href="#lecture-2-Word-Vectors" class="headerlink" title="lecture 2 Word Vectors"></a>lecture 2 Word Vectors</h1><h2 id="Word-meaning"><a href="#Word-meaning" class="headerlink" title="Word meaning"></a>Word meaning</h2><p>Definition: <strong>meaning</strong></p>
+<ul>
+<li>the idea that is represented by a word, phrase, etc.</li>
+<li>the idea that a person wants to express by using words, signs, etc.</li>
+<li>the idea that is expressed in a word of writing<br>Commonest linguistic way of thinking of meaning</li>
+<li>signifier $\iff$ signified (idea or thing) = denotation</li>
+</ul>
+<h3 id="One-hot-vector-meaning-in-computer"><a href="#One-hot-vector-meaning-in-computer" class="headerlink" title="One-hot vector(meaning in computer)"></a>One-hot vector(meaning in computer)</h3><p>Common answer: Use a taxonomy like WordNet that has hypernyms relationships and synonym sets<br><strong>Problems with this discrete representation</strong></p>
+<ul>
+<li>Great as a resource but missing nuances, e.g. <em>synonyms</em><ul>
+<li>adept, expert, good, practiced, proficient, skillful</li>
+</ul>
+</li>
+<li>Missing new words (impossible to keep up to date):<ul>
+<li>wicked, badness, nifty, crack, ace, wizard, genius, ninja</li>
+</ul>
+</li>
+<li>Subjective</li>
+<li>Requires human labor to create and adapt</li>
+<li>Hard to compute accurate word similarity</li>
+<li>The vast majority of rule-based and statistical NLP work regards words as atomic symbols</li>
+</ul>
+<p>We use usually a localist representation (“one-hot”) to represent discrete word, but the different word vector $ a^T b = 0$, which means that our query and document vectors are orthogonal. There is no natural notion of similarity in a set of one-hot vectors</p>
+<p>“one-hot” vector could deal with similarity separately;<br>instead we explore a direct approach where vectors encode it</p>
+<h3 id="Distributional-similarity-based-representations"><a href="#Distributional-similarity-based-representations" class="headerlink" title="Distributional similarity based representations"></a>Distributional similarity based representations</h3><p>You can get a lot of value by representing a word by means of its neighbors</p>
+<blockquote>
+<p>You shall know a word by the company it keeps<br>We will build a dense vector for each word type, chosen so that it is good at predicting other words appearing in its context</p>
+</blockquote>
+<h3 id="Basic-idea-of-learning-neural-network-word-embeddings"><a href="#Basic-idea-of-learning-neural-network-word-embeddings" class="headerlink" title="Basic idea of learning neural network word embeddings"></a>Basic idea of learning neural network word embeddings</h3><p>Define a model that aims to predict between a center word $w_t$ and context words in terms of vectors<br>$$ p(context | w_t) = \dots $$<br>which has a loss function, e.g.<br>$$ J = 1 - p(w_{-t} | w_t ) $$<br>We look at many positions $t$ in a big language corpus<br>We keep adjusting the vector representations of words to minimize this loss</p>
+<h3 id="Directly-learning-low-dimensional-word-vectors"><a href="#Directly-learning-low-dimensional-word-vectors" class="headerlink" title="Directly learning low-dimensional word vectors"></a>Directly learning low-dimensional word vectors</h3><ul>
+<li>Learning representations by back-propagating errors (Rumelhart et al., 1986)</li>
+<li><strong>A neural probabilistic language model</strong> (Bengio et al., 2003)</li>
+<li>NLP (almost) from Scratch (Collobert &amp; Weston, 2008)</li>
+<li>A recent, even simpler and faster model:<br>word2vec (Mikolov et al. 2013) $\rightarrow$ intro now</li>
+</ul>
+<h2 id="Main-idea-of-word2vec"><a href="#Main-idea-of-word2vec" class="headerlink" title="Main idea of word2vec"></a>Main idea of word2vec</h2><p><strong>Predict between every word and its context words</strong><br>Two algorithms</p>
+<ol>
+<li><strong>Skip-grams(SG)</strong><br> Predict context words given target (position independent)</li>
+<li>Continuous Bag of Words(CBOW)<br> Predict target from bag-of-words context</li>
+</ol>
+<p>Two (moderately efficient) training methods</p>
+<ol>
+<li>Hierarchical softmax</li>
+<li>Negative sampling<br><strong>Naive softmax</strong></li>
+</ol>
+<h3 id="The-skip-gram-model"><a href="#The-skip-gram-model" class="headerlink" title="The skip-gram model"></a>The skip-gram model</h3><p>reference: <a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="external">Skip-gram tutorial</a><br>Word2vec uses a trick that we train a simple neural network with a single hidden layer to perform a certain task(<strong>Fake Task</strong>), but then we’re not actually going to use that neural network for the task we trained it on!<br>Instead, the goal is actually just to learn the weights of the hidden layer (<strong>Similar to auto-encoder</strong>)</p>
+<p><strong>Fake Task</strong><br><em>Task goal</em> : Given a specific word in the middle of a sentence, look at the words nearby and pick one at random. The network is going to tell us the probability for every word in our vocabulary of being the “nearby word” that we chose.</p>
+<blockquote>
+<p>When I say “nearby”, there is actually a “window size” parameter to the algorithm. A typical window size might be 5, meaning 5 words behind and 5 words ahead</p>
+</blockquote>
+<p>A sample, window size = 5<br><img src="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png" alt="sample"><br><img src="http://i2.muimg.com/567571/61b440b00b028d9f.png" alt="another explanation"></p>
+<p><strong>Model detail</strong></p>
+<ul>
+<li>Input: one-hot vector(dimension means the scale of vocabulary)</li>
+<li>Hidden layer: the word vector for picked word</li>
+<li>Output layer: softmax layer, probability that a randomly selected nearby word is that vocabulary word<br><img src="http://i1.piimg.com/567571/297e4570b1723090.png" alt="skip gram"></li>
+</ul>
+<blockquote>
+<p>For example, we’re going to say that we’re learning word vectors with 300 features. So the hidden layer is going to be represented by a weight matrix with 10000 rows (one for every word in our vocabulary) and 300 columns (one for every hidden neuron)</p>
+</blockquote>
+<p><img src="http://i1.piimg.com/567571/ae499869a4a9ea58.png" alt="word vector"><br>So the end goal of all of this is really just to learn this hidden layer weight matrix.<br><strong>one-hot vector $\times$ hidden layer weight matrix $\iff$ lookup table</strong><br><img src="http://i2.muimg.com/567571/314a54b706896593.png" alt="lookup table"></p>
+<p><strong>objective function</strong><br>For each word $t=1,\dots,T$, predict surrounding words in a window of “radius” $m$ of every word.</p>
+<p>Maximize the probability of any context word given the current center word<br>$$ J’(\theta) = \prod_{t=1}^{\pi} \prod_{-m \le j \le m, j \neq 0 } p \left(w_{t+j} | w_t; \theta \right) $$<br>Negative Log likelihood<br>$$ J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \le j \le m, j \neq 0} \log p \left( w_{t+j} | w_{t} \right) $$<br>Where $\theta$ represents all variable we will optimize</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -112,13 +192,13 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/work-tips/">work tips</a>
+  <a class="article-category-link" href="/categories/NLP/">NLP</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/work-tips/">work tips</a>
+  <span></span> <a href="/tags/machine-learning/">machine learning</a><a href="/tags/NLP/">NLP</a>
   </div>
 
 </div>
@@ -127,7 +207,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/" data-title="keyboard_shortcuts | My Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="https://chendagui16.github.io/2017/04/16/NLP2/" data-title="NLP2 Word Vectors | My Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -141,18 +221,18 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/03/30/RL2/" title="RL2 Markov decision Processes">
+ <a href="/2017/04/16/NLP3/" title="NLP3">
   <strong>上一篇：</strong><br/>
   <span>
-  RL2 Markov decision Processes</span>
+  NLP3</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/11/13/runR/"  title="runR">
+<a href="/2017/04/16/NLP1/"  title="NLP1 Introduction to NLP and DL">
  <strong>下一篇：</strong><br/> 
- <span>runR
+ <span>NLP1 Introduction to NLP and DL
 </span>
 </a>
 </div>
@@ -161,7 +241,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/16/keyboard-shortcuts/" data-title="keyboard_shortcuts" data-url="https://chendagui16.github.io/2017/03/16/keyboard-shortcuts/"></div>
+	<div class="ds-thread" data-thread-key="2017/04/16/NLP2/" data-title="NLP2 Word Vectors" data-url="https://chendagui16.github.io/2017/04/16/NLP2/"></div>
 </section>
 
 
@@ -177,7 +257,7 @@ vim快捷键help模式下Ctrl+] 跳转到链接位置Ctrl+t 返回上次的页�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#这里记录一些快捷键"><span class="toc-number">1.</span> <span class="toc-text">这里记录一些快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu的快捷键"><span class="toc-number">1.1.</span> <span class="toc-text">Ubuntu的快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim快捷键"><span class="toc-number">1.2.</span> <span class="toc-text">vim快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#help模式下"><span class="toc-number">1.2.1.</span> <span class="toc-text">help模式下</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-2-Word-Vectors"><span class="toc-number">1.</span> <span class="toc-text">lecture 2 Word Vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-meaning"><span class="toc-number">1.1.</span> <span class="toc-text">Word meaning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#One-hot-vector-meaning-in-computer"><span class="toc-number">1.1.1.</span> <span class="toc-text">One-hot vector(meaning in computer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distributional-similarity-based-representations"><span class="toc-number">1.1.2.</span> <span class="toc-text">Distributional similarity based representations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-idea-of-learning-neural-network-word-embeddings"><span class="toc-number">1.1.3.</span> <span class="toc-text">Basic idea of learning neural network word embeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Directly-learning-low-dimensional-word-vectors"><span class="toc-number">1.1.4.</span> <span class="toc-text">Directly learning low-dimensional word vectors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Main-idea-of-word2vec"><span class="toc-number">1.2.</span> <span class="toc-text">Main idea of word2vec</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-skip-gram-model"><span class="toc-number">1.2.1.</span> <span class="toc-text">The skip-gram model</span></a></li></ol></li></ol></li></ol>
  
   </div>
 

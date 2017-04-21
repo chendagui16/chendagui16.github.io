@@ -11,20 +11,30 @@
     
 
     
-    <meta name="description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
-Value Function ApproximationValue Function by a lookup ta">
+    <meta name="description" content="reference:    UCL Course on RL
+lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function Approximati">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RL6 Value Function Approximation">
 <meta property="og:url" content="https://chendagui16.github.io/2017/04/12/RL6/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
-Value Function ApproximationValue Function by a lookup ta">
+<meta property="og:description" content="reference:    UCL Course on RL
+lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function Approximati">
 <meta property="og:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
-<meta property="og:updated_time" content="2017-04-12T13:14:35.000Z">
+<meta property="og:image" content="http://i1.piimg.com/567571/cadbe9e888675272.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/38730a39ee8d3a93.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/16ffcde59dce7eca.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/887027f627e53e74.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/389f21e4a037e7b3.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/12115cfd47cc51c7.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/5103a9f8f57b6a60.png">
+<meta property="og:updated_time" content="2017-04-18T12:24:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL6 Value Function Approximation">
-<meta name="twitter:description" content="lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
-Value Function ApproximationValue Function by a lookup ta">
+<meta name="twitter:description" content="reference:    UCL Course on RL
+lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems
+Value Function Approximati">
 <meta name="twitter:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
 
     
@@ -53,7 +63,7 @@ Value Function ApproximationValue Function by a lookup ta">
 				<h1 class="site-name"><a href="/" title="My Blog">My Blog</a></h1>
 				<h2 class="blog-motto">This is my blog to record some knowledge</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -69,7 +79,7 @@ Value Function ApproximationValue Function by a lookup ta">
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:chendagui16.github.io">
 					</form>
 					
@@ -92,20 +102,21 @@ Value Function ApproximationValue Function by a lookup ta">
 		<a href="/about" title="Dagui Chen" target="_blank" itemprop="author">Dagui Chen</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-12T12:05:28.000Z" itemprop="datePublished"> Published 2017-04-12</time>
+    <time datetime="2017-04-12T12:05:28.000Z" itemprop="datePublished"> 发表于 2017-04-12</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-Prediction-Algorithms"><span class="toc-number">1.2.3.</span> <span class="toc-text">Incremental Prediction Algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-Control-Algorithm"><span class="toc-number">1.2.4.</span> <span class="toc-text">Incremental Control Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Convergence"><span class="toc-number">1.2.5.</span> <span class="toc-text">Convergence</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Batch-Methods"><span class="toc-number">1.3.</span> <span class="toc-text">Batch Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Least-Squares-Prediction"><span class="toc-number">1.3.1.</span> <span class="toc-text">Least Squares Prediction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Least-Squares-Control"><span class="toc-number">1.3.2.</span> <span class="toc-text">Least Squares Control</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="lecture-6-Value-Function-Approximation"><a href="#lecture-6-Value-Function-Approximation" class="headerlink" title="lecture 6 Value Function Approximation"></a>lecture 6 Value Function Approximation</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Large-Scale Reinforcement Learning</strong><br>Reinforcement learning can be used to solve large problems</p>
+		<p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
+<h1 id="lecture-6-Value-Function-Approximation"><a href="#lecture-6-Value-Function-Approximation" class="headerlink" title="lecture 6 Value Function Approximation"></a>lecture 6 Value Function Approximation</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Large-Scale Reinforcement Learning</strong><br>Reinforcement learning can be used to solve large problems</p>
 <p><strong>Value Function Approximation</strong><br>Value Function by a lookup table</p>
 <ul>
 <li>Every state $s$ has an entry Q(s,a) </li>
@@ -144,6 +155,145 @@ Value Function ApproximationValue Function by a lookup ta">
 <li>Using table lookup features<br>$$ x^{table} (S) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} $$</li>
 <li>Parameter vector $w$ gives value of each individual state<br>$$ \hat{v} (S,w) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} \cdot \begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix} $$</li>
 </ul>
+<h3 id="Incremental-Prediction-Algorithms"><a href="#Incremental-Prediction-Algorithms" class="headerlink" title="Incremental Prediction Algorithms"></a>Incremental Prediction Algorithms</h3><ul>
+<li>Have assumed true value function $v_{\pi} (s)$ given by supervisor</li>
+<li>But in RL there is no supervisor, only rewards</li>
+<li>In practice, we substitute a target for $v_{\pi} (s)$<ul>
+<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+<li>For TD(0), the target is the TD target $R_{t+1} + \gamma \hat{v} (S_{t+1},w) $<br>$$ \Delta w = \alpha (R_{t+1} + \gamma \hat{v} (S_{t+1},w) - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+<li>For TD($\lambda$), the target is the $\lambda$-return $G_t^\lambda$<br>$$ \Delta w = \alpha (G_t^\lambda - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+</ul>
+</li>
+</ul>
+<p><strong>MC with Value Function Approximation</strong></p>
+<ul>
+<li>Return $G_t$ is an unbiased, noisy sample of true value $v_{pi} (S_t)$</li>
+<li>Can therefore apply supervised learning to “training data”:<br>$$ (S_1, G_1), (S_2, G_2), \dots, (S_T, G_T) $$</li>
+<li>For example, using linear MC policy evaluation<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \Delta_w \hat{v} (S_t,w) = \alpha(G_t - \hat{v} (S_t,w))x(S_t) $$</li>
+<li>Monte-Carlo evaluation converges to a local optimum </li>
+<li>Even when using non-linear value function approximation</li>
+</ul>
+<p><strong>TD Learning with Value Function Approximation</strong></p>
+<ul>
+<li>The TD-target $R_{t+1} + \gamma \hat{v} (S_{t+1},w)$ is a biased sample of true value $v_\pi (S_t)$</li>
+<li>Can still apply supervised learning to “training data”:<br>$$ (S_1, R_2 + \gamma \hat{v} (S_2,w) ), (S_2, R_3 + \gamma \hat{v} (S_3,w)), \dots, (R_{T-1},R_T) $$</li>
+<li>For example, using linear TD(0)<br>$$ \Delta w = \alpha (R+\gamma \hat{v} (S’,w) - \hat{v} (S,w)) \Delta_w \hat{v} (S,w) = \alpha \delta x(S) $$</li>
+<li>Linear TD(0) converges (close) to global optimum</li>
+</ul>
+<h3 id="Incremental-Control-Algorithm"><a href="#Incremental-Control-Algorithm" class="headerlink" title="Incremental Control Algorithm"></a>Incremental Control Algorithm</h3><p><strong>Control with Value function Approximation</strong><br><em>Policy evaluation</em>: Approximate policy evaluation, $\hat{q}(\cdot,\cdot,w) \approx q_\pi$<br><em>Policy improvement</em>: $\epsilon$-greedy policy improvement</p>
+<p><strong>Action-Value Function Approximation</strong></p>
+<ul>
+<li>Approximate the action-value function $\hat{q}(S,A,w) \approx q_{\pi} (S,A)$</li>
+<li>Minimise mean-squared error between approximate action-value fn $\hat{q}(S,A,w)$ and true action-value fn $q_\pi (S,A)$<br>$$ J(w) = E_\pi \left[(q_\pi (S,A) - \hat{q} (S,A,w))^2 \right] $$</li>
+<li>Use stochastic gradient descent to find a local minimum<br>$$ -\frac{1}{2} \nabla_w J(w) = ( q_{\pi} (S,A) -\hat{q} (S,A,w)) \nabla_w \hat{q} (S,A,w) \\ \Delta w = \alpha (q_{\pi} (S,A) -\hat{q} (S,A,w))\nabla_w \hat{q} (S,A,w) $$</li>
+</ul>
+<p><strong>Linear Action-Value Funtion Approximation</strong></p>
+<ul>
+<li>Represent state and action by a feature vector<br>$$ X(S,A) = \begin{pmatrix} x_1 (S,A) \\ \vdots \\ x_n (S,A) \end{pmatrix} $$</li>
+<li>Represent action-value fn by linear combination of features<br>$$ \hat{q} (S,A,w) = x(S,A)^T w = \sum_{j=1}^n x_j (S,A)w_j $$</li>
+<li>Stochastic gradient descent update<br>$$ \nabla_w \hat{q} (S,A,w) = x(S,A) \\ \Delta w =\alpha (q_\pi (S,A) - \hat{q} (S,A,w)) x(S,A) $$</li>
+</ul>
+<p><strong>Incremental Control Algorithms</strong></p>
+<ul>
+<li>Like prediction, we must substitute a target for $q_\pi (S,A)$<ul>
+<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For TD(0), the target is the TD target $R_{t+1} + \gamma Q(S_{t+1},A_{t+1}) $<br>$$ \Delta w = \alpha (R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For forward-view TD($\lambda$), target is the action-value $\lambda$-return<br>$$ \Delta w = \alpha (q_t^\lambda - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For backward-view TD($\lambda$), equivalent update is<br>$$ \delta_t = R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w) \\ E_t =\gamma \lambda E_{t-1} + \Delta_w \hat{q} (S_t,A_t,w) \\ \Delta w = \alpha \delta_t E_t $$</li>
+</ul>
+</li>
+</ul>
+<h3 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h3><p><strong>Convergence of Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/cadbe9e888675272.png" alt="Convergence of Prediction Algorhms"><br><strong>Gradient Temporal-Difference Learning</strong></p>
+<ul>
+<li>TD does not follow the gradient of any objective function</li>
+<li>This is why TD can diverge when off-policy or using non-linear function approximation</li>
+<li><em>Gradient TD</em> follows true gradient of projected Bellman error<br><img src="http://i4.buimg.com/567571/38730a39ee8d3a93.png" alt="Gradient TD"></li>
+</ul>
+<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i2.muimg.com/567571/16ffcde59dce7eca.png" alt="Convergence of Control Algorithms"></p>
+<h2 id="Batch-Methods"><a href="#Batch-Methods" class="headerlink" title="Batch Methods"></a>Batch Methods</h2><p><strong>Batch Reinforcement Learning</strong></p>
+<ul>
+<li>Gradient descent is simple and appealing</li>
+<li>But it is not sample efficient</li>
+<li>Batch methods seek to find the best fitting value function</li>
+<li>Given the agent’s experience (‘training data”)</li>
+</ul>
+<h3 id="Least-Squares-Prediction"><a href="#Least-Squares-Prediction" class="headerlink" title="Least Squares Prediction"></a>Least Squares Prediction</h3><ul>
+<li>Given value function approximation $\hat{v}(s,w) \approx v_\pi (s) $</li>
+<li>And experience D consisting of (<em>state</em>,<em>value</em>) pairs<br>$$ D = ((s_1,v_1^\pi),(s_2,v_2^\pi),\dots,(s_T,v_T^\pi)) $$</li>
+<li>Which parameters $w$ given the best fitting value fn $\hat{v} (s,w)$?</li>
+<li><strong>Least squares</strong> algorithms find parameters vector $w$ minimising sum-squared error between $\hat{v} (s_t,w)$ and target values $v_t^\pi$<br>$$ LS(w) = \sum_{t=1}^{T} (v_t^T - \hat{v} (s_t,w))^2 = E_D \left[ (v^\pi - \hat{v} (s,w))^2\right] $$</li>
+</ul>
+<p><strong>Stochastic Gradient Descent with Experience Replay</strong><br>Repeat:</p>
+<ol>
+<li>Sample state, value from experience $(s,v^\pi)\sim D$</li>
+<li>Apply stochastic gradient descent update $\Delta w = \alpha (v^\pi -\hat{v} (s,w)) \nabla_w \hat{v} (s,w) $<br>Converges to least squares solution<br>$$ w^\pi = \arg\min_w LS(w) $$</li>
+</ol>
+<p><strong>Experience Replay in Deep Q-Network(DQN)</strong><br>DQN uses <strong>experience replay</strong> and <strong>fixed Q-targets</strong></p>
+<ul>
+<li>Take action $a_t$ according to $\epsilon$-greedy policy </li>
+<li>Store transition $(s_t,a_t,r_{t+1},s_{t+1})$ in replay memory $D$</li>
+<li>Sample random mini-batch of transitions $(s,a,r,s’)$ from $D$</li>
+<li>Compute Q-learning targets w.r.t old, fixed parameters $w^-$</li>
+<li>Optimise MSE between Q-network and Q-learning targets<br>$$ L_i (w_i) = E_{s,a,r,s’ \sim D_i} \left[ \left( r + \gamma \max_{a’} Q(s’,a’;w_i^-) - Q(s,a;w_i) \right)^2 \right] $$</li>
+<li>Using variant of stochastic gradient descent</li>
+</ul>
+<p><strong>Linear Least Squares Prediction</strong></p>
+<ul>
+<li>Experience replay finds least squares solution</li>
+<li>But it may take many iterations</li>
+<li>Using linear value function approximation $\hat{v} (s,w) = x(s)^T w $</li>
+<li>We can solve the least squares solution directly<ul>
+<li>At minimum of $LS(w)$, the expected update must be zero, $E_D (\Delta w) = 0$<br>$$ \alpha \sum_{t=1}^{T} x(s_t) (v_t^\pi -x(s_t)^T w) = 0 \\  w =\left( \sum_{t=1}^T x(s_t)x(s_t)^T \right)^{-1} \sum_{t=1}^T x(s_t) v_t^\pi $$</li>
+<li>For $N$ features, direct solution time is $O(n^3)$</li>
+<li>Incremental solution time is $O(n^2)$ using Shermann-Morrison</li>
+</ul>
+</li>
+</ul>
+<p><strong>Linear Least Squares Prediction Algorithms</strong></p>
+<ul>
+<li>We don’t know true values $v_t^\pi$</li>
+<li>In practice, our “training data” must use noisy or biased sample of $v_t^\pi$<ul>
+<li><strong>LSMC</strong> Least Squares MC uses return $v_t^\pi \approx G_t$</li>
+<li><strong>LSTD</strong> Least Squares TD uses TD target $v_t^\pi \approx R_{t+1} + \gamma \hat{v}(S_{t_1},w) $</li>
+<li><strong>LSTD($\lambda$)</strong> Least Squares TD($\lambda$) use $\lambda$-return $v_t^\pi \approx G_t^\lambda$</li>
+</ul>
+</li>
+<li>In each case solve directly for fixed point of MC/TD/TD($\lambda$)<br><img src="http://i4.buimg.com/567571/887027f627e53e74.png" alt="Direct solution for LS"></li>
+</ul>
+<p><strong>Convergence of Linear Least Squares Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/389f21e4a037e7b3.png" alt="Convergence of LS prediction algorithms"></p>
+<h3 id="Least-Squares-Control"><a href="#Least-Squares-Control" class="headerlink" title="Least Squares Control"></a>Least Squares Control</h3><p><strong>Least Squares Policy Iteration</strong><br><em>Policy evaluation</em> Policy evaluation by least squares Q-learning<br><em>Policy improvement</em> Greedy policy improvement</p>
+<p><strong>Least Squares Action-Value Function Approximation</strong></p>
+<ul>
+<li>Approximate action-value function $q_\pi (s,a)$</li>
+<li>using linear combination of features $x(s,a)$<br>$$ \hat{q} (s,a,w) = x(s,a)^T w \approx q_\pi (s,a) $$</li>
+<li>Minimise least squares error between $\hat{q} (s,a,w)$ and $q_\pi (s,a)$</li>
+<li>form experience generated using policy $\pi$</li>
+<li>consisting of $&lt;(state,action),value>$ pairs<br>$$ D = \{ &lt; (s_1,a_1),v_1^\pi >, &lt;(s_2,a_2),v_2^\pi>,\dots,&lt;(s_T,a_T),v_T^\pi> \} $$</li>
+</ul>
+<p><strong>Least Squares Control</strong></p>
+<ul>
+<li>For policy evaluation, we want to efficiently use all experience</li>
+<li>For control, we also want to improve the policy</li>
+<li>This experience is generated from many policies</li>
+<li>So to evaluate $q_pi (S,A)$ we must learn off-policy</li>
+<li>We use the same idea as Q-learning:<ul>
+<li>Use experience generated by old policy, $ S_t,A_t,R_{t+1},S_{t+1} \sim \pi_{old} $</li>
+<li>Consider alternative successor action $ A’ = \pi_{new} (S_{t+1}) $</li>
+<li>Update $\hat{q} (S_t,A_t,w) $ towards value of alternative action $R_{t+1} + \gamma \hat{q} (S_{t+1},A’,w)$</li>
+</ul>
+</li>
+</ul>
+<p><strong>Least Squares Q-Learning</strong></p>
+<ul>
+<li>Consider the following linear Q-learning update<br>$$ \delta = R_{t+1} + \gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) - \hat{q} (S_t,A_t,w) \\ \Delta w =\alpha \delta x(S_t,A_t) $$</li>
+<li>LSTDQ alorithm: solve for total update = zero<br>$$ 0 = \sum_{t=1}^T \alpha (R_{t+1} +\gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) -\hat{q} (S_t,A_t,w)) x(S_t,A_t) \\ w = \left( \sum_{t=1}^T x(S_t,A_t) (x(S_t,A_t)-\gamma x(S_{t+1},\pi(S_{t+1})))^T \right)^{-1} \sum_{t=1}^T x(S_t,A_t) R_{t+1} $$</li>
+</ul>
+<p><strong>Least Squares Policy Iteration Algorithm</strong></p>
+<ul>
+<li>The following pseudocode uses LSTDQ for policy evaluation</li>
+<li>It repeatedly re-evaluates experience $D$ with difference policy<br><img src="http://i4.buimg.com/567571/12115cfd47cc51c7.png" alt="LSPI algorithm"></li>
+</ul>
+<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i4.buimg.com/567571/5103a9f8f57b6a60.png" alt="Convergence of Control Algorithms"><br>$(\checkmark)$ = chatters around near-optimal value function</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -211,22 +361,22 @@ Value Function ApproximationValue Function by a lookup ta">
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-6-Value-Function-Approximation"><span class="toc-number">1.</span> <span class="toc-text">lecture 6 Value Function Approximation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-of-value-function-approximation"><span class="toc-number">1.1.1.</span> <span class="toc-text">Types of value function approximation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Gradient-Descent"><span class="toc-number">1.2.1.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Function-Approximation"><span class="toc-number">1.2.2.</span> <span class="toc-text">Linear Function Approximation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-Prediction-Algorithms"><span class="toc-number">1.2.3.</span> <span class="toc-text">Incremental Prediction Algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Incremental-Control-Algorithm"><span class="toc-number">1.2.4.</span> <span class="toc-text">Incremental Control Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Convergence"><span class="toc-number">1.2.5.</span> <span class="toc-text">Convergence</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Batch-Methods"><span class="toc-number">1.3.</span> <span class="toc-text">Batch Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Least-Squares-Prediction"><span class="toc-number">1.3.1.</span> <span class="toc-text">Least Squares Prediction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Least-Squares-Control"><span class="toc-number">1.3.2.</span> <span class="toc-text">Least Squares Control</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="chendagui16" data-width="220" data-height="119" data-theme="medium">
 <script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
 </div>
@@ -236,11 +386,15 @@ Value Function ApproximationValue Function by a lookup ta">
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
 			<li><a href="/categories/Latex/" title="Latex">Latex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/NLP/" title="NLP">NLP<sup>3</sup></a></li>
 		  
 		
 		  
@@ -252,7 +406,7 @@ Value Function ApproximationValue Function by a lookup ta">
 		  
 		
 		  
-			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>6</sup></a></li>
+			<li><a href="/categories/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>7</sup></a></li>
 		  
 		
 		  
@@ -269,15 +423,23 @@ Value Function ApproximationValue Function by a lookup ta">
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>8</sup></a></li>
+				<li><a href="/tags/machine-learning/" title="machine learning">machine learning<sup>10</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/machine-learning/" title="machine learning">machine learning<sup>6</sup></a></li>
+				<li><a href="/tags/reinforcement-learning/" title="reinforcement learning">reinforcement learning<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NLP/" title="NLP">NLP<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
 			
 		
 			
@@ -297,15 +459,15 @@ Value Function ApproximationValue Function by a lookup ta">
 			
 		
 			
-				<li><a href="/tags/bugs/" title="bugs">bugs<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/githup-pages/" title="githup pages">githup pages<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
 			
 		
 			
@@ -332,16 +494,12 @@ Value Function ApproximationValue Function by a lookup ta">
 				<li><a href="/tags/Latex/" title="Latex">Latex<sup>1</sup></a></li>
 			
 		
-			
-				<li><a href="/tags/backup/" title="backup">backup<sup>1</sup></a></li>
-			
-		
 		</ul>
 </div>
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -363,7 +521,7 @@ Value Function ApproximationValue Function by a lookup ta">
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
 </aside>
@@ -624,7 +782,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
