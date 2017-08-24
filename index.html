@@ -422,161 +422,29 @@
       
         
           
-            <h1 id="Code-Structure"><a href="#Code-Structure" class="headerlink" title="Code Structure"></a>Code Structure</h1><ul>
-<li>common<ul>
-<li>util.py</li>
-<li>tf_ops.py</li>
-<li>defaults.py</li>
-</ul>
-</li>
-<li>Simulator<ul>
-<li>doom_simulator.py</li>
-<li>multi_doom_simulator.py</li>
-</ul>
-</li>
-<li>Agent <ul>
-<li>agent.py</li>
-<li>future_predictor_agent_basic.py</li>
-<li>future_predictor_agent_advantage.py</li>
-<li>future_predictor_agent_advantage_nonorm.py</li>
-</ul>
-</li>
-<li>target<ul>
-<li>future_target_maker.py</li>
-</ul>
-</li>
-<li>experience<ul>
-<li>multi_experience_memory.py</li>
-<li>multi_experience.py</li>
-</ul>
-</li>
-</ul>
-<h1 id="Common"><a href="#Common" class="headerlink" title="Common"></a>Common</h1><h2 id="util-py"><a href="#util-py" class="headerlink" title="util.py"></a>util.py</h2><h3 id="make-objective-indices-and-coeffs-temporal-coeffs-meas-coeffs"><a href="#make-objective-indices-and-coeffs-temporal-coeffs-meas-coeffs" class="headerlink" title="make_objective_indices_and_coeffs(temporal_coeffs, meas_coeffs):"></a>make_objective_indices_and_coeffs(temporal_coeffs, meas_coeffs):</h3><p>网络使用两个系数作为目标的系数作为最终决断的系数，一个是temporal_coeffs, 即时间尺度上的系数，分别对应不同时间段对目标值的贡献，meas_coeffs表示不同的measure对目标值的贡献。</p>
-<h3 id="make-array-shape-1-dtype-np-float32-shared-False-fill-val-None"><a href="#make-array-shape-1-dtype-np-float32-shared-False-fill-val-None" class="headerlink" title="make_array(shape=(1,), dtype=np.float32, shared=False, fill_val=None):"></a>make_array(shape=(1,), dtype=np.float32, shared=False, fill_val=None):</h3><p>生成array，如果有array共享的话，从共享的区域中生成array</p>
-<h3 id="merge-two-dicts-x-y"><a href="#merge-two-dicts-x-y" class="headerlink" title="merge_two_dicts(x, y)"></a>merge_two_dicts(x, y)</h3><p>合并两个dict，用于defaults.py 中的参数和不同模型的参数合并</p>
-<h3 id="StackedBarPlot"><a href="#StackedBarPlot" class="headerlink" title="StackedBarPlot"></a>StackedBarPlot</h3><p>用于画不同的预测值的直方图，并可以动态显示</p>
-<h2 id="tf-ops"><a href="#tf-ops" class="headerlink" title="tf_ops"></a>tf_ops</h2><h3 id="msra-stddev-x-k-h-k-w"><a href="#msra-stddev-x-k-h-k-w" class="headerlink" title="msra_stddev(x, k_h, k_w)"></a>msra_stddev(x, k_h, k_w)</h3><p>参数初始化方差</p>
-<h3 id="mse-ignore-nans-preds-targs-kwargs"><a href="#mse-ignore-nans-preds-targs-kwargs" class="headerlink" title="mse_ignore_nans(preds, targs. **kwargs)"></a>mse_ignore_nans(preds, targs. **kwargs)</h3><p>忽略Nan 求MSE</p>
-<h3 id="conv2d-input-output-dim-k-h-k-w-d-h-d-w-msra-coeff-name"><a href="#conv2d-input-output-dim-k-h-k-w-d-h-d-w-msra-coeff-name" class="headerlink" title="conv2d(input_, output_dim, k_h, k_w, d_h, d_w, msra_coeff, name)"></a>conv2d(input_, output_dim, k_h, k_w, d_h, d_w, msra_coeff, name)</h3><p>构建卷积层的api</p>
-<h3 id="lrelu-x-leak-name"><a href="#lrelu-x-leak-name" class="headerlink" title="lrelu(x, leak, name)"></a>lrelu(x, leak, name)</h3><p>构建lrelu层的api</p>
-<h3 id="linear-input-output-size-name-msra-coeff"><a href="#linear-input-output-size-name-msra-coeff" class="headerlink" title="linear(input_, output_size, name, msra_coeff)"></a>linear(input_, output_size, name, msra_coeff)</h3><p>线性函数api</p>
-<h3 id="conv-encoder-data-params-name-msra-coeff"><a href="#conv-encoder-data-params-name-msra-coeff" class="headerlink" title="conv_encoder(data, params, name, msra_coeff)"></a>conv_encoder(data, params, name, msra_coeff)</h3><p>根据conv_params的参数构建连续的卷积层</p>
-<h3 id="fc-net-data-param-name-last-linear-return-layers-msra-coeff"><a href="#fc-net-data-param-name-last-linear-return-layers-msra-coeff" class="headerlink" title="fc_net(data, param, name, last_linear, return_layers, msra_coeff)"></a>fc_net(data, param, name, last_linear, return_layers, msra_coeff)</h3><p>根据fc_params的参数构建连续的全连接层；根据return_layers的性质，确定最后一层的fc是否要接relu</p>
-<h3 id="flatten-data"><a href="#flatten-data" class="headerlink" title="flatten(data)"></a>flatten(data)</h3><p>构建flatten层的api</p>
-<h2 id="defaults-py"><a href="#defaults-py" class="headerlink" title="defaults.py"></a>defaults.py</h2><p>default.py主要提供不同的默认参数dict，其中主要分为4类， target_maker, simulator, experiment(experiment, train_experiment, test_policy), agent。 给不同的文件提供不同的默认参数配置， 在具体使用的时候，该参数会被不同文件中的参数给覆盖。</p>
-<h3 id="target-maker-args"><a href="#target-maker-args" class="headerlink" title="target_maker_args"></a>target_maker_args</h3><p>这里的min_num_targs, 表示目标target的最小数量， 对于那些target数量不足的样本，会用nan替换</p>
-<h3 id="simulator-args"><a href="#simulator-args" class="headerlink" title="simulator_args"></a>simulator_args</h3><p>frame_skip表示不使用连续的帧作为状态，使用间隔的帧作为状态。</p>
-<h3 id="experience-args"><a href="#experience-args" class="headerlink" title="experience_args"></a>experience_args</h3><p>这里分为三个文件experience_args, train_experience_args, test_policy_experience_args</p>
-<h3 id="agent-args"><a href="#agent-args" class="headerlink" title="agent_args"></a>agent_args</h3><p>存储所有关于网络的参数</p>
-<h1 id="Simulator"><a href="#Simulator" class="headerlink" title="Simulator"></a>Simulator</h1><h2 id="DoomSimulator"><a href="#DoomSimulator" class="headerlink" title="DoomSimulator"></a>DoomSimulator</h2><p>DoomSimulator类</p>
-<h3 id="init-self-args"><a href="#init-self-args" class="headerlink" title="init(self, args)"></a><strong>init</strong>(self, args)</h3><p>初始化程序配置，设置doom的各项参数，具体参考<a href="https://github.com/mwydmuch/ViZDoom/tree/master/doc" target="_blank" rel="external">doom_doc</a><br>使用analyze_controls(self, config_file), 解析获得available_controls, continuous_controls, discrete_control，注意到这些都是index. 比如continuous_controls = [1,2,3], discrete_control = [4,5,6]</p>
-<h3 id="analyze-controls-self-config-file"><a href="#analyze-controls-self-config-file" class="headerlink" title="analyze_controls(self, config_file)"></a>analyze_controls(self, config_file)</h3><p>利用正则表达式解析available_controls, continuous_controls, discrete_control.</p>
-<h3 id="init-game-close-game-get-random-action-is-new-episode-next-map-new-episode"><a href="#init-game-close-game-get-random-action-is-new-episode-next-map-new-episode" class="headerlink" title="init_game, close_game, get_random_action, is_new_episode, next_map, new_episode"></a>init_game, close_game, get_random_action, is_new_episode, next_map, new_episode</h3><p>函数作用如名所示，注意doom的具体动作可以使用多个动作的组合，比如可控的动作是[1, 2]， 那么实际可能的动作为[True, True] or [True, False] or [False, True] or [False, False]</p>
-<h3 id="step-self-action"><a href="#step-self-action" class="headerlink" title="step(self, action)"></a>step(self, action)</h3><p>执行一步动作，返回img，measure, reward, terminal. 这里action是一个bool vector, 图像均为黑白(彩色会报错), img指doomSimulator返回的图像，meas指config文件中的指定的variable<br>，这里特指{AMMO2, HEALTH, USER2}(这里的user2指kill_count, 在wad文件里面使用). rwrd特指doomSimulator返回的reward，这个是doom内部自带的reward.</p>
-<h2 id="MultiDoomSimulator"><a href="#MultiDoomSimulator" class="headerlink" title="MultiDoomSimulator"></a>MultiDoomSimulator</h2><p>多个doomSimulator的类，可以用来同时执行一个action的列表，同时返回imgs, meass, rwrds, terms（均为list）</p>
-<h1 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h1><h2 id="agent-py"><a href="#agent-py" class="headerlink" title="agent.py"></a>agent.py</h2><h3 id="init-self-sess-args"><a href="#init-self-sess-args" class="headerlink" title="init(self, sess, args):"></a><strong>init</strong>(self, sess, args):</h3><p>初始化各项参数<br>同时调用prepare_controls_and_actions(), 初始化所有的control和action</p>
-<h3 id="prepare-controls-and-actions-self"><a href="#prepare-controls-and-actions-self" class="headerlink" title="prepare_controls_and_actions(self)"></a>prepare_controls_and_actions(self)</h3><p>注意到这里controls表示action的index，action用bool vector表示。其中controls分为两类，一类是由网络生成的discrete_controls_to_net, 一类是外部赋予的discrete_controls_manual. 同时net_discrete_actions是一个numpy array，表示list of vector(除掉了冲突的action), 这些vector可以用来直接执行动作。<br>另外，初始化了action_to_index的dict，用来查询不同的action的index, 初始化了onehot_dizhscrete_actions用一个one-hot向量表达不同的action，这里可以用作网络的输入。</p>
-<h3 id="preprocess-actiosn-self-acts"><a href="#preprocess-actiosn-self-acts" class="headerlink" title="preprocess_actiosn(self, acts)"></a>preprocess_actiosn(self, acts)</h3><p>这里的acts表示batch_size个动作，每个动作用一个bool vector(包含了net_action和manunal_action)表示，该函数的作用是把这些acts转化成对应的one-hot-vector输入到网络中去.</p>
-<h3 id="postprocess-actions-self-acts-net-act-manual"><a href="#postprocess-actions-self-acts-net-act-manual" class="headerlink" title="postprocess_actions(self, acts_net, act_manual)"></a>postprocess_actions(self, acts_net, act_manual)</h3><p>将acts_net和act_manual组合成一个正式的输出的动作，该函数的输入的acts_net是一个[batch_size]的输入，每个值均为action的index，act_manual是一个bool_vector。将act_nets, act_manual组合成一个正式的action，可以用做simulator的输入.</p>
-<h3 id="random-actions-self-num-samples"><a href="#random-actions-self-num-samples" class="headerlink" title="random_actions(self, num_samples)"></a>random_actions(self, num_samples)</h3><p>获得随机的action</p>
-<h3 id="make-net-make-losses，act-nets-act-manual"><a href="#make-net-make-losses，act-nets-act-manual" class="headerlink" title="make_net, make_losses，act_nets, act_manual"></a>make_net, make_losses，act_nets, act_manual</h3><p>这几个函数都没有执行，在装饰器文件如future_predictor_agent_basic等中执行</p>
-<h3 id="act-self-state-imgs-state-meas-objective-coeffs"><a href="#act-self-state-imgs-state-meas-objective-coeffs" class="headerlink" title="act(self, state_imgs, state_meas, objective_coeffs)"></a>act(self, state_imgs, state_meas, objective_coeffs)</h3><p>调用act_net得到net_action，调用act_manual得到munual_action，使用postprocess_actions函数将其组合成一个具体的动作</p>
-<h3 id="build-model-self"><a href="#build-model-self" class="headerlink" title="build_model(self)"></a>build_model(self)</h3><p>该函数主要构建tf的模型，具体的模型参考论文</p>
-<ul>
-<li>需要输入的参数包括input_images, input_measurement, input_targets, input_actions, input_objective_coeffs</li>
-<li>如果提供了预处理的函数，则会根据预处理函数对输入进行预处理，预处理的方式参考论文<ul>
-<li>将img的值放缩在[-1, 1]</li>
-<li>将mesurements的值放缩在[-1, 1]</li>
-<li>将三个target分别除以7.5, 30, 1</li>
-</ul>
-</li>
-<li>调用make_net和make_loss构建网络</li>
-<li>构建训练节点，学习率衰减节点，summary节点</li>
-</ul>
-<h3 id="Actor"><a href="#Actor" class="headerlink" title="Actor"></a>Actor</h3><p>一个子类，用作实际操作action的一个接口<br><strong><strong>init</strong>(self, agent, objective_coeffs, random_prob, random_objective_coeffs)</strong><br>初始化objective_coeffs, 如果使用随机的初始化策略，则调用reset_objective_coeffs(self, indices), 使用均匀分布来初始化，否则直接对objective_coeffs赋值<br><strong>reset_objective_coeffs(self, indices)</strong><br>使用均匀分布初始化objective_coeffs<br><strong>act(self, state_imgs, state_meas)</strong><br>$\epsilon$-greedy算法，以$\epsilon$的概率执行随机的动作，以1-$\epsilon$的概率调用agent.act()函数执行动作<br><strong>act_with_multi_memory(slef, multi_memory)</strong><br>执行和act一样的功能，但是针对mutil_memory，调用这个函数执行多个动作要比使用上面的函数高校，因为这样只会在需要的时候才会读取state。</p>
-<h3 id="get-actor-self-objective-coeffs-random-prob-random-objective-coeffs"><a href="#get-actor-self-objective-coeffs-random-prob-random-objective-coeffs" class="headerlink" title="get_actor(self, objective_coeffs, random_prob, random_objective_coeffs)"></a>get_actor(self, objective_coeffs, random_prob, random_objective_coeffs)</h3><p>返回actor的子类</p>
-<h3 id="train-one-batch-self-experience"><a href="#train-one-batch-self-experience" class="headerlink" title="train_one_batch(self, experience)"></a>train_one_batch(self, experience)</h3><ul>
-<li>调用experience.get_random_batch函数得到state_imgs, state_meas, rwrds, terms, acts, targs, objs</li>
-<li>forward网络一次</li>
-<li>在特定的步数打印错误，存储summary，或存储histogram</li>
-<li>步数+1</li>
-</ul>
-<h3 id="train-self-simulator-experience-num-steps-test-police-experience"><a href="#train-self-simulator-experience-num-steps-test-police-experience" class="headerlink" title="train(self, simulator, experience, num_steps, test_police_experience)"></a>train(self, simulator, experience, num_steps, test_police_experience)</h3><ul>
-<li>如果可以的话，载入checkpoint</li>
-<li>初始化writer, 和actor接口</li>
-<li>调用experience.add_n_steps_with_actor填充训练的memory</li>
-<li>调用train_one_batch共num_steps次，一共训练num_steps个batch</li>
-<li>每隔固定的步数保存checkpoint或者测试test_policy，同时每隔一定的步数重新填充memory，注意到这里会衰减$\epsilon$</li>
-</ul>
-<h3 id="test-policy-self-simulator-experience-objective-coeffs-num-steps-random-prob-write-summary-write-prdiction"><a href="#test-policy-self-simulator-experience-objective-coeffs-num-steps-random-prob-write-summary-write-prdiction" class="headerlink" title="test_policy(self, simulator, experience, objective_coeffs, num_steps, random_prob, write_summary, write_prdiction)"></a>test_policy(self, simulator, experience, objective_coeffs, num_steps, random_prob, write_summary, write_prdiction)</h3><p>测试一次policy, 注意到这里会调用experience.compute_avg_meas_and_rwrd去计算得到这一次的policy的平均reward和平均measure。<br>另外，为了保证每次测试不改变head_offset, 会暂时保存该值，并在测试完之后恢复</p>
-<h3 id="save-load-set-init-step"><a href="#save-load-set-init-step" class="headerlink" title="save, load, set_init_step"></a>save, load, set_init_step</h3><p>功能如其，set_init_step可以接着之前的step继续训练</p>
-<h2 id="future-predictoragent-py"><a href="#future-predictoragent-py" class="headerlink" title="future_predictoragent*.py"></a>future_predictor<em>agent</em>*.py</h2><p>这里一共包含3个文件(future_predictor_agent_basic, future_predictor_agent_advantage, future_predictor_agent_advantage_nonorm), 都是作为agent类的子类，重写了agent类中的make_net, make_losses, act_nets的成员函数，用于对比实验</p>
-<h3 id="make-net-self-input-images-input-measurement-input-actions-input-objectives-reuse"><a href="#make-net-self-input-images-input-measurement-input-actions-input-objectives-reuse" class="headerlink" title="make_net(self, input_images, input_measurement, input_actions, input_objectives, reuse)"></a>make_net(self, input_images, input_measurement, input_actions, input_objectives, reuse)</h3><ul>
-<li>根据卷积和全联接的参数调用tf_ops中的接口来搭建网络<ul>
-<li>future_predictor_agent_basic中没有使用分支结构</li>
-<li>future_predictor_agent_advantage中是论文中的标准结构</li>
-<li>future_predictor_agent_advantage_nonorm是论文中的标准结构但是去除了normalization的环节</li>
-</ul>
-</li>
-<li>这里input_images, input_measurement, input_actions均为网络的输入，而input_actions(bool of vector)用来指出哪个所有的预测中与当前动作相关的预测。</li>
-</ul>
-<h3 id="make-losses-self-pred-relevant-targets-preprocessed-objective-indices-objective-coeffs"><a href="#make-losses-self-pred-relevant-targets-preprocessed-objective-indices-objective-coeffs" class="headerlink" title="make_losses(self, pred_relevant, targets_preprocessed, objective_indices, objective_coeffs)"></a>make_losses(self, pred_relevant, targets_preprocessed, objective_indices, objective_coeffs)</h3><p>构建loss的计算节点，并同时去除nan，构建summry节点</p>
-<h3 id="act-net-self-state-imgs-state-meas-objective-coeffs"><a href="#act-net-self-state-imgs-state-meas-objective-coeffs" class="headerlink" title="act_net(self, state_imgs, state_meas, objective_coeffs)"></a>act_net(self, state_imgs, state_meas, objective_coeffs)</h3><ul>
-<li>更新prediction</li>
-<li>按照objective_coeffs求出使收益最大的动作。</li>
-</ul>
-<h1 id="target"><a href="#target" class="headerlink" title="target"></a>target</h1><h2 id="future-target-maker-py"><a href="#future-target-maker-py" class="headerlink" title="future_target_maker.py"></a>future_target_maker.py</h2><p>target_maker类，负责生成网络的学习目标</p>
-<h3 id="init-self-args-1"><a href="#init-self-args-1" class="headerlink" title="init(self, args)"></a><strong>init</strong>(self, args)</h3><p>构造函数，注意几点</p>
-<ul>
-<li>min_num_targs: target的最小数量，对于某些靠近end of episode的样本，其可能的target数量少于min_num_targs，所以这些样本无效，会用nan替代</li>
-<li>根据不同的gamma值，对不同的future step对reward进行指数衰减。在具体的实验中，由于并没有用到simulator中的reward值，因此gamma值为空</li>
-<li>每个时刻需要预测的target的维度包括两个部分: 1, 不同gamma衰减下的reward；2，不同的measure。 所以num_targets = len(self.meas_to_predict) + self.num_reward_targets。注意num_targets的长度必须与agent中的objective_coeffs_meas的长度相同，因为objective_coeffs_meas就是用来衡量不同的target对最终结果的加权系数</li>
-<li>总的target的维度为self.num_targets * len(self.future_steps). 注意self.future_steps的长度必须与agent中的objective_coeffs_temporal的长度相同</li>
-<li>根据min_num_targs，确定min_future_frames，将来用来确定该帧与之后的min_future_frames处的帧是否处于同一个episode来判断当前帧是否有效.</li>
-</ul>
-<h3 id="make-targets-self-indices-meas-rwrds-n-episode-meas-mean-meas-std"><a href="#make-targets-self-indices-meas-rwrds-n-episode-meas-mean-meas-std" class="headerlink" title="make_targets(self, indices, meas, rwrds, n_episode, meas_mean, meas_std)"></a>make_targets(self, indices, meas, rwrds, n_episode, meas_mean, meas_std)</h3><p>生成对应indices处的targets<br>该函数主要是在multi_experience_memory处调用，所以提供的meas，rwards都是一个大的memory, indices负责指示想要生成batch的样本所在memory处的位置.</p>
-<ul>
-<li>capacity指memory的大小</li>
-<li>target分为两个部分，一个是measurement, 一个是reward</li>
-<li>对于measurement，如果有meas_mean或者meas_std的话，会进行normalization的处理，不在一个epsisode的样本的measurement会用最近的measurement进行替换。</li>
-<li>对于reward，target是对一个时间窗口(self.future_steps)内的rwrd进行指数衰减下的加权求和。</li>
-</ul>
-<h1 id="experience"><a href="#experience" class="headerlink" title="experience"></a>experience</h1><h2 id="multi-experience-memory-py"><a href="#multi-experience-memory-py" class="headerlink" title="multi_experience_memory.py"></a>multi_experience_memory.py</h2><p>MultiExperienceMemory类</p>
-<h3 id="init-self-args-multi-simulator-target-maker"><a href="#init-self-args-multi-simulator-target-maker" class="headerlink" title="init(self, args, multi_simulator, target_maker)"></a><strong>init</strong>(self, args, multi_simulator, target_maker)</h3><p>初始化空的memory，这里包含两个假设：1，观测都是连续的，在每一个episode内都有一个停止的状态；2，每一个episode都比memory的长度要短。<br>调用reset函数，初始化各项私有变量</p>
-<h3 id="reset-self"><a href="#reset-self" class="headerlink" title="reset(self)"></a>reset(self)</h3><ul>
-<li>self._curr_indices设置成不同memory的indices</li>
-<li>self._episode_counts用来设置不同memory的eposide值，用来区分不同frame在memory中的位置</li>
-</ul>
-<h3 id="add-self-imgs-meass-rwrds-terms-acts-objs-preds"><a href="#add-self-imgs-meass-rwrds-terms-acts-objs-preds" class="headerlink" title="add(self, imgs, meass, rwrds, terms, acts, objs, preds)"></a>add(self, imgs, meass, rwrds, terms, acts, objs, preds)</h3><ul>
-<li>更新images, measurements, rewards, terminals, actions，n_episode, objectives, predictions</li>
-<li>在term处的measurements使用上一个状态measurements，同时对于term处，对measurement进行一定的衰减</li>
-<li>为了防止出现两个term状态，在出现第二个term时，将第二个term状态的measurements置零</li>
-<li>更新episode_counts, curr_indices和terminals</li>
-</ul>
-<h3 id="add-step-self-multi-simulator-acts-objs-preds"><a href="#add-step-self-multi-simulator-acts-objs-preds" class="headerlink" title="add_step(self, multi_simulator, acts, objs, preds)"></a>add_step(self, multi_simulator, acts, objs, preds)</h3><p>调用multi_simulator执行一次acts, 并将其结果加入memory</p>
-<h3 id="add-n-steps-with-actor-self-multi-simulator-num-steps-actor-verbose-write-prediction-write-logs-global-step"><a href="#add-n-steps-with-actor-self-multi-simulator-num-steps-actor-verbose-write-prediction-write-logs-global-step" class="headerlink" title="add_n_steps_with_actor(self, multi_simulator, num_steps, actor, verbose, write_prediction, write_logs, global_step)"></a>add_n_steps_with_actor(self, multi_simulator, num_steps, actor, verbose, write_prediction, write_logs, global_step)</h3><ul>
-<li>log中会写入具体的episode, step, time, accu_reward, prev_meas, avg_meas</li>
-<li>如果有prediction的话，会写入prediction</li>
-<li>调用add_steps共num_steps次，使用actor类的接口加入memory</li>
-</ul>
-<h3 id="get-states-self-indices"><a href="#get-states-self-indices" class="headerlink" title="get_states(self, indices)"></a>get_states(self, indices)</h3><p>根据indices从memory中选择state_imgs, state_meas。注意到这里的的state_imgs包含history_step个历史，且每个历史之间相差不同的history_len<br>而state_meas仅仅包含当前indices处的measurements</p>
-<h3 id="get-current-state-self"><a href="#get-current-state-self" class="headerlink" title="get_current_state(self)"></a>get_current_state(self)</h3><p>获得当前最近的观测值</p>
-<h3 id="get-last-indices-self"><a href="#get-last-indices-self" class="headerlink" title="get_last_indices(self)"></a>get_last_indices(self)</h3><p>返回最近的indices</p>
-<h3 id="get-target-self-indices"><a href="#get-target-self-indices" class="headerlink" title="get_target(self, indices)"></a>get_target(self, indices)</h3><p>使用target_maker.make_targets类返回indices处的targets.<br>这里使用了一个hack，对不同的memory处使用了一12345678 * self._n_head的数值，用来区分不同的head处的episode值</p>
-<h3 id="has-valid-history-self-index"><a href="#has-valid-history-self-index" class="headerlink" title="has_valid_history(self, index)"></a>has_valid_history(self, index)</h3><p>判断index处是否有足够的history进行训练</p>
-<h3 id="has-valid-target-self-index"><a href="#has-valid-target-self-index" class="headerlink" title="has_valid_target(self, index)"></a>has_valid_target(self, index)</h3><p>判断index处是否有足够的target进行训练</p>
-<h3 id="is-valid-target-self-index"><a href="#is-valid-target-self-index" class="headerlink" title="is_valid_target(self, index)"></a>is_valid_target(self, index)</h3><p>判断index处的状态是否有效，即是否有足够的history和target</p>
-<h3 id="get-observations-self-indices"><a href="#get-observations-self-indices" class="headerlink" title="get_observations(self, indices)"></a>get_observations(self, indices)</h3><p>得到indices处的所有信息包括<br>state_imgs, state_meas, rwrds, terms, acts, targs, objs</p>
-<h3 id="get-random-batch-self-batch-size"><a href="#get-random-batch-self-batch-size" class="headerlink" title="get_random_batch(self, batch_size)"></a>get_random_batch(self, batch_size)</h3><p>从memory中随机采用batch_size个有效的样本</p>
-<h3 id="compute-avg-meas-and-rwrd-self-start-idx-end-idx"><a href="#compute-avg-meas-and-rwrd-self-start-idx-end-idx" class="headerlink" title="compute_avg_meas_and_rwrd(self, start_idx, end_idx)"></a>compute_avg_meas_and_rwrd(self, start_idx, end_idx)</h3><p>统计从start_idx，end_idx中所有的episode中的平均measurements和rewards</p>
-<h3 id="show-self-start-idx-end-idx-display-write-imgs-write-video-preprocess-targets-show-predictions-net-discrete-actions"><a href="#show-self-start-idx-end-idx-display-write-imgs-write-video-preprocess-targets-show-predictions-net-discrete-actions" class="headerlink" title="show(self, start_idx, end_idx, display, write_imgs, write_video, preprocess_targets, show_predictions, net_discrete_actions)"></a>show(self, start_idx, end_idx, display, write_imgs, write_video, preprocess_targets, show_predictions, net_discrete_actions)</h3><p>show的接口，提供display, write_imgs, write_vedio, show_prediction的选项</p>
-<h2 id="multi-experiement-py"><a href="#multi-experiement-py" class="headerlink" title="multi_experiement.py"></a>multi_experiement.py</h2><h3 id="init-self-target-maker-args-simulator-args-train-experience-args-test-policy-experience-args-agent-args-experiment-args"><a href="#init-self-target-maker-args-simulator-args-train-experience-args-test-policy-experience-args-agent-args-experiment-args" class="headerlink" title="init(self, target_maker_args, simulator_args, train_experience_args, test_policy_experience_args, agent_args, experiment_args)"></a><strong>init</strong>(self, target_maker_args, simulator_args, train_experience_args, test_policy_experience_args, agent_args, experiment_args)</h3><p>将默认的参数和给定的参数进行合并，得到具体的参数.<br>部分参数在此处求解，比如各种shape的参数</p>
-<h3 id="run-self-mode"><a href="#run-self-mode" class="headerlink" title="run(self, mode)"></a>run(self, mode)</h3><ul>
-<li>show模式，将训练的head_offset和测试的head_offset错开。测试policy，并show_memory中的结果</li>
-<li>train模式，训练网络, 更新参数.</li>
-</ul>
+          Code Structure
+common
+util.py
+tf_ops.py
+defaults.py
 
-          
+
+Simulator
+doom_simulator.py
+multi_doom_simulator.py
+
+
+Agent 
+agent.py
+future_predictor_agent_bas
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/07/DFP-code/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -738,53 +606,22 @@
       
         
           
-            <h1 id="OCR-文字光学识别"><a href="#OCR-文字光学识别" class="headerlink" title="OCR 文字光学识别"></a>OCR 文字光学识别</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><ul>
-<li>文字检测</li>
-<li>文字识别</li>
-</ul>
-<h2 id="文字检测-localization"><a href="#文字检测-localization" class="headerlink" title="文字检测(localization)"></a>文字检测(localization)</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>IOU不是一个好的criterion, 检测到一部分文字也行</li>
-<li>various fonts, colors, languages and bks etc.</li>
-<li>perspective transformation</li>
-<li>layouts</li>
-<li>word/line level</li>
-</ul>
-<h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><ul>
-<li>tranditional method</li>
-<li>deep learning<ul>
-<li>RPN based, detection</li>
-<li>FCN based, segmentation </li>
-</ul>
-</li>
-</ul>
-<p>Note: Sence text detection via holistic, multi-channel prediction</p>
-<h2 id="文字识别"><a href="#文字识别" class="headerlink" title="文字识别"></a>文字识别</h2><h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><ul>
-<li>CNN/MDLSTM + RNN + CTC</li>
-<li>Sequence to Sequence with Attention</li>
-<li>Combine CTC and Attention</li>
-</ul>
-<p>note: CTC用来将文字进行对齐</p>
-<p>note: LSTM -&gt; GRU -&gt;EURNN</p>
-<h4 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h4><ul>
-<li>Bidirectional RNN (文字识别中经常使用)</li>
-<li>Stack RNN(百度 7个堆叠， 谷歌5个堆叠)</li>
-<li>MDLSTM/Grid LSTM</li>
-</ul>
-<h4 id="challenge"><a href="#challenge" class="headerlink" title="challenge"></a>challenge</h4><ul>
-<li>Chinese include too many characters<ul>
-<li>Uncoutable labels</li>
-<li>Insufficient data (Synthesize)</li>
-<li>Much more computation</li>
-</ul>
-</li>
-<li>Incaptable<ul>
-<li>Too much perspective transform (STN)</li>
-<li>Vertical layout</li>
-</ul>
-</li>
-</ul>
+          OCR 文字光学识别问题描述
+文字检测
+文字识别
 
-          
+文字检测(localization)特点
+IOU不是一个好的criterion, 检测到一部分文字也行
+various fonts, colors, languages and bks etc.
+perspective transformation
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/05/OCR/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -946,10 +783,16 @@
       
         
           
-            <h1 id="pickle-模块的简易使用"><a href="#pickle-模块的简易使用" class="headerlink" title="pickle 模块的简易使用"></a>pickle 模块的简易使用</h1><h2 id="序列化存储"><a href="#序列化存储" class="headerlink" title="序列化存储"></a>序列化存储</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">data = ...</div><div class="line">f = open(<span class="string">'file.pkl'</span>,<span class="string">'wb'</span>)</div><div class="line">pickle.dump(data, f)</div></pre></td></tr></table></figure>
-<h2 id="序列化读取"><a href="#序列化读取" class="headerlink" title="序列化读取"></a>序列化读取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">pkl_file = open(<span class="string">'file.pkl'</span>,<span class="string">'rb'</span>)</div><div class="line">data = pickle.load(pkl_file)</div></pre></td></tr></table></figure>
-
-          
+          pickle 模块的简易使用序列化存储1234import pickledata = ...f = open('file.pkl','wb')pickle.dump(data, f)
+序列化读取123import picklepkl_file = open('file.pkl','rb')data 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/01/pickle/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1111,30 +954,24 @@
       
         
           
-            <h1 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h1><h2 id="Download-and-Install"><a href="#Download-and-Install" class="headerlink" title="Download and Install"></a>Download and Install</h2><p>refer<br><a href="https://tmux.github.io" target="_blank" rel="external">Tmux</a></p>
-<h2 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h2><h3 id="Sessions"><a href="#Sessions" class="headerlink" title="Sessions"></a>Sessions</h3><ul>
-<li>:new <em>new session</em></li>
-<li>s <em>list sessions</em></li>
-<li>$ <em>name session</em></li>
-</ul>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ul>
-<li>c <em>create window</em></li>
-<li>w <em>list window</em></li>
-<li>n <em>next window</em></li>
-<li>p <em>previous window</em></li>
-<li>f <em>find window</em></li>
-<li>, <em>name window</em></li>
-<li>&amp; <em>kill window</em></li>
-</ul>
-<h3 id="Panes"><a href="#Panes" class="headerlink" title="Panes"></a>Panes</h3><ul>
-<li>% <em>vertical split</em></li>
-<li>“ <em>horizontal split</em></li>
-<li>o <em>swap panes</em></li>
-<li>q <em>show pane number</em></li>
-<li>x <em>kill pane</em></li>
-</ul>
+          TmuxDownload and InstallreferTmux
+ShortcutsSessions
+:new new session
+s list sessions
+$ name session
 
-          
+Windows
+c create window
+w list window
+n next wind
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/23/tmux/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1296,251 +1133,18 @@
       
         
           
-            <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
-<h1 id="lecture-7-Policy-Gradient"><a href="#lecture-7-Policy-Gradient" class="headerlink" title="lecture 7 Policy Gradient"></a>lecture 7 Policy Gradient</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Policy-Based Reinforcement Learning</strong></p>
-<ul>
-<li>In the last lecture we approximated the value or action-value function using parameter $\theta$</li>
-<li>A policy was generated directly from the value function</li>
-<li>In this lecture, we will directly parametrise the <strong>policy</strong><br>$$ \pi_{\theta} (s,a) = P(a|s,\theta) $$</li>
-<li>We will focus again on model-free reinforcement learning</li>
-</ul>
-<p><strong>Value-Based and Policy-Based RL</strong></p>
-<ul>
-<li>Value Based<ul>
-<li>Learnt Value Function</li>
-<li>Implicit policy (e.g. $\epsilon$-greedy)</li>
-</ul>
-</li>
-<li>Policy Based<ul>
-<li>No Value Function</li>
-<li>Learnt Policy </li>
-</ul>
-</li>
-<li>Actor-Critic<ul>
-<li>Learnt Value Function</li>
-<li>Learnt Policy</li>
-</ul>
-</li>
-</ul>
-<p><strong>Advantages of Policy-Based RL</strong><br>Advantages:</p>
-<ul>
-<li>Better convergence properties</li>
-<li>Effective in high-dimensional or continuous action spaces</li>
-<li>Can learn stochastic policies<br>Disadvantages:</li>
-<li>Typically converge to a local rather than global optimum</li>
-<li>Evaluating a policy is typically inefficient and high variance</li>
-</ul>
-<h3 id="Policy-Search"><a href="#Policy-Search" class="headerlink" title="Policy Search"></a>Policy Search</h3><p><strong>Policy Objective Functions</strong></p>
-<ul>
-<li>Goal: given policy $\pi_{\theta} (s,a) $ with parameters $\theta$, find best $\theta$.</li>
-<li>But how do we measure the quality of a policy $\pi_theta$?</li>
-<li>In episodic environments we can use the start value.<br>$$ J_1 (\theta) = V^{\pi_\theta} (s_1) = E_{\pi_\theta} (v_1) $$</li>
-<li>In continuing environments we can use the average value<br>$$ J_{avV} (\theta) = \sum_{s} d^{\pi_\theta} (s) V^{\pi_\theta} (s) $$</li>
-<li>Or the average reward per time-step<br>$$ J_{avR} (\theta) = \sum_{s} d^{\pi_\theta} (s) \sum_{a} \pi_\theta (s,a) R_s^a $$</li>
-<li>where $d^{\pi_\theta} (s)$ is <strong>stationary distribution</strong> of Markov chain for $\pi_\theta$</li>
-</ul>
-<h3 id="Policy-Optimisation"><a href="#Policy-Optimisation" class="headerlink" title="Policy Optimisation"></a>Policy Optimisation</h3><ul>
-<li>Policy based reinforcement learning is an <strong>optimisation</strong> problem</li>
-<li>Find $\theta$ that maximises $J(\theta)$ </li>
-<li>Some approaches do not use gradient <ul>
-<li>Hill climbing </li>
-<li>Simplex/amoeba/Nelder Mead</li>
-<li>Genetic algorithms</li>
-</ul>
-</li>
-<li>Greater efficiency often possible using gradient<ul>
-<li>Gradient descent</li>
-<li>Conjugate gradient</li>
-<li>Quasi-Newton</li>
-</ul>
-</li>
-<li>We focus on gradient descent, many extensions possible</li>
-<li>And on methods that exploit sequential structure</li>
-</ul>
-<h2 id="Finite-Difference-Policy-Gradient"><a href="#Finite-Difference-Policy-Gradient" class="headerlink" title="Finite Difference Policy Gradient"></a>Finite Difference Policy Gradient</h2><p><strong>Policy Gradient</strong></p>
-<ul>
-<li>Let $J(\theta)$ be any policy objective function</li>
-<li>Policy gradient algorithms search for a local maximum in $J(\theta)$ by ascending the gradient of the policy, w.r.t parameters $\theta$<br>$$ \Delta \theta = \alpha \nabla_\theta J(\theta) $$</li>
-<li>Where $\Delta_\theta J(\theta)$ is the <strong>policy gradient</strong>, and $\alpha$ is a step-size parameter</li>
-</ul>
-<p><strong>Computing Gradients By Finite Differences</strong></p>
-<ul>
-<li>To evaluate policy gradient of $\pi_\theta (s,a)$</li>
-<li>For each dimension $k \in [1,n]$<ul>
-<li>Estimate $k$th partial derivative of objective function w.r.t $\theta$</li>
-<li>By perturbing $\theta$ by small amount $\epsilon$ in $k$th dimension</li>
-</ul>
-</li>
-<li>Uses $n$ evaluations to compute policy gradient in $n$ dimensions</li>
-<li>Simple, noisy, inefficient - but sometimes effective</li>
-<li>Works for arbitrary policies, even if policy is not differentiable</li>
-</ul>
-<h2 id="Monte-Carlo-Policy-Gradient"><a href="#Monte-Carlo-Policy-Gradient" class="headerlink" title="Monte-Carlo Policy Gradient"></a>Monte-Carlo Policy Gradient</h2><h3 id="Likelihood-Ratios"><a href="#Likelihood-Ratios" class="headerlink" title="Likelihood Ratios"></a>Likelihood Ratios</h3><p><strong>Score Function</strong></p>
-<ul>
-<li>We now compute the policy gradient analytically</li>
-<li>Assume policy $\pi_\theta$ is differentiable whenever it is non-zero</li>
-<li>and we know the gradient $\nabla_\theta \pi_\theta (s,a) $</li>
-<li><strong>Likelihood ratios</strong> exploit the following identity<br>$$ \nabla_\theta \pi_\theta (s,a) = \pi_\theta (s,a) \frac{\nabla_\theta \pi_\theta (s,a)}{\pi_\theta (s,a)} = \pi_{\theta} (s,a) \nabla_\theta \log \pi_\theta (s,a) $$</li>
-<li>The <strong>score function</strong> is $\nabla_\theta \log \pi_{\theta} (s,a)$</li>
-</ul>
-<p><strong>Softmax Policy</strong></p>
-<ul>
-<li>We will use a softmax policy as a running example</li>
-<li>Weight actions using linear combination of features $\phi(s,a)^T \theta$</li>
-<li>Probability of action is proportional to exponential weight<br>$$ \pi_\theta (s,a) \propto e^{\phi(s,a)^T \theta} $$</li>
-<li>The score function is<br>$$ \nabla_\theta \log \pi_\theta (s,a) = \phi(s,a) - E_{\pi_\theta} (\phi(s,\cdot)) $$</li>
-</ul>
-<p><strong>Gaussian Policy</strong></p>
-<ul>
-<li>In continuous action spaces, a Gaussian policy is natural</li>
-<li>Mean is a linear combination of state feature $\mu(s) = \phi(s)^T \theta$</li>
-<li>Variance may be fixed $\sigma^2$, or can also parametrised</li>
-<li>Policy is Gaussian, $a \sim N(\mu(s),\sigma^2)$</li>
-<li>The score function is<br>$$ \nabla_\theta \log \pi_{\theta} (s,a) = \frac{(a-\mu(s))\phi(s)}{\sigma^2} $$</li>
-</ul>
-<h3 id="Policy-Gradient-Theorem"><a href="#Policy-Gradient-Theorem" class="headerlink" title="Policy Gradient Theorem"></a>Policy Gradient Theorem</h3><p><strong>One-Step MDPs</strong></p>
-<ul>
-<li>Consider a simple class of <strong>one-step</strong> MDPs<ul>
-<li>Starting in state $s\sim d(s)$</li>
-<li>Terminating after one time-step with reward $r=R_{s,a}$</li>
-</ul>
-</li>
-<li>Use likelihood ratios to compute the policy gradient<br>$$ J(\theta) = E_{\pi_\theta} (r) = \sum_{s \in S} d(s) \sum_{a \in A} \pi_\theta (s,a) R_{s,a} \\ \nabla_\theta J(\theta) = \sum_{s \in S} d(s) \sum_{a \in A} \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a) R_{s,a} = E_{\pi_\theta} (\nabla_\theta \log \pi_\theta (s,a) r)  $$</li>
-</ul>
-<p><strong>Policy Gradient Theorem</strong></p>
-<ul>
-<li>The policy gradient theorem generalised the likelihood ratio approach to multi-step MDPs</li>
-<li>Replaces instantaneous reward $r$ with long-term value $Q^\pi (s,a)$</li>
-<li>Policy gradient theorem applies to start state objective, average reward and average value objective, average reward and average value objective<blockquote>
-<p><strong>Theorem</strong><br>For any differentiable policy $\pi_\theta(s,a)$, for any of the policy objective functions $J=J_1,J_{avR}$ or $\frac{1}{1-\gamma} J_{avV}$, the policy gradient is<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q^{\pi_\theta} (s,a)\right] $$</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>Monte-Carlo Policy Gradient(REINFORCE)</strong></p>
-<ul>
-<li>Update parameters by stochastic gradient ascent</li>
-<li>Using policy gradient theorem </li>
-<li>Using return $v_t$ as an unbiased sample of $Q^{\pi_\theta} (s_t,a_t)$<br>$$ \Delta \theta_t = \alpha \nabla_\theta \log \pi_\theta (s_t,a_t)v_t $$<br><img src="http://i1.piimg.com/567571/54c0e94c6b0f2936.png" alt="PG algorithm"></li>
-</ul>
-<h2 id="Actor-Critic-Policy-Gradient"><a href="#Actor-Critic-Policy-Gradient" class="headerlink" title="Actor-Critic Policy Gradient"></a>Actor-Critic Policy Gradient</h2><h3 id="Introduction-to-AC"><a href="#Introduction-to-AC" class="headerlink" title="Introduction to AC"></a>Introduction to AC</h3><p><strong>Reducing Variance Using a Critic</strong></p>
-<ul>
-<li>Monte-Carlo policy gradient still has high variance</li>
-<li>We use a <strong>critic</strong> to estimate the action-value function, $ Q_w (s,a) \approx Q^{\pi_\theta} (s,a)$</li>
-<li>Actor-critic algorithms maintain two sets of parameters<ul>
-<li><strong>Critic</strong> Updates action-value function parameters $w$</li>
-<li><strong>Actor</strong> Updates policy parameters $\theta$, in direction suggested by critic</li>
-</ul>
-</li>
-<li>Actor-critic algorithms follow an approximate policy gradient<br>$$ \nabla_\theta J(\theta) \approx E_{\pi_\theta} (\nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) ) \\ \Delta \theta = \alpha \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) $$</li>
-</ul>
-<p><strong>Estimating the Action-Value Function</strong></p>
-<ul>
-<li>The critic is solving a familiar problem: <strong>policy evaluation</strong></li>
-<li>How good is policy $\pi_theta$ for current parameters $\theta$?</li>
-<li>This problem was explored in previous two lectures, e.g.<ul>
-<li>Monte-Carlo policy evaluation</li>
-<li>Temporal-Difference learning</li>
-<li>TD($\lambda$)</li>
-</ul>
-</li>
-<li>Could also use e.g least-squares policy evaluation</li>
-</ul>
-<p><strong>Action-value Actor-Critic</strong></p>
-<ul>
-<li>Simple actor-critic algorithm based on action-value critic</li>
-<li>Using linear value fn approx $Q_w (s,a) = \phi(s,a)^T w $<ul>
-<li><strong>Critic</strong> Updates $w$ by linear TD(0)</li>
-<li><strong>Actor</strong> Updates $\theta$ by policy gradient<br><img src="http://i1.piimg.com/567571/bcf6e47f246e7bf9.png" alt="Simple actor-critic algorithm"></li>
-</ul>
-</li>
-</ul>
-<h3 id="Compatible-Function-Approximation"><a href="#Compatible-Function-Approximation" class="headerlink" title="Compatible Function Approximation"></a>Compatible Function Approximation</h3><p><strong>Bias in Actor-Critic Algorithms</strong></p>
-<ul>
-<li>Approximating the policy gradient introduces bias</li>
-<li>A biased policy gradient may not find the right solution<ul>
-<li>e.g if $Q_w(s,a)$ uses aliased features, can we solve gridworld example?</li>
-</ul>
-</li>
-<li>Luckily, if we choose value function approximation carefully</li>
-<li>Then we can avoid introducing any bias</li>
-<li>i.e We can still follow the exact policy gradient </li>
-</ul>
-<p><strong>Compatible Function Approximation</strong></p>
-<blockquote>
-<p><strong>Theorem(Compatible Function Approximation Theorem)</strong><br>If the following two conditions are satisfied</p>
-<ol>
-<li>Value function approximator is compatible to the policy<br>$$ \nabla_w Q_w(s,a) = \nabla_\theta \log \pi_\theta (s,a) $$</li>
-<li>Value function parameters $w$ minimise the mean-squared error<br>$$ \epsilon = E_{\pi_\theta} \left[ (Q^{\pi_\theta}(s,a) -Q_w(s,a))^2\right] $$<br>Then the policy gradient is exact<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) \right] $$</li>
-</ol>
-</blockquote>
-<p><strong>Proof of Compatible Function Approximation Theorem</strong><br>If $w$ is chosen to minimise mean-squared error, gradient of $\epsilon$ w.r.t $w$ must be zero<br><img src="http://i2.muimg.com/567571/ef9684519bf5952d.png" alt="Proof"><br>So $Q_w (s,a)$ can be substituted directly into the policy gradient<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) \right] $$</p>
-<h3 id="Advantage-Function-Critic"><a href="#Advantage-Function-Critic" class="headerlink" title="Advantage Function Critic"></a>Advantage Function Critic</h3><p><strong>Reducing Variance Using a Baseline</strong></p>
-<ul>
-<li>We subtract a baseline function $B(s)$ from the policy gradient</li>
-<li>This can reduce variance, without changing expectation<br>$$ E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) B(s) \right] = \sum_{s \in S} d^{\pi_\theta} (s) \sum_s \nabla_\theta \pi_\theta (s,a) B(s) \\ = \sum_{s \in S} d^{\pi_\theta} B(s) \nabla_\theta \sum_{a \in A} \pi_\theta (s,a) = 0 $$</li>
-<li>A good baseline is the state value function $B(s) = V^{\pi_\theta} (s)$</li>
-<li>So we can rewrite the policy gradient using the advantage function $A^{\pi_\theta} (s,a)$<br>$$ A^{\pi_\theta} (s,a) = Q^{\pi_\theta} (s,a) - V^{\pi_\theta} (s) \\ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) A^{\pi_\theta} (s,a) \right] $$</li>
-</ul>
-<p><strong>Estimating the Advantage Function</strong></p>
-<ul>
-<li>The advantage function can significantly reduce variance of policy gradient</li>
-<li>So the critic should really estimate the advantage function</li>
-<li>For example, by estimating both $V^{\pi_\theta} (s)$ and $Q^{\pi_\theta} (s,a)$</li>
-<li>Using two function approximating and two parameter vectors<br>$$ V_v (s) \approx V^{\pi_\theta} (s) \\ Q_w (s,a) \approx Q^{\pi_\theta} (s,a) \\ A(s,a) = Q_w(s,a) - V_v (s) $$</li>
-<li>And updating both value functions by e.g TD learning </li>
-<li>For the true value function $V^{\pi_\theta} (s)$, the TD error $\delta^{\pi_\theta}$<br>$$ \delta^{\pi_\theta} = r + \gamma V^{\pi_\theta} (s’) - V^{\pi_\theta} (s)$$</li>
-<li>is an unbiased estimate of the advantage function<br>$$ E_{\pi_\theta} \left[ \delta^{\pi_\theta} | s,a\right]=  E_{\pi_\theta} \left[r+\gamma V^{\pi_\theta} (s’) | s,a \right] - V^{\pi_\theta} (s) \\ = Q^{\pi_\theta} (s,a) -V^{\pi_\theta} (s) = A^{\pi_\theta} (s,a) $$ </li>
-<li>So we can use the TD error to compute the policy gradient<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) \delta^{\pi_\theta} \right] $$</li>
-<li>In practice we can use an approximate TD error<br>$$ \delta_v = r + \gamma V_v (s’) - V_v (s) $$</li>
-<li>This approach only requires one set of critic parameters $v$</li>
-</ul>
-<h3 id="Eligibility-Traces"><a href="#Eligibility-Traces" class="headerlink" title="Eligibility Traces"></a>Eligibility Traces</h3><p><strong>Critics at Different Time-Scales</strong></p>
-<ul>
-<li>Critic can estimate value function $V_\theta(s)$ from many targets at different time-scales <ul>
-<li>For MC, the target is the return $v_t$<br>$$ \Delta \theta = \alpha (v_t - V_\theta(s)) \phi(s) $$</li>
-<li>For TD(0), the target is the TD target $r+ \gamma V(s’)$<br>$$ \Delta \theta = \alpha (r + \gamma V(s’)  - V_\theta(s)) \phi(s) $$</li>
-<li>For forward-view TD($\lambda$), the target is the $\lambda$-return $v_t^\lambda$<br>$$ \Delta \theta =\alpha (v_t^\lambda - V_\theta (s)) \phi(s) $$</li>
-<li>For backward-view TD($\lambda$), we use eligibility traces<br>$$ \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t) \\ e_t = \gamma \lambda e_{t-1} + \phi(s_t) \\ \Delta \theta = \alpha \delta_t e_t $$</li>
-</ul>
-</li>
-</ul>
-<p><strong>Policy Gradient with Eligibility Traces</strong></p>
-<ul>
-<li>Just like forward-view TD($\lambda$), we can mix over time-scales<br>$$ \Delta \theta = \alpha (v_t^\lambda - V_v (s_t) ) \nabla_\theta \log \pi_\theta (s_t,a_t) $$</li>
-<li>where $v_t^\lambda -V_v(s_t)$ is a biased estimate of advantage fn</li>
-<li>Like backward-view TD($\lambda$), we can also use eligibility traces<ul>
-<li>By equivalence with TD($\lambda$), substituting $\phi(s) = \nabla_\theta \log \pi_\theta (s,a)$<br>$$ \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t) \\ e_{t+1} = \lambda e_{t} + \nabla_\theta \log \pi_\theta (s,a)  \\ \Delta \theta = \alpha \delta_t e_t $$</li>
-</ul>
-</li>
-<li>This update can be applied online, to incomplete sequences</li>
-</ul>
-<h3 id="Natural-Policy-Gradient"><a href="#Natural-Policy-Gradient" class="headerlink" title="Natural Policy Gradient"></a>Natural Policy Gradient</h3><p><strong>Alternative Policy Gradient Direction</strong></p>
-<ul>
-<li>Gradient ascent algorithm can follow any ascent direction</li>
-<li>A good ascent direction can significantly speed convergence</li>
-<li>Also, a policy can often be reparametrised without changing action probabilities</li>
-<li>For example, increasing score of all actions in a softmax policy</li>
-<li>The vanilla gradient is sensitive to these reparametrisations</li>
-</ul>
-<p><strong>Natural Policy Gradient</strong></p>
-<ul>
-<li>The <strong>natural policy gradient</strong> is parametrisation independent</li>
-<li>It finds ascent direction that is closet to vanilla gradient, when changing policy by a small, fixed amount<br>$$ \nabla_\theta^{nat} \pi_\theta (s,a) = G_\theta^{-1} \nabla_\theta \pi_\theta (s,a) $$</li>
-<li>where $G_\theta$ is the Fisher information matrix<br>$$ G_\theta = E_\theta \left[ \nabla_\theta \log \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a)^T \right] $$</li>
-</ul>
-<p><strong>Natural Actor-Critic</strong></p>
-<ul>
-<li>Using compatible function approximation<br>$$ \nabla_w A_w (s,a) = \nabla_\theta \log \pi_\theta (s,a) $$</li>
-<li>So the natural policy gradient simplifies,<br>$$ \nabla_\theta J(\theta) = E_{\theta_\pi} \left[ \nabla_\theta \log \pi_\theta (s,a) A^{\pi_\theta} (s,a) \right] \\ = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a)^T w \right] = G_\theta w $$<br>so we can get $ \nabla_\theta^{nat} J(\theta) = w $</li>
-<li>update actor parameters in direction of critic parameters</li>
-</ul>
-<h2 id="Summary-of-Policy-Gradient-Algorithms"><a href="#Summary-of-Policy-Gradient-Algorithms" class="headerlink" title="Summary of Policy Gradient Algorithms"></a>Summary of Policy Gradient Algorithms</h2><ul>
-<li>The <strong>policy gradient</strong> has many equivalent forms<br>  <img src="http://i2.muimg.com/567571/45365e91fb7af247.png" alt="PG equivalent forms"></li>
-<li>Each leads a stochastic gradient ascent algorithm</li>
-<li>Critic uses <strong>policy evaluation</strong> (e.g MC or TD learning) to estimate $Q^\pi (s,a), A^\pi (s,a)$ or $V^\pi (s)$</li>
-</ul>
+          reference:    UCL Course on RL
+lecture 7 Policy GradientIntroductionPolicy-Based Reinforcement Learning
 
-          
+In the last lecture we approximated the value
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/18/RL7/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1702,79 +1306,17 @@
       
         
           
-            <p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
-<h1 id="lecture-3-More-Word-Vectors"><a href="#lecture-3-More-Word-Vectors" class="headerlink" title="lecture 3 More Word Vectors"></a>lecture 3 More Word Vectors</h1><h2 id="Stochastic-gradients-with-word-vectors"><a href="#Stochastic-gradients-with-word-vectors" class="headerlink" title="Stochastic gradients with word vectors"></a>Stochastic gradients with word vectors</h2><ul>
-<li>But in each window, we only have at most $2m+1$ words, so $\nabla_\theta J_t(\theta)$ is very sparse!</li>
-<li>We may as well only update the word vectors that actually appear!</li>
-<li><strong>Solution</strong>: either you need sparse matrix update operations to only update columns of full embedding matrices $U$ and $V$, or you need to keep around a hash for word vectors</li>
-<li>If you have millions of word vectors and do distributed computing, it is important to not have to send gigantic updates around!</li>
-</ul>
-<h3 id="Approximations"><a href="#Approximations" class="headerlink" title="Approximations"></a>Approximations</h3><ul>
-<li>The normalization factor is too computationally expensive<br>$$ p(o|c) = \frac{\exp (u_o^T v_c)}{\sum_{w=1}^V \exp (u_w^T v_c)} $$</li>
-<li>Implement the skip-gram model with <strong>negative sampling</strong></li>
-<li>Main idea: train binary logistic regressions for a true pair (center word and word in its context window) versus a couple of noise pairs (the center word paired with a random word)</li>
-</ul>
-<p><strong>The skip-gram model and negative sampling</strong></p>
-<ul>
-<li>From paper <em>Distributed Representations of Words and Phrases and their Compositionality (Mikolov et al. 2013)</em></li>
-<li>Overall objective function: $J(\theta) = \frac{1}{T} \sum_{t=1}^{T} J_t(\theta)$<br>$$J_t(\theta) = \log \sigma(u_o^T v_c) + \sum_{i=1}^{k} E_{j\sim P(\omega)} \left[ \log \sigma (-u_j^T v_c)\right] $$</li>
-<li>Where $k$ is the number of negative samples and we use</li>
-<li>$\sigma$ is sigmoid function</li>
-<li>So we maximize the probability of two words co-occurring in first log</li>
-</ul>
-<h2 id="Negative-sampling"><a href="#Negative-sampling" class="headerlink" title="Negative sampling"></a>Negative sampling</h2><p>word2vec is a <strong>huge</strong> neural network!<br>The author of Word2Vec addressed the issue in their second <a href="https://arxiv.org/pdf/1310.4546.pdf" target="_blank" rel="external">paper</a><br>There are <strong>three</strong> innovations in this second paper:</p>
-<ol>
-<li>Treating common word pairs or phrases as a single “words” in their model</li>
-<li>Sub-sampling frequent words to decrease the number of training examples</li>
-<li>Modifying the optimization objective with a technique they called “Negative Sampling”, which causes each training sample to update only a small percentage of the model’s weights</li>
-</ol>
-<p><strong>Note</strong>: Sub-sampling frequent words and applying Negative Sampling not only reduced the compute burden of the training process, but also improved the quality of their resulting word vectors as well.</p>
-<h3 id="Word-Pair-and-“Phrases”"><a href="#Word-Pair-and-“Phrases”" class="headerlink" title="Word Pair and “Phrases”"></a>Word Pair and “Phrases”</h3><p>Example: a word pair like “Boston Globe” has a much different meaning than the individual words “Boston” and “Globe”. So it makes sense to treat “Boston Globe” as a single word</p>
-<p><strong>Method of phrase detection</strong>: it is covered in the “Learning Phrases” section of <a href="http://arxiv.org/pdf/1310.4546.pdf" target="_blank" rel="external">paper</a>. And the code is available in <em>word2phrase.c</em> of their published <a href="https://code.google.com/archive/p/word2vec/" target="_blank" rel="external">code</a></p>
-<h3 id="Sub-sampling-Frequent-Words"><a href="#Sub-sampling-Frequent-Words" class="headerlink" title="Sub-sampling Frequent Words"></a>Sub-sampling Frequent Words</h3><p>As this example<br><img src="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png" alt="example"></p>
-<p>There are two problems with common words like <em>the</em>:</p>
-<ol>
-<li>When looking at word pairs, ( <em>fox</em>, <em>the</em> ) doesn’t tell use much about the meaning of <em>fox</em>. <em>the</em> appears in the context of pretty much every word.</li>
-<li>We will have many more samples of ( <em>the</em>, $\dots$) than we need to learn a good vector for <em>the</em>.</li>
-</ol>
-<blockquote>
-<p>Word2Vec implements a “sub-sampling” scheme to address this. For each word we encounter in training text, there is a chance that we will effectively delete it from the text. The probability that we cut the word is related to the word’s frequency</p>
-</blockquote>
-<p>If we have a window size of 10, and we remove a specific instance of <em>the from our text</em>:</p>
-<ol>
-<li>As we train on the remaining words, <em>the</em> will not appear in any of their context windows.</li>
-<li>We’ll have 10 fewer training samples where <em>the</em> is the input word.</li>
-</ol>
-<p><strong>Sampling rate</strong><br>For any word $w_i$, $z(w_i)$ is the fraction of the total words in the corpus that are that word.<br>$P(w_i)$ is the probability of <em>keeping</em> the word:<br>$$ P(w_i) = \left( \sqrt{\frac{z(w_i)}{0.001}}+1\right) \frac{0.001}{z(w_i)}$$<br><img src="http://i2.muimg.com/567571/fae4be3e93caaa6f.png" alt="sampling rate"></p>
-<h3 id="Negative-sampling-1"><a href="#Negative-sampling-1" class="headerlink" title="Negative sampling"></a>Negative sampling</h3><p>Negative sampling addresses the problem (<strong>tremendous number of weight</strong>) by having each training sample only modify a small percentage of the weights, rather than all of them.</p>
-<p>When training the network on the word pair (<em>fox</em>,<em>quick</em>), output neuron corresponding to <em>quick</em> should output 1 (positive), and for all of the <strong>other</strong> output neurons should output 0 (negative). With negative sampling, we are instead going to randomly select just a small number of “negative” words to update the weights for. We will also still update the weights for our “positive” word.</p>
-<p>Recall that the output layer of our model has a weight matrix that’s $300 \times 10000$. So we will just be updating the weights for our positive word (“quick”), plus the weights for 5 other words that we want to output 0. That’s a total of 6 output neurons, and 1800 weight value total. That’s only $0.06\%$ of the 3M weights in the output layer.</p>
-<p>In the hidden layer, only the weights for the input word are updated.</p>
-<p><strong>Selecting Negative Samples</strong><br>The probability for selecting a word as a negative sample is related to its frequency, with more frequent words being more likely to be selected as negative samples.<br>$$ P(w_i) = \frac{f(w_i)^{3/4}}{\sum_{j=0}^n \left( f(w_j)^{3/4}\right)}$$</p>
-<h2 id="Summary-of-word2vec"><a href="#Summary-of-word2vec" class="headerlink" title="Summary of word2vec"></a>Summary of word2vec</h2><ul>
-<li>Go through each word of the whole corpus</li>
-<li>Predict surrounding words of each word</li>
-<li>This captures co-occurrence of words one at a time</li>
-</ul>
-<h2 id="Evaluation-word-vectors"><a href="#Evaluation-word-vectors" class="headerlink" title="Evaluation word vectors"></a>Evaluation word vectors</h2><ul>
-<li>Related to general evaluation in NLP: Intrinsic vs extrinsic</li>
-<li>Intrinsic:<ul>
-<li>Evaluation on a specific/intermediate subtask</li>
-<li>Fast to compute</li>
-<li>Helps to understand that system</li>
-<li>Not clear if really helpful unless correlation to real task is established</li>
-</ul>
-</li>
-<li>Extrinsic:<ul>
-<li>Evaluation on a real task</li>
-<li>Can take a long time to compute accuracy</li>
-<li>Unclear if the subsystem is the problem or its interaction or other subsystems</li>
-<li>If replacing exactly one subsystem with another improves accuracy</li>
-</ul>
-</li>
-</ul>
-
-          
+          referencecs224n
+lecture 3 More Word VectorsStochastic gradients with word vectors
+But in each window, we only have at most $2m+1$ words, so $\nabla_\t
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/16/NLP3/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1936,72 +1478,19 @@
       
         
           
-            <p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
-<h1 id="lecture-2-Word-Vectors"><a href="#lecture-2-Word-Vectors" class="headerlink" title="lecture 2 Word Vectors"></a>lecture 2 Word Vectors</h1><h2 id="Word-meaning"><a href="#Word-meaning" class="headerlink" title="Word meaning"></a>Word meaning</h2><p>Definition: <strong>meaning</strong></p>
-<ul>
-<li>the idea that is represented by a word, phrase, etc.</li>
-<li>the idea that a person wants to express by using words, signs, etc.</li>
-<li>the idea that is expressed in a word of writing<br>Commonest linguistic way of thinking of meaning</li>
-<li>signifier $\iff$ signified (idea or thing) = denotation</li>
-</ul>
-<h3 id="One-hot-vector-meaning-in-computer"><a href="#One-hot-vector-meaning-in-computer" class="headerlink" title="One-hot vector(meaning in computer)"></a>One-hot vector(meaning in computer)</h3><p>Common answer: Use a taxonomy like WordNet that has hypernyms relationships and synonym sets<br><strong>Problems with this discrete representation</strong></p>
-<ul>
-<li>Great as a resource but missing nuances, e.g. <em>synonyms</em><ul>
-<li>adept, expert, good, practiced, proficient, skillful</li>
-</ul>
-</li>
-<li>Missing new words (impossible to keep up to date):<ul>
-<li>wicked, badness, nifty, crack, ace, wizard, genius, ninja</li>
-</ul>
-</li>
-<li>Subjective</li>
-<li>Requires human labor to create and adapt</li>
-<li>Hard to compute accurate word similarity</li>
-<li>The vast majority of rule-based and statistical NLP work regards words as atomic symbols</li>
-</ul>
-<p>We use usually a localist representation (“one-hot”) to represent discrete word, but the different word vector $ a^T b = 0$, which means that our query and document vectors are orthogonal. There is no natural notion of similarity in a set of one-hot vectors</p>
-<p>“one-hot” vector could deal with similarity separately;<br>instead we explore a direct approach where vectors encode it</p>
-<h3 id="Distributional-similarity-based-representations"><a href="#Distributional-similarity-based-representations" class="headerlink" title="Distributional similarity based representations"></a>Distributional similarity based representations</h3><p>You can get a lot of value by representing a word by means of its neighbors</p>
-<blockquote>
-<p>You shall know a word by the company it keeps<br>We will build a dense vector for each word type, chosen so that it is good at predicting other words appearing in its context</p>
-</blockquote>
-<h3 id="Basic-idea-of-learning-neural-network-word-embeddings"><a href="#Basic-idea-of-learning-neural-network-word-embeddings" class="headerlink" title="Basic idea of learning neural network word embeddings"></a>Basic idea of learning neural network word embeddings</h3><p>Define a model that aims to predict between a center word $w_t$ and context words in terms of vectors<br>$$ p(context | w_t) = \dots $$<br>which has a loss function, e.g.<br>$$ J = 1 - p(w_{-t} | w_t ) $$<br>We look at many positions $t$ in a big language corpus<br>We keep adjusting the vector representations of words to minimize this loss</p>
-<h3 id="Directly-learning-low-dimensional-word-vectors"><a href="#Directly-learning-low-dimensional-word-vectors" class="headerlink" title="Directly learning low-dimensional word vectors"></a>Directly learning low-dimensional word vectors</h3><ul>
-<li>Learning representations by back-propagating errors (Rumelhart et al., 1986)</li>
-<li><strong>A neural probabilistic language model</strong> (Bengio et al., 2003)</li>
-<li>NLP (almost) from Scratch (Collobert &amp; Weston, 2008)</li>
-<li>A recent, even simpler and faster model:<br>word2vec (Mikolov et al. 2013) $\rightarrow$ intro now</li>
-</ul>
-<h2 id="Main-idea-of-word2vec"><a href="#Main-idea-of-word2vec" class="headerlink" title="Main idea of word2vec"></a>Main idea of word2vec</h2><p><strong>Predict between every word and its context words</strong><br>Two algorithms</p>
-<ol>
-<li><strong>Skip-grams(SG)</strong><br> Predict context words given target (position independent)</li>
-<li>Continuous Bag of Words(CBOW)<br> Predict target from bag-of-words context</li>
-</ol>
-<p>Two (moderately efficient) training methods</p>
-<ol>
-<li>Hierarchical softmax</li>
-<li>Negative sampling<br><strong>Naive softmax</strong></li>
-</ol>
-<h3 id="The-skip-gram-model"><a href="#The-skip-gram-model" class="headerlink" title="The skip-gram model"></a>The skip-gram model</h3><p>reference: <a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="external">Skip-gram tutorial</a><br>Word2vec uses a trick that we train a simple neural network with a single hidden layer to perform a certain task(<strong>Fake Task</strong>), but then we’re not actually going to use that neural network for the task we trained it on!<br>Instead, the goal is actually just to learn the weights of the hidden layer (<strong>Similar to auto-encoder</strong>)</p>
-<p><strong>Fake Task</strong><br><em>Task goal</em> : Given a specific word in the middle of a sentence, look at the words nearby and pick one at random. The network is going to tell us the probability for every word in our vocabulary of being the “nearby word” that we chose.</p>
-<blockquote>
-<p>When I say “nearby”, there is actually a “window size” parameter to the algorithm. A typical window size might be 5, meaning 5 words behind and 5 words ahead</p>
-</blockquote>
-<p>A sample, window size = 5<br><img src="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png" alt="sample"><br><img src="http://i2.muimg.com/567571/61b440b00b028d9f.png" alt="another explanation"></p>
-<p><strong>Model detail</strong></p>
-<ul>
-<li>Input: one-hot vector(dimension means the scale of vocabulary)</li>
-<li>Hidden layer: the word vector for picked word</li>
-<li>Output layer: softmax layer, probability that a randomly selected nearby word is that vocabulary word<br><img src="http://i1.piimg.com/567571/297e4570b1723090.png" alt="skip gram"></li>
-</ul>
-<blockquote>
-<p>For example, we’re going to say that we’re learning word vectors with 300 features. So the hidden layer is going to be represented by a weight matrix with 10000 rows (one for every word in our vocabulary) and 300 columns (one for every hidden neuron)</p>
-</blockquote>
-<p><img src="http://i1.piimg.com/567571/ae499869a4a9ea58.png" alt="word vector"><br>So the end goal of all of this is really just to learn this hidden layer weight matrix.<br><strong>one-hot vector $\times$ hidden layer weight matrix $\iff$ lookup table</strong><br><img src="http://i2.muimg.com/567571/314a54b706896593.png" alt="lookup table"></p>
-<p><strong>objective function</strong><br>For each word $t=1,\dots,T$, predict surrounding words in a window of “radius” $m$ of every word.</p>
-<p>Maximize the probability of any context word given the current center word<br>$$ J’(\theta) = \prod_{t=1}^{\pi} \prod_{-m \le j \le m, j \neq 0 } p \left(w_{t+j} | w_t; \theta \right) $$<br>Negative Log likelihood<br>$$ J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \le j \le m, j \neq 0} \log p \left( w_{t+j} | w_{t} \right) $$<br>Where $\theta$ represents all variable we will optimize</p>
+          referencecs224n
+lecture 2 Word VectorsWord meaningDefinition: meaning
 
-          
+the idea that is represented by a word, phrase, etc.
+the idea that a person wan
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/16/NLP2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2163,86 +1652,16 @@
       
         
           
-            <p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
-<h1 id="lecture-1-Introduction-to-NLP-and-DL"><a href="#lecture-1-Introduction-to-NLP-and-DL" class="headerlink" title="lecture 1 Introduction to NLP and DL"></a>lecture 1 Introduction to NLP and DL</h1><h2 id="Natural-Language-Processing-NLP"><a href="#Natural-Language-Processing-NLP" class="headerlink" title="Natural Language Processing (NLP)"></a>Natural Language Processing (NLP)</h2><p>NLP is a field at the intersection of cs, ai and linguistics<br><strong>Goal</strong>: for computers to process or “understand” natural language in order to perform tasks that are useful</p>
-<ul>
-<li>Performing Tasks, like making appointments, buying things</li>
-<li>Question Answering</li>
-</ul>
-<p><strong>NLP levels</strong><br><img src="http://i1.piimg.com/567571/71b2c4e1c7c09f52.png" alt="NLP levels"></p>
-<h3 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h3><ul>
-<li>Spell checking, keyword search, finding synonyms</li>
-<li>Extracting information </li>
-<li>Classifying</li>
-<li>Machine translation</li>
-<li>Spoken dialog systems</li>
-<li>Complex question answering</li>
-<li>…</li>
-</ul>
-<h3 id="Human-language"><a href="#Human-language" class="headerlink" title="Human language"></a>Human language</h3><p>A human language is a system specifically constructed to convey the speaker/writer’s meaning</p>
-<ul>
-<li>No just an environment signal, it’s a deliberate communication</li>
-<li>Using an encoding which little kids can quickly learn(<strong>amazingly</strong>)<br>A human language is a <strong>discrete/symbolic/categorical signaling system</strong></li>
-</ul>
-<p>The categorical symbols of a language can be encoded as a signal for communication in several ways:</p>
-<ul>
-<li>Sound</li>
-<li>Gesture</li>
-<li>Images(writing)<br><em>The symbol is invariant</em> across different encodings!</li>
-</ul>
-<p>The large vocabulary, symbolic encoding of words creates a problem for machine learning-<strong>sparsity</strong>!</p>
-<h2 id="Deep-learning"><a href="#Deep-learning" class="headerlink" title="Deep learning"></a>Deep learning</h2><p>The first breakthrough results of “deep learning” on large datasets happened in speech recognition</p>
-<blockquote>
-<p>Context-Dependent Pre-trained Deep Neural Network for Large Vocabulary Speech Recognition, Dahl et al.(2010)</p>
-</blockquote>
-<h2 id="Why-is-NLP-hard"><a href="#Why-is-NLP-hard" class="headerlink" title="Why is NLP hard"></a>Why is NLP hard</h2><ul>
-<li>Complexity in representing, learning and using linguistic/situational/world/visual knowledge</li>
-<li>Human languages are ambiguous (unlike programming and other formal languages)</li>
-<li>Human language interpretation depends on real world, common sense, and contextual knowledge</li>
-</ul>
-<h2 id="Deep-NLP-Deep-Learning-NLP"><a href="#Deep-NLP-Deep-Learning-NLP" class="headerlink" title="Deep NLP = Deep Learning + NLP"></a>Deep NLP = Deep Learning + NLP</h2><p>Combine ideas and goals of NLP with using representation learning and deep learning methods to solve them<br>Several big improvements in recent years in NLP with different</p>
-<ul>
-<li>Levels: speech, words, syntax, semantics</li>
-<li>Tools: parts-of-speech, entities, parsing</li>
-<li>Applications: machine translation, sentiment analysis, dialogue agents, question answering</li>
-</ul>
-<p><strong>Representations of NLP levels: Semantics</strong></p>
-<ul>
-<li>Traditional: Lambda calculus<ul>
-<li>Carefully engineered functions</li>
-<li>Take as inputs specific other functions</li>
-<li>No notion of similarity or fuzziness of language</li>
-</ul>
-</li>
-<li>DL:<ul>
-<li>Every word and every phrase and every logical expression is a vector</li>
-<li>A neural network combines two vectors into one vector</li>
-</ul>
-</li>
-</ul>
-<p><strong>NLP Application: Sentiment Analysis</strong></p>
-<ul>
-<li>Traditional: Curated sentiment dictionaries combined with bag-of-words representations(ignoring word order) or hand designed negation features</li>
-<li>Same deep learning models that was used for morphology, syntax and logical semantics can be used! $\rightarrow$ RecursiveNN</li>
-</ul>
-<p><strong>Question Answering</strong></p>
-<ul>
-<li>Traditional: A lot of feature engineering to capture world and other knowledge, e.g., regular expressions, Berant et al.(2014)</li>
-<li>DL: Again, a deep learning architecture can be used!</li>
-<li>Facts are stored in vectors</li>
-</ul>
-<p><strong>Dialogue agents/Response Generation</strong></p>
-<ul>
-<li>A simple, successful example is the auto-replies available in the Google Inbox app</li>
-<li>An application of the powerful, general technique of <em>Neural Language Models</em>, which are an instance of RNN</li>
-</ul>
-<p><strong>Machine Translation</strong></p>
-<ul>
-<li>Many levels of translation have been tried in the past</li>
-<li>Traditional MT systems are large complex systems</li>
-</ul>
-
-          
+          referencecs224n
+lecture 1 Introduction to NLP and DLNatural Language Processing (NLP)NLP is a field at the intersection of cs, ai and linguisticsGoal:
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/16/NLP1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2404,43 +1823,19 @@
       
         
           
-            <h1 id="data-structure"><a href="#data-structure" class="headerlink" title="data structure"></a>data structure</h1><h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p>二叉搜索树是一个满足以下性质的二叉树</p>
-<blockquote>
-<p>对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比</p>
-</blockquote>
-<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>先序遍历(preorder tree walk): 根-左-右<br>中序遍历(inorder tree walk): 左-根-右<br>后序遍历(postorder tree walk): 左-右-根</p>
-<p>根据二叉搜索树的性质, 通过中序遍历可以按序输出所有关键字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">INORDER-TREE-WALK(x):</div><div class="line">if x!= NIL</div><div class="line">    INORDER-TREE-WALK(x.left)</div><div class="line">    print x.key</div><div class="line">    INORDER-TREE-WALK(x.right)</div></pre></td></tr></table></figure></p>
-<p>中序遍历需要$\Theta(n)$的时间</p>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">TREE-SEARCH(x, k):</div><div class="line">if x==NIL or k==x.key</div><div class="line">    return x</div><div class="line">if k&lt;x.key</div><div class="line">    return TREE-SEARCH(x.left, k)</div><div class="line">else</div><div class="line">    return TREE-SEARCH(x.right, k)</div></pre></td></tr></table></figure>
-<p>使用循环代替递归来重写这个程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ITERATIVE-TREE-SEARCH(x, k):</div><div class="line">while x != NIL and k != key</div><div class="line">    if k &lt; x.key</div><div class="line">        x = x.left</div><div class="line">    else</div><div class="line">        x = x.right</div><div class="line">return</div></pre></td></tr></table></figure></p>
-<p><strong>最大关键字元素和最小关键字元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">TREE-MINIMUM(x):</div><div class="line">while x.left != NIL</div><div class="line">    x = x.left</div><div class="line">return x</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">TREE-MAXIMUM(x):</div><div class="line">while x.right != NIL</div><div class="line">    x = x.right</div><div class="line">return x</div></pre></td></tr></table></figure>
-<p><strong>后继和前驱</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">TREE-SUCCESSOR(x):</div><div class="line">if x.right != NIL</div><div class="line">    return TREE-MINIMUM(x.right)</div><div class="line">y = x.p</div><div class="line">while y != NIL and x == y.right</div><div class="line">    x = y</div><div class="line">    y = y.p</div><div class="line">return y</div></pre></td></tr></table></figure></p>
-<p><strong>在一颗高度为$h$的二叉搜索树上, 动态集合上的操作SEARCH, MINIMUM, MAXIMUM, SUCCESSOR, PREDECESSOR可以在$O(h)$时间内完成</strong></p>
-<h3 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h3><p><strong>Insert</strong><br>把一个新值$v$插入到一颗完全二叉搜索树中, 需要调用过程TREE-INSERT. 该过程以节点$z$作为输入, 其中$z.key=v, z.left=NIL, z.right=NIL$, 这个过程需要修改$T,z$的某些属性, 来把$z$插入到树的相应位置上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">TREE-INSERT(T,z):</div><div class="line">y = NIL</div><div class="line">x = T.root</div><div class="line">while x != NIL</div><div class="line">    y = x</div><div class="line">    if z.key &lt; x.key</div><div class="line">        x = x.left</div><div class="line">    else</div><div class="line">        x = x.right</div><div class="line">z.p = y</div><div class="line">if y == NIL</div><div class="line">    T.root = z</div><div class="line">elif z.key &lt; y.key</div><div class="line">    y.left = z</div><div class="line">else</div><div class="line">    y.right = z</div></pre></td></tr></table></figure></p>
-<p><strong>Delete</strong><br>从一棵二叉搜索树$T$中删除一个结点$z$的整个策略分为四种情况</p>
-<ul>
-<li>如果$z$没有左孩子, 那么用右孩子来替换$z$. 这里不管右孩子是NIL还是具体的结点</li>
-<li>如果$z$仅有左孩子, 那么用左孩子来替换$z$</li>
-<li>如果$z$有两个孩子, 我们要查找$z$的后继$y$, 这个后继位于$z$的右子树中并且没有左孩子, 现在需要将$y$移出原来的位置进行拼接, 并替换树中的$z$</li>
-<li>如果$y$是$z$的右孩子, 那么用$y$替换$z$, 并仅留下$y$的右孩子</li>
-</ul>
-<p>为了在二叉搜索树内移动子树, 定义一个子过程TRANSPLANT, 它是用另一棵子树替换一棵子树并成为其双亲的孩子结点. 当TRANSPLANT用一棵以$v$为根的子树来替换一棵以$u$为根的子树时, 结点$u$的双亲就变成了结点$v$的双亲, 并且最后$v$成为$u$的双亲的相应孩子.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">TRANSPLANT(T,u,v):</div><div class="line">if u.p == NIL</div><div class="line">    T.root = v</div><div class="line">elif u == u.p.left</div><div class="line">    u.p.left = v</div><div class="line">else </div><div class="line">    u.p.right = v</div><div class="line">if v != NIL</div><div class="line">    v.p = u.p</div></pre></td></tr></table></figure>
-<p>利用TRANSPLANT过程,我们建立从二叉树$T$中删除结点$z$的算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">TREE-DELETE(T,z)</div><div class="line">if z.left == NIL</div><div class="line">    TRANSPLANT(T, z, z.right)</div><div class="line">elseif z.right == NIL</div><div class="line">    TRANSPLANT(T, z, z.left)</div><div class="line">else y = TREE-MINIMUM(z.right)</div><div class="line">    if y.p != z</div><div class="line">        TRANSPLANT(T, y, y.right)</div><div class="line">        y.right = z.right</div><div class="line">        y.right.p = y</div><div class="line">    TRANSPLATNT(T, z, y)</div><div class="line">    y.left = z.left</div><div class="line">    y.left.p = y</div></pre></td></tr></table></figure></p>
-<p><strong>在一棵高度为$h$的二叉搜索树上, 实现动态集合操作INSERT和DELETE的运行时间均为$O(h)$</strong></p>
-<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h3><p>对于图$G=(V,E)$, 可以用两种标准表示方法表示: <strong>邻接链表和邻接矩阵</strong></p>
-<p><strong>邻接链表</strong><br>适合在稀疏图(边的条数$|E|$远远小于$|V|^2$的图), 对于图$G=(V,E)$来说, 其邻接链表表示由一个包含$|V|$条链表的数组$Adj$所构成, 每个结点有一条链表. 对于每个结点$u \in V$, 邻接链表$Adj[u]$包含所有与结点$u$之间有边连接的结点$v$, 即$Adj[u]$包含图$G$中所有与$u$邻接的结点<br><img src="http://i1.piimg.com/567571/0b5e457f3d662cbe.jpg" alt="邻接链表"><br>如果$G$是一个有向图, 则所有邻接链表的长度之和等于$|E|$, 如果$G$是一个无向图, 所有邻接链表的长度之和等于$2|E|$</p>
-<p>邻接链表稍加修改即可以表示权重图, 我们可以直接将边的权重值存放在结点的邻接链表里. 邻接链表表示法的鲁棒性很高, 可以对其进行简单的修改来支持许多其他的图变种</p>
-<p><strong>邻接矩阵</strong><br>把图$G$中的结点编号为$1,2,\dots,|V|$, 则邻接矩阵可以有一个$|V| \times |V|$来表示, 该矩阵满足以下条件<br>$$ a_{ij} = \begin{cases} 1 &amp; \text{若} (i,j) \in E \\ 0 &amp; \text{其他} \end{cases} $$<br>无向图的邻接矩阵是对称的</p>
-<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p>给定图$G=(V,E)$和一个可以识别的源结点$s$, 广度优先搜索对图$G$中的边进行系统性的探索来发现可以从源节点$s$到达的所有结点. 该算法始终是将已发现结点和未发现结点之间的边界, 沿其广度方向向外拓展, 算法需要在发现所有距离源结点$s$为$k$的所有结点之后, 才会发现距离源结点$s$为$k+1$的其他节点.</p>
-<p>广度优先搜索会给结点染色(白色, 黑色, 灰色), 白色表示未发现的结点, 灰色和黑色的结点表示已被发现的结点, 灰色表示该结点周围存在着未被发现的白色结点, 黑色表示该结点周围的结点都已经被发现了. 在执行广度优先搜索的过程中将构造出一棵广度优先树. 如果我们通过结点$u$第一次搜索到了$v$, 那么称$u$是$v$的前驱或父结点.</p>
-<p>下面给出广度优先搜索的算法, 其中我们把每个结点$u$的颜色存在属性$u.color$里, 将$u$的前驱结点存放在属性$u.pi$里, 如果$u$没有前驱结点(例如, $u=s$或者尚未被发现), 则$u.\pi = NIL$. 属性$u.d$记录的是广度优先搜索算法所计算出的从源结点$s$到结点$u$之间的距离. 该算法使用一个先进先出的队列$Q$来管理灰色结点集.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">BFS(G, s):</div><div class="line">for each vertex u in G.V - &#123;s&#125; </div><div class="line">    u.color = WHITE</div><div class="line">    u.d = inf</div><div class="line">    u.pi = NIL</div><div class="line">s.color = GRAY</div><div class="line">s.d = 0</div><div class="line">s.pi = NIL</div><div class="line">Q = empty</div><div class="line">ENQUEUE(Q, s)</div><div class="line">while Q != empty</div><div class="line">    u = DEQUEUE(Q)</div><div class="line">    for each v in G.Adj[u]</div><div class="line">        if v.color == WHITE</div><div class="line">            v.color = GRAY</div><div class="line">            v.d = u.d + 1</div><div class="line">            v.pi = u</div><div class="line">            ENQUEUE(Q, v)</div><div class="line">    u.color = BLACK</div></pre></td></tr></table></figure></p>
-<h3 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h3><p>深度优先搜索只要可能就在图中尽量深入. 深度优先搜索总是对最近才发现的结点$v$的出发边进行探索, 知道该结点的所有出发边都被发现为止. 一旦结点$v$的所有出发边都被发现, 搜索则<em>回溯</em>到$v$的前驱结点, 来搜索该前驱结点的出发边. 像广度优先搜索一样, 在对已被发现的结点$u$的邻接链表进行扫描时, 每当发现一个结点$v$时, 深度优先搜索算法将对这个事件进行记录, 将$v$的前驱属性$v.\pi$设置为$u$. 与广度优先搜索不同的是, 广度优先搜索的前驱子图形成一棵树, 而深度优先搜索的前驱子图可能由多棵树组成, 因为搜索可能从多个源结点重复进行. 深度优先搜索的前驱子图形成一个由多颗深度优先树构成的深度优先森林.</p>
-<p>除了创建一个深度优先森林外, DFS还在每个结点上盖一个时间戳. 每个结点有两个时间戳: $v.d$记录结点$v$第一次被发现的时间(涂上灰色的时候), $v.f$记录完成对$v$的邻接链表扫描的时间(涂上黑色的时候). 显然结点$u$在时刻$u.d$之前为白色, 在时刻$u.d$和$u.f$之间为灰色, 在时刻$u.f$之后为黑色.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">DFS(G):</div><div class="line">for each vertex u in G.V</div><div class="line">    u.color = WHITE</div><div class="line">    u.pi = NIL</div><div class="line">time = 0</div><div class="line">for each vertex u in G.V</div><div class="line">    if u.color == WHITE</div><div class="line">        DFS-VISIT(G, u)</div><div class="line"></div><div class="line">DFS-VISIT(G, u):</div><div class="line">time = time + 1</div><div class="line">u.d = time</div><div class="line">u.color = GRAY</div><div class="line">for each v in G.Adj[u]</div><div class="line">    if v.color == WHITE</div><div class="line">        v.pi = u</div><div class="line">        DFS-VISIT(G, v)</div><div class="line">u.color = BLACK</div><div class="line">time = time + 1</div><div class="line">u.f = time</div></pre></td></tr></table></figure>
+          data structure二叉搜索树二叉搜索树是一个满足以下性质的二叉树
 
-          
+对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比
+
+遍历先序遍历(pre
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/14/data-structure/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2602,187 +1997,16 @@
       
         
           
-            <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
-<h1 id="lecture-6-Value-Function-Approximation"><a href="#lecture-6-Value-Function-Approximation" class="headerlink" title="lecture 6 Value Function Approximation"></a>lecture 6 Value Function Approximation</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Large-Scale Reinforcement Learning</strong><br>Reinforcement learning can be used to solve large problems</p>
-<p><strong>Value Function Approximation</strong><br>Value Function by a lookup table</p>
-<ul>
-<li>Every state $s$ has an entry Q(s,a) </li>
-<li>Or every state-action pair $s,a$ has an entry $Q(s,a)$<br>Problem with larger MDPs</li>
-<li>There are many states and/or actions to store in memory</li>
-<li>It is too slow to learn the value of each state individually<br>Solution for large MDPs</li>
-<li>Estimate value functions with function approximation $ \hat{v} (s,w) \approx v_{\pi}(s) $ or $ \hat{q} (s,a,w) \approx q_\pi (s,a) $</li>
-<li>Generalise from seen states to unseen states</li>
-<li>Update parameters w using MC or TD learning</li>
-</ul>
-<h3 id="Types-of-value-function-approximation"><a href="#Types-of-value-function-approximation" class="headerlink" title="Types of value function approximation"></a>Types of value function approximation</h3><p><img src="http://i2.muimg.com/567571/7a57308447c99963.png" alt="types of value function approximation"><br>We consider differentiable function approximators </p>
-<ol>
-<li>Linear combinations of features</li>
-<li>Neural network</li>
-<li>Decision tree</li>
-<li>Nearest neighbour</li>
-<li>Fourier/wavelet bases</li>
-<li>$\dots$<br>Furthermore, we require a training method that is suitable for non-stationary, non-iid data</li>
-</ol>
-<h2 id="Incremental-Methods"><a href="#Incremental-Methods" class="headerlink" title="Incremental Methods"></a>Incremental Methods</h2><h3 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h3><ul>
-<li>Goal: find parameters vector $w$ minimising mean-squared error between approximate value fn $\hat{v}(s,w)$ and true value fn $v_{\pi} (s) $<br>$$ J(w) = E_\pi [(v_\pi (S) -\hat{v} (S,w) )^2] $$</li>
-<li>Gradient descent finds a local minimum<br>$$ \Delta w = -\frac{1}{2} \alpha \nabla_w J(w)= \alpha E_\pi \left[ (v_\pi(S) -\hat{v}(S,w))\nabla_w \hat{v} (S,w) \right] $$</li>
-<li>Stochastic gradient descent samples the gradient<br>$$ \Delta w = \alpha (v_\pi (S) - \hat{v} (S,w)) \nabla_w \hat{v} (S,w) $$</li>
-<li>Expected update is equal to full gradient update</li>
-</ul>
-<h3 id="Linear-Function-Approximation"><a href="#Linear-Function-Approximation" class="headerlink" title="Linear Function Approximation"></a>Linear Function Approximation</h3><p><strong>Linear Value Function Approximation</strong></p>
-<ul>
-<li>Represent value function by a linear combination of features<br>$$ \hat{S,w} = x(S)^T w = \sum_{j=1}^{n} x_j (S) w_j $$</li>
-<li>Objective function is quadratic in parameters $w$<br>$$ J(w) = E_\pi \left[ (v_\pi(S) - x(S)^T w)^2\right] $$</li>
-<li>Stochastic gradient descent converges on global optimum</li>
-<li>Update rule is particularly simple<br><em>Updata = step-size $\times$ prediction error $\times$ feature value</em></li>
-</ul>
-<p><strong>Table Lookup Features</strong></p>
-<ul>
-<li>Table lookup is special case of linear value function approximation</li>
-<li>Using table lookup features<br>$$ x^{table} (S) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} $$</li>
-<li>Parameter vector $w$ gives value of each individual state<br>$$ \hat{v} (S,w) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} \cdot \begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix} $$</li>
-</ul>
-<h3 id="Incremental-Prediction-Algorithms"><a href="#Incremental-Prediction-Algorithms" class="headerlink" title="Incremental Prediction Algorithms"></a>Incremental Prediction Algorithms</h3><ul>
-<li>Have assumed true value function $v_{\pi} (s)$ given by supervisor</li>
-<li>But in RL there is no supervisor, only rewards</li>
-<li>In practice, we substitute a target for $v_{\pi} (s)$<ul>
-<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
-<li>For TD(0), the target is the TD target $R_{t+1} + \gamma \hat{v} (S_{t+1},w) $<br>$$ \Delta w = \alpha (R_{t+1} + \gamma \hat{v} (S_{t+1},w) - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
-<li>For TD($\lambda$), the target is the $\lambda$-return $G_t^\lambda$<br>$$ \Delta w = \alpha (G_t^\lambda - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
-</ul>
-</li>
-</ul>
-<p><strong>MC with Value Function Approximation</strong></p>
-<ul>
-<li>Return $G_t$ is an unbiased, noisy sample of true value $v_{pi} (S_t)$</li>
-<li>Can therefore apply supervised learning to “training data”:<br>$$ (S_1, G_1), (S_2, G_2), \dots, (S_T, G_T) $$</li>
-<li>For example, using linear MC policy evaluation<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \Delta_w \hat{v} (S_t,w) = \alpha(G_t - \hat{v} (S_t,w))x(S_t) $$</li>
-<li>Monte-Carlo evaluation converges to a local optimum </li>
-<li>Even when using non-linear value function approximation</li>
-</ul>
-<p><strong>TD Learning with Value Function Approximation</strong></p>
-<ul>
-<li>The TD-target $R_{t+1} + \gamma \hat{v} (S_{t+1},w)$ is a biased sample of true value $v_\pi (S_t)$</li>
-<li>Can still apply supervised learning to “training data”:<br>$$ (S_1, R_2 + \gamma \hat{v} (S_2,w) ), (S_2, R_3 + \gamma \hat{v} (S_3,w)), \dots, (R_{T-1},R_T) $$</li>
-<li>For example, using linear TD(0)<br>$$ \Delta w = \alpha (R+\gamma \hat{v} (S’,w) - \hat{v} (S,w)) \Delta_w \hat{v} (S,w) = \alpha \delta x(S) $$</li>
-<li>Linear TD(0) converges (close) to global optimum</li>
-</ul>
-<h3 id="Incremental-Control-Algorithm"><a href="#Incremental-Control-Algorithm" class="headerlink" title="Incremental Control Algorithm"></a>Incremental Control Algorithm</h3><p><strong>Control with Value function Approximation</strong><br><em>Policy evaluation</em>: Approximate policy evaluation, $\hat{q}(\cdot,\cdot,w) \approx q_\pi$<br><em>Policy improvement</em>: $\epsilon$-greedy policy improvement</p>
-<p><strong>Action-Value Function Approximation</strong></p>
-<ul>
-<li>Approximate the action-value function $\hat{q}(S,A,w) \approx q_{\pi} (S,A)$</li>
-<li>Minimise mean-squared error between approximate action-value fn $\hat{q}(S,A,w)$ and true action-value fn $q_\pi (S,A)$<br>$$ J(w) = E_\pi \left[(q_\pi (S,A) - \hat{q} (S,A,w))^2 \right] $$</li>
-<li>Use stochastic gradient descent to find a local minimum<br>$$ -\frac{1}{2} \nabla_w J(w) = ( q_{\pi} (S,A) -\hat{q} (S,A,w)) \nabla_w \hat{q} (S,A,w) \\ \Delta w = \alpha (q_{\pi} (S,A) -\hat{q} (S,A,w))\nabla_w \hat{q} (S,A,w) $$</li>
-</ul>
-<p><strong>Linear Action-Value Funtion Approximation</strong></p>
-<ul>
-<li>Represent state and action by a feature vector<br>$$ X(S,A) = \begin{pmatrix} x_1 (S,A) \\ \vdots \\ x_n (S,A) \end{pmatrix} $$</li>
-<li>Represent action-value fn by linear combination of features<br>$$ \hat{q} (S,A,w) = x(S,A)^T w = \sum_{j=1}^n x_j (S,A)w_j $$</li>
-<li>Stochastic gradient descent update<br>$$ \nabla_w \hat{q} (S,A,w) = x(S,A) \\ \Delta w =\alpha (q_\pi (S,A) - \hat{q} (S,A,w)) x(S,A) $$</li>
-</ul>
-<p><strong>Incremental Control Algorithms</strong></p>
-<ul>
-<li>Like prediction, we must substitute a target for $q_\pi (S,A)$<ul>
-<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
-<li>For TD(0), the target is the TD target $R_{t+1} + \gamma Q(S_{t+1},A_{t+1}) $<br>$$ \Delta w = \alpha (R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
-<li>For forward-view TD($\lambda$), target is the action-value $\lambda$-return<br>$$ \Delta w = \alpha (q_t^\lambda - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
-<li>For backward-view TD($\lambda$), equivalent update is<br>$$ \delta_t = R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w) \\ E_t =\gamma \lambda E_{t-1} + \Delta_w \hat{q} (S_t,A_t,w) \\ \Delta w = \alpha \delta_t E_t $$</li>
-</ul>
-</li>
-</ul>
-<h3 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h3><p><strong>Convergence of Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/cadbe9e888675272.png" alt="Convergence of Prediction Algorhms"><br><strong>Gradient Temporal-Difference Learning</strong></p>
-<ul>
-<li>TD does not follow the gradient of any objective function</li>
-<li>This is why TD can diverge when off-policy or using non-linear function approximation</li>
-<li><em>Gradient TD</em> follows true gradient of projected Bellman error<br><img src="http://i4.buimg.com/567571/38730a39ee8d3a93.png" alt="Gradient TD"></li>
-</ul>
-<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i2.muimg.com/567571/16ffcde59dce7eca.png" alt="Convergence of Control Algorithms"></p>
-<h2 id="Batch-Methods"><a href="#Batch-Methods" class="headerlink" title="Batch Methods"></a>Batch Methods</h2><p><strong>Batch Reinforcement Learning</strong></p>
-<ul>
-<li>Gradient descent is simple and appealing</li>
-<li>But it is not sample efficient</li>
-<li>Batch methods seek to find the best fitting value function</li>
-<li>Given the agent’s experience (‘training data”)</li>
-</ul>
-<h3 id="Least-Squares-Prediction"><a href="#Least-Squares-Prediction" class="headerlink" title="Least Squares Prediction"></a>Least Squares Prediction</h3><ul>
-<li>Given value function approximation $\hat{v}(s,w) \approx v_\pi (s) $</li>
-<li>And experience D consisting of (<em>state</em>,<em>value</em>) pairs<br>$$ D = ((s_1,v_1^\pi),(s_2,v_2^\pi),\dots,(s_T,v_T^\pi)) $$</li>
-<li>Which parameters $w$ given the best fitting value fn $\hat{v} (s,w)$?</li>
-<li><strong>Least squares</strong> algorithms find parameters vector $w$ minimising sum-squared error between $\hat{v} (s_t,w)$ and target values $v_t^\pi$<br>$$ LS(w) = \sum_{t=1}^{T} (v_t^T - \hat{v} (s_t,w))^2 = E_D \left[ (v^\pi - \hat{v} (s,w))^2\right] $$</li>
-</ul>
-<p><strong>Stochastic Gradient Descent with Experience Replay</strong><br>Repeat:</p>
-<ol>
-<li>Sample state, value from experience $(s,v^\pi)\sim D$</li>
-<li>Apply stochastic gradient descent update $\Delta w = \alpha (v^\pi -\hat{v} (s,w)) \nabla_w \hat{v} (s,w) $<br>Converges to least squares solution<br>$$ w^\pi = \arg\min_w LS(w) $$</li>
-</ol>
-<p><strong>Experience Replay in Deep Q-Network(DQN)</strong><br>DQN uses <strong>experience replay</strong> and <strong>fixed Q-targets</strong></p>
-<ul>
-<li>Take action $a_t$ according to $\epsilon$-greedy policy </li>
-<li>Store transition $(s_t,a_t,r_{t+1},s_{t+1})$ in replay memory $D$</li>
-<li>Sample random mini-batch of transitions $(s,a,r,s’)$ from $D$</li>
-<li>Compute Q-learning targets w.r.t old, fixed parameters $w^-$</li>
-<li>Optimise MSE between Q-network and Q-learning targets<br>$$ L_i (w_i) = E_{s,a,r,s’ \sim D_i} \left[ \left( r + \gamma \max_{a’} Q(s’,a’;w_i^-) - Q(s,a;w_i) \right)^2 \right] $$</li>
-<li>Using variant of stochastic gradient descent</li>
-</ul>
-<p><strong>Linear Least Squares Prediction</strong></p>
-<ul>
-<li>Experience replay finds least squares solution</li>
-<li>But it may take many iterations</li>
-<li>Using linear value function approximation $\hat{v} (s,w) = x(s)^T w $</li>
-<li>We can solve the least squares solution directly<ul>
-<li>At minimum of $LS(w)$, the expected update must be zero, $E_D (\Delta w) = 0$<br>$$ \alpha \sum_{t=1}^{T} x(s_t) (v_t^\pi -x(s_t)^T w) = 0 \\  w =\left( \sum_{t=1}^T x(s_t)x(s_t)^T \right)^{-1} \sum_{t=1}^T x(s_t) v_t^\pi $$</li>
-<li>For $N$ features, direct solution time is $O(n^3)$</li>
-<li>Incremental solution time is $O(n^2)$ using Shermann-Morrison</li>
-</ul>
-</li>
-</ul>
-<p><strong>Linear Least Squares Prediction Algorithms</strong></p>
-<ul>
-<li>We don’t know true values $v_t^\pi$</li>
-<li>In practice, our “training data” must use noisy or biased sample of $v_t^\pi$<ul>
-<li><strong>LSMC</strong> Least Squares MC uses return $v_t^\pi \approx G_t$</li>
-<li><strong>LSTD</strong> Least Squares TD uses TD target $v_t^\pi \approx R_{t+1} + \gamma \hat{v}(S_{t_1},w) $</li>
-<li><strong>LSTD($\lambda$)</strong> Least Squares TD($\lambda$) use $\lambda$-return $v_t^\pi \approx G_t^\lambda$</li>
-</ul>
-</li>
-<li>In each case solve directly for fixed point of MC/TD/TD($\lambda$)<br><img src="http://i4.buimg.com/567571/887027f627e53e74.png" alt="Direct solution for LS"></li>
-</ul>
-<p><strong>Convergence of Linear Least Squares Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/389f21e4a037e7b3.png" alt="Convergence of LS prediction algorithms"></p>
-<h3 id="Least-Squares-Control"><a href="#Least-Squares-Control" class="headerlink" title="Least Squares Control"></a>Least Squares Control</h3><p><strong>Least Squares Policy Iteration</strong><br><em>Policy evaluation</em> Policy evaluation by least squares Q-learning<br><em>Policy improvement</em> Greedy policy improvement</p>
-<p><strong>Least Squares Action-Value Function Approximation</strong></p>
-<ul>
-<li>Approximate action-value function $q_\pi (s,a)$</li>
-<li>using linear combination of features $x(s,a)$<br>$$ \hat{q} (s,a,w) = x(s,a)^T w \approx q_\pi (s,a) $$</li>
-<li>Minimise least squares error between $\hat{q} (s,a,w)$ and $q_\pi (s,a)$</li>
-<li>form experience generated using policy $\pi$</li>
-<li>consisting of $&lt;(state,action),value>$ pairs<br>$$ D = \{ &lt; (s_1,a_1),v_1^\pi >, &lt;(s_2,a_2),v_2^\pi>,\dots,&lt;(s_T,a_T),v_T^\pi> \} $$</li>
-</ul>
-<p><strong>Least Squares Control</strong></p>
-<ul>
-<li>For policy evaluation, we want to efficiently use all experience</li>
-<li>For control, we also want to improve the policy</li>
-<li>This experience is generated from many policies</li>
-<li>So to evaluate $q_pi (S,A)$ we must learn off-policy</li>
-<li>We use the same idea as Q-learning:<ul>
-<li>Use experience generated by old policy, $ S_t,A_t,R_{t+1},S_{t+1} \sim \pi_{old} $</li>
-<li>Consider alternative successor action $ A’ = \pi_{new} (S_{t+1}) $</li>
-<li>Update $\hat{q} (S_t,A_t,w) $ towards value of alternative action $R_{t+1} + \gamma \hat{q} (S_{t+1},A’,w)$</li>
-</ul>
-</li>
-</ul>
-<p><strong>Least Squares Q-Learning</strong></p>
-<ul>
-<li>Consider the following linear Q-learning update<br>$$ \delta = R_{t+1} + \gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) - \hat{q} (S_t,A_t,w) \\ \Delta w =\alpha \delta x(S_t,A_t) $$</li>
-<li>LSTDQ alorithm: solve for total update = zero<br>$$ 0 = \sum_{t=1}^T \alpha (R_{t+1} +\gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) -\hat{q} (S_t,A_t,w)) x(S_t,A_t) \\ w = \left( \sum_{t=1}^T x(S_t,A_t) (x(S_t,A_t)-\gamma x(S_{t+1},\pi(S_{t+1})))^T \right)^{-1} \sum_{t=1}^T x(S_t,A_t) R_{t+1} $$</li>
-</ul>
-<p><strong>Least Squares Policy Iteration Algorithm</strong></p>
-<ul>
-<li>The following pseudocode uses LSTDQ for policy evaluation</li>
-<li>It repeatedly re-evaluates experience $D$ with difference policy<br><img src="http://i4.buimg.com/567571/12115cfd47cc51c7.png" alt="LSPI algorithm"></li>
-</ul>
-<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i4.buimg.com/567571/5103a9f8f57b6a60.png" alt="Convergence of Control Algorithms"><br>$(\checkmark)$ = chatters around near-optimal value function</p>
-
-          
+          reference:    UCL Course on RL
+lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/12/RL6/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -3014,13 +2238,7 @@
 
 
 
-  
-  
 
-
-
-  
-  
 
 
 
@@ -3046,15 +2264,6 @@
 
   
   <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
 
 
   
