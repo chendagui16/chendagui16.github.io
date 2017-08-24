@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="algorithm,data structure," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="data structure二叉搜索树二叉搜索树是一个满足以下性质的二叉树  对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比  遍历先序遍历(preorder tree walk): 根-左-右中序遍历(inorder tree walk): 左-">
+<meta name="keywords" content="algorithm,data structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="data structure">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/14/data-structure/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="data structure二叉搜索树二叉搜索树是一个满足以下性质的二叉树  对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比  遍历先序遍历(preorder tree walk): 根-左-右中序遍历(inorder tree walk): 左-">
+<meta property="og:image" content="http://i1.piimg.com/567571/0b5e457f3d662cbe.jpg">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="data structure">
+<meta name="twitter:description" content="data structure二叉搜索树二叉搜索树是一个满足以下性质的二叉树  对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比  遍历先序遍历(preorder tree walk): 根-左-右中序遍历(inorder tree walk): 左-">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/0b5e457f3d662cbe.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/14/data-structure/"/>
+
+
+
+
+
+  <title>data structure | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/14/data-structure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">data structure</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-14T13:50:09+08:00">
+                2017-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/14/data-structure/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/14/data-structure/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/14/data-structure/" class="leancloud_visitors" data-flag-title="data structure">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="data-structure"><a href="#data-structure" class="headerlink" title="data structure"></a>data structure</h1><h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p>二叉搜索树是一个满足以下性质的二叉树</p>
+<blockquote>
+<p>对于任何结点$x$, 其左子树中的关键字最大不超过$x.key$, 其右子树中的关键字最小不低于$x.key$. 不同的二叉搜索树可以代表同一组值的集合, 大部分搜索树的最坏运行时间与树的高度成正比</p>
+</blockquote>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>先序遍历(preorder tree walk): 根-左-右<br>中序遍历(inorder tree walk): 左-根-右<br>后序遍历(postorder tree walk): 左-右-根</p>
+<p>根据二叉搜索树的性质, 通过中序遍历可以按序输出所有关键字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">INORDER-TREE-WALK(x):</div><div class="line">if x!= NIL</div><div class="line">    INORDER-TREE-WALK(x.left)</div><div class="line">    print x.key</div><div class="line">    INORDER-TREE-WALK(x.right)</div></pre></td></tr></table></figure></p>
+<p>中序遍历需要$\Theta(n)$的时间</p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">TREE-SEARCH(x, k):</div><div class="line">if x==NIL or k==x.key</div><div class="line">    return x</div><div class="line">if k&lt;x.key</div><div class="line">    return TREE-SEARCH(x.left, k)</div><div class="line">else</div><div class="line">    return TREE-SEARCH(x.right, k)</div></pre></td></tr></table></figure>
+<p>使用循环代替递归来重写这个程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ITERATIVE-TREE-SEARCH(x, k):</div><div class="line">while x != NIL and k != key</div><div class="line">    if k &lt; x.key</div><div class="line">        x = x.left</div><div class="line">    else</div><div class="line">        x = x.right</div><div class="line">return</div></pre></td></tr></table></figure></p>
+<p><strong>最大关键字元素和最小关键字元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">TREE-MINIMUM(x):</div><div class="line">while x.left != NIL</div><div class="line">    x = x.left</div><div class="line">return x</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">TREE-MAXIMUM(x):</div><div class="line">while x.right != NIL</div><div class="line">    x = x.right</div><div class="line">return x</div></pre></td></tr></table></figure>
+<p><strong>后继和前驱</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">TREE-SUCCESSOR(x):</div><div class="line">if x.right != NIL</div><div class="line">    return TREE-MINIMUM(x.right)</div><div class="line">y = x.p</div><div class="line">while y != NIL and x == y.right</div><div class="line">    x = y</div><div class="line">    y = y.p</div><div class="line">return y</div></pre></td></tr></table></figure></p>
+<p><strong>在一颗高度为$h$的二叉搜索树上, 动态集合上的操作SEARCH, MINIMUM, MAXIMUM, SUCCESSOR, PREDECESSOR可以在$O(h)$时间内完成</strong></p>
+<h3 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h3><p><strong>Insert</strong><br>把一个新值$v$插入到一颗完全二叉搜索树中, 需要调用过程TREE-INSERT. 该过程以节点$z$作为输入, 其中$z.key=v, z.left=NIL, z.right=NIL$, 这个过程需要修改$T,z$的某些属性, 来把$z$插入到树的相应位置上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">TREE-INSERT(T,z):</div><div class="line">y = NIL</div><div class="line">x = T.root</div><div class="line">while x != NIL</div><div class="line">    y = x</div><div class="line">    if z.key &lt; x.key</div><div class="line">        x = x.left</div><div class="line">    else</div><div class="line">        x = x.right</div><div class="line">z.p = y</div><div class="line">if y == NIL</div><div class="line">    T.root = z</div><div class="line">elif z.key &lt; y.key</div><div class="line">    y.left = z</div><div class="line">else</div><div class="line">    y.right = z</div></pre></td></tr></table></figure></p>
+<p><strong>Delete</strong><br>从一棵二叉搜索树$T$中删除一个结点$z$的整个策略分为四种情况</p>
+<ul>
+<li>如果$z$没有左孩子, 那么用右孩子来替换$z$. 这里不管右孩子是NIL还是具体的结点</li>
+<li>如果$z$仅有左孩子, 那么用左孩子来替换$z$</li>
+<li>如果$z$有两个孩子, 我们要查找$z$的后继$y$, 这个后继位于$z$的右子树中并且没有左孩子, 现在需要将$y$移出原来的位置进行拼接, 并替换树中的$z$</li>
+<li>如果$y$是$z$的右孩子, 那么用$y$替换$z$, 并仅留下$y$的右孩子</li>
+</ul>
+<p>为了在二叉搜索树内移动子树, 定义一个子过程TRANSPLANT, 它是用另一棵子树替换一棵子树并成为其双亲的孩子结点. 当TRANSPLANT用一棵以$v$为根的子树来替换一棵以$u$为根的子树时, 结点$u$的双亲就变成了结点$v$的双亲, 并且最后$v$成为$u$的双亲的相应孩子.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">TRANSPLANT(T,u,v):</div><div class="line">if u.p == NIL</div><div class="line">    T.root = v</div><div class="line">elif u == u.p.left</div><div class="line">    u.p.left = v</div><div class="line">else </div><div class="line">    u.p.right = v</div><div class="line">if v != NIL</div><div class="line">    v.p = u.p</div></pre></td></tr></table></figure>
+<p>利用TRANSPLANT过程,我们建立从二叉树$T$中删除结点$z$的算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">TREE-DELETE(T,z)</div><div class="line">if z.left == NIL</div><div class="line">    TRANSPLANT(T, z, z.right)</div><div class="line">elseif z.right == NIL</div><div class="line">    TRANSPLANT(T, z, z.left)</div><div class="line">else y = TREE-MINIMUM(z.right)</div><div class="line">    if y.p != z</div><div class="line">        TRANSPLANT(T, y, y.right)</div><div class="line">        y.right = z.right</div><div class="line">        y.right.p = y</div><div class="line">    TRANSPLATNT(T, z, y)</div><div class="line">    y.left = z.left</div><div class="line">    y.left.p = y</div></pre></td></tr></table></figure></p>
+<p><strong>在一棵高度为$h$的二叉搜索树上, 实现动态集合操作INSERT和DELETE的运行时间均为$O(h)$</strong></p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h3><p>对于图$G=(V,E)$, 可以用两种标准表示方法表示: <strong>邻接链表和邻接矩阵</strong></p>
+<p><strong>邻接链表</strong><br>适合在稀疏图(边的条数$|E|$远远小于$|V|^2$的图), 对于图$G=(V,E)$来说, 其邻接链表表示由一个包含$|V|$条链表的数组$Adj$所构成, 每个结点有一条链表. 对于每个结点$u \in V$, 邻接链表$Adj[u]$包含所有与结点$u$之间有边连接的结点$v$, 即$Adj[u]$包含图$G$中所有与$u$邻接的结点<br><img src="http://i1.piimg.com/567571/0b5e457f3d662cbe.jpg" alt="邻接链表"><br>如果$G$是一个有向图, 则所有邻接链表的长度之和等于$|E|$, 如果$G$是一个无向图, 所有邻接链表的长度之和等于$2|E|$</p>
+<p>邻接链表稍加修改即可以表示权重图, 我们可以直接将边的权重值存放在结点的邻接链表里. 邻接链表表示法的鲁棒性很高, 可以对其进行简单的修改来支持许多其他的图变种</p>
+<p><strong>邻接矩阵</strong><br>把图$G$中的结点编号为$1,2,\dots,|V|$, 则邻接矩阵可以有一个$|V| \times |V|$来表示, 该矩阵满足以下条件<br>$$ a_{ij} = \begin{cases} 1 &amp; \text{若} (i,j) \in E \\ 0 &amp; \text{其他} \end{cases} $$<br>无向图的邻接矩阵是对称的</p>
+<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p>给定图$G=(V,E)$和一个可以识别的源结点$s$, 广度优先搜索对图$G$中的边进行系统性的探索来发现可以从源节点$s$到达的所有结点. 该算法始终是将已发现结点和未发现结点之间的边界, 沿其广度方向向外拓展, 算法需要在发现所有距离源结点$s$为$k$的所有结点之后, 才会发现距离源结点$s$为$k+1$的其他节点.</p>
+<p>广度优先搜索会给结点染色(白色, 黑色, 灰色), 白色表示未发现的结点, 灰色和黑色的结点表示已被发现的结点, 灰色表示该结点周围存在着未被发现的白色结点, 黑色表示该结点周围的结点都已经被发现了. 在执行广度优先搜索的过程中将构造出一棵广度优先树. 如果我们通过结点$u$第一次搜索到了$v$, 那么称$u$是$v$的前驱或父结点.</p>
+<p>下面给出广度优先搜索的算法, 其中我们把每个结点$u$的颜色存在属性$u.color$里, 将$u$的前驱结点存放在属性$u.pi$里, 如果$u$没有前驱结点(例如, $u=s$或者尚未被发现), 则$u.\pi = NIL$. 属性$u.d$记录的是广度优先搜索算法所计算出的从源结点$s$到结点$u$之间的距离. 该算法使用一个先进先出的队列$Q$来管理灰色结点集.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">BFS(G, s):</div><div class="line">for each vertex u in G.V - &#123;s&#125; </div><div class="line">    u.color = WHITE</div><div class="line">    u.d = inf</div><div class="line">    u.pi = NIL</div><div class="line">s.color = GRAY</div><div class="line">s.d = 0</div><div class="line">s.pi = NIL</div><div class="line">Q = empty</div><div class="line">ENQUEUE(Q, s)</div><div class="line">while Q != empty</div><div class="line">    u = DEQUEUE(Q)</div><div class="line">    for each v in G.Adj[u]</div><div class="line">        if v.color == WHITE</div><div class="line">            v.color = GRAY</div><div class="line">            v.d = u.d + 1</div><div class="line">            v.pi = u</div><div class="line">            ENQUEUE(Q, v)</div><div class="line">    u.color = BLACK</div></pre></td></tr></table></figure></p>
+<h3 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h3><p>深度优先搜索只要可能就在图中尽量深入. 深度优先搜索总是对最近才发现的结点$v$的出发边进行探索, 知道该结点的所有出发边都被发现为止. 一旦结点$v$的所有出发边都被发现, 搜索则<em>回溯</em>到$v$的前驱结点, 来搜索该前驱结点的出发边. 像广度优先搜索一样, 在对已被发现的结点$u$的邻接链表进行扫描时, 每当发现一个结点$v$时, 深度优先搜索算法将对这个事件进行记录, 将$v$的前驱属性$v.\pi$设置为$u$. 与广度优先搜索不同的是, 广度优先搜索的前驱子图形成一棵树, 而深度优先搜索的前驱子图可能由多棵树组成, 因为搜索可能从多个源结点重复进行. 深度优先搜索的前驱子图形成一个由多颗深度优先树构成的深度优先森林.</p>
+<p>除了创建一个深度优先森林外, DFS还在每个结点上盖一个时间戳. 每个结点有两个时间戳: $v.d$记录结点$v$第一次被发现的时间(涂上灰色的时候), $v.f$记录完成对$v$的邻接链表扫描的时间(涂上黑色的时候). 显然结点$u$在时刻$u.d$之前为白色, 在时刻$u.d$和$u.f$之间为灰色, 在时刻$u.f$之后为黑色.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">DFS(G):</div><div class="line">for each vertex u in G.V</div><div class="line">    u.color = WHITE</div><div class="line">    u.pi = NIL</div><div class="line">time = 0</div><div class="line">for each vertex u in G.V</div><div class="line">    if u.color == WHITE</div><div class="line">        DFS-VISIT(G, u)</div><div class="line"></div><div class="line">DFS-VISIT(G, u):</div><div class="line">time = time + 1</div><div class="line">u.d = time</div><div class="line">u.color = GRAY</div><div class="line">for each v in G.Adj[u]</div><div class="line">    if v.color == WHITE</div><div class="line">        v.pi = u</div><div class="line">        DFS-VISIT(G, v)</div><div class="line">u.color = BLACK</div><div class="line">time = time + 1</div><div class="line">u.f = time</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+            <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/12/RL6/" rel="next" title="RL6 Value Function Approximation">
+                <i class="fa fa-chevron-left"></i> RL6 Value Function Approximation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/16/NLP1/" rel="prev" title="NLP1 Introduction to NLP and DL">
+                NLP1 Introduction to NLP and DL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#data-structure"><span class="nav-number">1.</span> <span class="nav-text">data structure</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉搜索树"><span class="nav-number">1.1.</span> <span class="nav-text">二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历"><span class="nav-number">1.1.1.</span> <span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">1.1.2.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入和删除"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入和删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图"><span class="nav-number">1.2.</span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图的表示"><span class="nav-number">1.2.1.</span> <span class="nav-text">图的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广度优先搜索"><span class="nav-number">1.2.2.</span> <span class="nav-text">广度优先搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度优先搜索"><span class="nav-number">1.2.3.</span> <span class="nav-text">深度优先搜索</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/14/data-structure/';
+          this.page.identifier = '2017/04/14/data-structure/';
+          this.page.title = 'data structure';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

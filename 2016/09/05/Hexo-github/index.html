@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hexo,githup pages,blog," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Hexo and github pages SETTINGIntroduction 因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。 Setting 安装hexo安">
+<meta name="keywords" content="hexo,githup pages,blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo_github">
+<meta property="og:url" content="https://chendagui16.github.io/2016/09/05/Hexo-github/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="Hexo and github pages SETTINGIntroduction 因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。 Setting 安装hexo安">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo_github">
+<meta name="twitter:description" content="Hexo and github pages SETTINGIntroduction 因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。　　这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。 Setting 安装hexo安">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2016/09/05/Hexo-github/"/>
+
+
+
+
+
+  <title>Hexo_github | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2016/09/05/Hexo-github/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo_github</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-05T16:02:22+08:00">
+                2016-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software-setting/" itemprop="url" rel="index">
+                    <span itemprop="name">software setting</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/05/Hexo-github/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/09/05/Hexo-github/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/09/05/Hexo-github/" class="leancloud_visitors" data-flag-title="Hexo_github">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Hexo-and-github-pages-SETTING"><a href="#Hexo-and-github-pages-SETTING" class="headerlink" title="Hexo and github pages SETTING"></a>Hexo and github pages SETTING</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><hr>
+<p>因为在调试的过程中，经常会发现一些bug，而这些bug过一段时间就会遗忘，为了记住这些bug，因此开始学会养成写个人技术blog的习惯。<br>　　<br>这里采用的是hexo 来解析markdown文件，然后将其发布到github pages上。然而在设置的时候有出现了一些问题，这里记录这些问题。</p>
+<h3 id="Setting"><a href="#Setting" class="headerlink" title="Setting"></a>Setting</h3><hr>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">hexo</a></h4><h5 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h5><p>先安装<a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</div></pre></td></tr></table></figure></p>
+<p>nvm 安装完之后，<strong>重启终端</strong>，然后安装Node.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install stable</div></pre></td></tr></table></figure></p>
+<p>也可以通过<a href="http://nodejs.org/" target="_blank" rel="external">源码</a>来安装</p>
+<h5 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install git-core</div></pre></td></tr></table></figure>
+<h5 id="安装hexo-1"><a href="#安装hexo-1" class="headerlink" title="安装hexo"></a>安装hexo</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<h5 id="安装hexo必备的服务"><a href="#安装hexo必备的服务" class="headerlink" title="安装hexo必备的服务"></a>安装hexo必备的服务</h5><p>安装server和git服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> (blog workspace)</div><div class="line">$ npm install hexo-server　 --save</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
+<h4 id="设置github-pages"><a href="#设置github-pages" class="headerlink" title="设置github pages"></a>设置github pages</h4><p>github账号下，需要建立对应的仓库，其名字必须为(username).github.io。否则将无法得到正确的github pages显示。</p>
+<h4 id="设置hexo"><a href="#设置hexo" class="headerlink" title="设置hexo"></a>设置hexo</h4><p>初始化blog文件夹<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> (blog workspace)</div><div class="line">$ hexo init</div></pre></td></tr></table></figure></p>
+<p>编辑配置文件<em>_config.yml</em><br>按照描述更改配置，注意要更改deploy选项。</p>
+<blockquote>
+<p>deploy:<br>         　type: git<br>         　repository: git@github.com:chendagui16/chendagui16.github.io.git<br>         　branch: master</p>
+</blockquote>
+<p> 这里我使用了ssh协议        　</p>
+<h4 id="更换主题与数学公式"><a href="#更换主题与数学公式" class="headerlink" title="更换主题与数学公式"></a>更换主题与数学公式</h4><p>我采用了<a href="https://github.com/wuchong/jacman" target="_blank" rel="external">jacman</a>的主题，设置方法可进入github中观看。</p>
+<blockquote>
+<p>　这个主题中提供了较多的选项，包括如何解决数学公式的显示问题，然而，我只得到了本地页面的显示并没有得到github pages上的显示，问题仍未解决。谁知道了能否告诉我怎么解决。</p>
+</blockquote>
+<p>在jacman的主题下，设置数学显示包括两步，第一步是更改<strong>主题</strong>内的<em>_config.yml</em>文件。<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<p>第二步是在写front-matter内添加一行<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ hexo init 初始化</div><div class="line">$ hexo new [layout] &lt;title&gt;　新建文档，layout提供默认版式</div><div class="line">$ hexo g[enerate]　[<span class="_">-d</span>]　渲染成静态网页</div><div class="line">$ hexo s[erver] 打开本地服务器</div><div class="line">$ hexo d[eploy] 推送到github</div><div class="line">$ hexo clean　清除原静态文件</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/githup-pages/" rel="tag"># githup pages</a>
+          
+            <a href="/tags/blog/" rel="tag"># blog</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/06/Deep-Q-learning/" rel="prev" title="Deep_Q_learning">
+                Deep_Q_learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-and-github-pages-SETTING"><span class="nav-number">1.</span> <span class="nav-text">Hexo and github pages SETTING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting"><span class="nav-number">1.2.</span> <span class="nav-text">Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装hexo"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装Node-js"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装git"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装hexo-1"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">安装hexo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装hexo必备的服务"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">安装hexo必备的服务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置github-pages"><span class="nav-number">1.2.2.</span> <span class="nav-text">设置github pages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置hexo"><span class="nav-number">1.2.3.</span> <span class="nav-text">设置hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更换主题与数学公式"><span class="nav-number">1.2.4.</span> <span class="nav-text">更换主题与数学公式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">1.3.</span> <span class="nav-text">命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2016/09/05/Hexo-github/';
+          this.page.identifier = '2016/09/05/Hexo-github/';
+          this.page.title = 'Hexo_github';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

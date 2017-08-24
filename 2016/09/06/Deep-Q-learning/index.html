@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,Q-learning,deepmind," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Deep Q Learning Code Analyze (1)分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载 文件结构 代码采用torch框架进行组织，编写的语言均为lua语言，其中包括convnet.lua, convnet_atari3.lua, in">
+<meta name="keywords" content="reinforcement learning,Q-learning,deepmind">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep_Q_learning">
+<meta property="og:url" content="https://chendagui16.github.io/2016/09/06/Deep-Q-learning/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="Deep Q Learning Code Analyze (1)分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载 文件结构 代码采用torch框架进行组织，编写的语言均为lua语言，其中包括convnet.lua, convnet_atari3.lua, in">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep_Q_learning">
+<meta name="twitter:description" content="Deep Q Learning Code Analyze (1)分析的源码来自于deepmind在Natrue上发表的论文Human-level control through deep reinforcement learning所附的源码。源码下载 文件结构 代码采用torch框架进行组织，编写的语言均为lua语言，其中包括convnet.lua, convnet_atari3.lua, in">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2016/09/06/Deep-Q-learning/"/>
+
+
+
+
+
+  <title>Deep_Q_learning | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2016/09/06/Deep-Q-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Deep_Q_learning</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-06T09:07:49+08:00">
+                2016-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code-analyze/" itemprop="url" rel="index">
+                    <span itemprop="name">code analyze</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/06/Deep-Q-learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/09/06/Deep-Q-learning/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/09/06/Deep-Q-learning/" class="leancloud_visitors" data-flag-title="Deep_Q_learning">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Deep-Q-Learning-Code-Analyze-1"><a href="#Deep-Q-Learning-Code-Analyze-1" class="headerlink" title="Deep Q Learning Code Analyze (1)"></a>Deep Q Learning Code Analyze (1)</h2><p>分析的源码来自于deepmind在Natrue上发表的论文<a href="http://www.nature.com/nature/journal/v518/n7540/abs/nature14236.html" target="_blank" rel="external">Human-level control through deep reinforcement learning</a>所附的源码。<a href="sites.google.com/a/deepmind.com/dqn">源码下载</a></p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><hr>
+<p>代码采用torch框架进行组织，编写的语言均为lua语言，其中包括convnet.lua, convnet_atari3.lua, initenv.lua, net_downsample_2x_full_y.lua, NeuralQLearner.lua, nnutils.lua, Rectifier.lua, Scale.lua, train_agent.lua, TransitionTable.lua。</p>
+<p>训练的主程序是从train_agent.lua(具体的train_agent.lua的解析见<a href="https://chendagui16.github.io/2016/09/09/Deep-Q-learning-2/">这里</a>)开始。训练时的参数表如下：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">cmd:option(<span class="string">'-framework'</span>, <span class="string">''</span>, <span class="string">'name of training framework'</span>)</div><div class="line">cmd:option(<span class="string">'-env'</span>, <span class="string">''</span>, <span class="string">'name of environment to use'</span>)</div><div class="line">cmd:option(<span class="string">'-game_path'</span>, <span class="string">''</span>, <span class="string">'path to environment file (ROM)'</span>)</div><div class="line">cmd:option(<span class="string">'-env_params'</span>, <span class="string">''</span>, <span class="string">'string of environment parameters'</span>)</div><div class="line">cmd:option(<span class="string">'-pool_frms'</span>, <span class="string">''</span>,</div><div class="line">           <span class="string">'string of frame pooling parameters (e.g.: size=2,type="max")'</span>)</div><div class="line">cmd:option(<span class="string">'-actrep'</span>, <span class="number">1</span>, <span class="string">'how many times to repeat action'</span>)</div><div class="line">cmd:option(<span class="string">'-random_starts'</span>, <span class="number">0</span>, <span class="string">'play action 0 between 1 and random_starts '</span> ..</div><div class="line">           <span class="string">'number of times at the start of each training episode'</span>)</div><div class="line"></div><div class="line">cmd:option(<span class="string">'-name'</span>, <span class="string">''</span>, <span class="string">'filename used for saving network and training history'</span>)</div><div class="line">cmd:option(<span class="string">'-network'</span>, <span class="string">''</span>, <span class="string">'reload pretrained network'</span>)</div><div class="line">cmd:option(<span class="string">'-agent'</span>, <span class="string">''</span>, <span class="string">'name of agent file to use'</span>)</div><div class="line">cmd:option(<span class="string">'-agent_params'</span>, <span class="string">''</span>, <span class="string">'string of agent parameters'</span>)</div><div class="line">cmd:option(<span class="string">'-seed'</span>, <span class="number">1</span>, <span class="string">'fixed input seed for repeatable experiments'</span>)</div><div class="line">cmd:option(<span class="string">'-saveNetworkParams'</span>, <span class="literal">false</span>,</div><div class="line">           <span class="string">'saves the agent network in a separate file'</span>)</div><div class="line">cmd:option(<span class="string">'-prog_freq'</span>, <span class="number">5</span>*<span class="number">10</span>^<span class="number">3</span>, <span class="string">'frequency of progress output'</span>)</div><div class="line">cmd:option(<span class="string">'-save_freq'</span>, <span class="number">5</span>*<span class="number">10</span>^<span class="number">4</span>, <span class="string">'the model is saved every save_freq steps'</span>)</div><div class="line">cmd:option(<span class="string">'-eval_freq'</span>, <span class="number">10</span>^<span class="number">4</span>, <span class="string">'frequency of greedy evaluation'</span>)</div><div class="line">cmd:option(<span class="string">'-save_versions'</span>, <span class="number">0</span>, <span class="string">''</span>)</div><div class="line"></div><div class="line">cmd:option(<span class="string">'-steps'</span>, <span class="number">10</span>^<span class="number">5</span>, <span class="string">'number of training steps to perform'</span>)</div><div class="line">cmd:option(<span class="string">'-eval_steps'</span>, <span class="number">10</span>^<span class="number">5</span>, <span class="string">'number of evaluation steps'</span>)</div><div class="line"></div><div class="line">cmd:option(<span class="string">'-verbose'</span>, <span class="number">2</span>,</div><div class="line">           <span class="string">'the higher the level, the more information is printed to screen'</span>)</div><div class="line">cmd:option(<span class="string">'-threads'</span>, <span class="number">1</span>, <span class="string">'number of BLAS threads'</span>)</div><div class="line">cmd:option(<span class="string">'-gpu'</span>, <span class="number">-1</span>, <span class="string">'gpu flag'</span>)</div></pre></td></tr></table></figure></p>
+<p>训练的开始会调用initenv.lua初始化game_env, game_actions, agent, opt。</p>
+<h4 id="initenv-lua"><a href="#initenv-lua" class="headerlink" title="initenv.lua"></a>initenv.lua</h4><p>initenv文件是在训练的初始阶段，用来初始化gamEnv，gameActions，agent，以及opt参数。提供了torchSetup函数和Setup函数，在这里torchSetup函数用来初始化一些与torch相关的参数，包括gpu参数，计算线程，以及tensorType等。</p>
+<p>而Setup参数用来调用torchSetup函数，并对gameEnv，gameActions，agent进行了初始化操作。</p>
+<p>gameEnv表示游戏的环境，通过调用getState()方法可以得到screen, reward和terminal参数。screen表示屏幕状态，这是DQN中的输入，terminal是布尔型变量，表示是否游戏结束。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> screen, reward, terminal = game_env:getState()</div></pre></td></tr></table></figure></p>
+<h4 id="nnutils-lua"><a href="#nnutils-lua" class="headerlink" title="nnutils.lua"></a>nnutils.lua</h4><p>nnutils文件主要提供了一些辅助函数。<br>该文件首先提供了recursive_map的函数，该函数接受module, field, func作为输入，返回一个字符串，其中module表示训练的模型，field指模型中的某类参数名，比如field=’weight’时，module[field]表示模型中的权重。该函数会返回字符串，包含了模型的类型名，对module[field]的统计数据（统计的方法视func而定）。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">recursive_map</span><span class="params">(module, field, func)</span></span></div></pre></td></tr></table></figure></p>
+<p>由于模型中包含了子模型，因此recusive_map函数会递归调用子模型，因此会形成模型的树状表示。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> module.modules <span class="keyword">then</span></div><div class="line">    str = str .. <span class="string">"["</span></div><div class="line">    <span class="keyword">for</span> i, submodule <span class="keyword">in</span> <span class="built_in">ipairs</span>(module.modules) <span class="keyword">do</span></div><div class="line">        <span class="keyword">local</span> submodule_str = recursive_map(submodule, field, func)</div><div class="line">        str = str .. submodule_str</div><div class="line">        <span class="keyword">if</span> i &lt; #module.modules <span class="keyword">and</span> <span class="built_in">string</span>.<span class="built_in">len</span>(submodule_str) &gt; <span class="number">0</span> <span class="keyword">then</span></div><div class="line">            str = str .. <span class="string">" "</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    str = str .. <span class="string">"]"</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>在nnuils的文件中，定义了abs_mean()和abs_max()的函数，表示平均值和最大值。另外也定义了get_weight_norms()和get_grad_norms()的函数，这两个函数会调用recursive_map函数，分别对权重和梯度值求均值和最大值。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_weight_norms</span><span class="params">(module)</span></span></div><div class="line">    <span class="keyword">return</span> <span class="string">"Weight norms:\n"</span> .. recursive_map(module, <span class="string">"weight"</span>, abs_mean) ..</div><div class="line">            <span class="string">"\nWeight max:\n"</span> .. recursive_map(module, <span class="string">"weight"</span>, abs_max)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_grad_norms</span><span class="params">(module)</span></span></div><div class="line">    <span class="keyword">return</span> <span class="string">"Weight grad norms:\n"</span> ..</div><div class="line">        recursive_map(module, <span class="string">"gradWeight"</span>, abs_mean) ..</div><div class="line">        <span class="string">"\nWeight grad max:\n"</span> .. recursive_map(module, <span class="string">"gradWeight"</span>, abs_max)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h4 id="Scale-lua"><a href="#Scale-lua" class="headerlink" title="Scale.lua"></a>Scale.lua</h4><p>scale.lua文件定义了训练时的scale层（此时的torch并没有内置scale的层），并定义了forward和updateOutput方法，实际上这两个方法都是相同的功能。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">scale:updateOutput</span><span class="params">(input)</span></span></div><div class="line">    <span class="keyword">return</span> self:forward(<span class="built_in">input</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>在scale:forward(x)函数中，x表示输入的图像，该函数会调用image.rgb2y(x)将输入的图像变成灰度图，然后将它按照初始化的宽高进行放缩。</p>
+<h4 id="Rectifier-lua"><a href="#Rectifier-lua" class="headerlink" title="Rectifier.lua"></a>Rectifier.lua</h4><p>同样地，Rectifier.lua文件定义了训练时的ReLU函数层，这里对前向传播和反向传播都进行了定义。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectifier:updateOutput</span><span class="params">(input)</span></span></div><div class="line">    <span class="keyword">return</span> self.<span class="built_in">output</span>:resizeAs(<span class="built_in">input</span>):copy(<span class="built_in">input</span>):<span class="built_in">abs</span>():add(<span class="built_in">input</span>):div(<span class="number">2</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectifier:updateGradInput</span><span class="params">(input, gradOutput)</span></span></div><div class="line">    self.gradInput:resizeAs(self.<span class="built_in">output</span>)</div><div class="line">    <span class="keyword">return</span> self.gradInput:sign(self.<span class="built_in">output</span>):cmul(gradOutput) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里self.output.resizeAs(input)的意思就是将output，resize成和input同样的size。cmul()表示矩阵对应元素相乘。</p>
+</blockquote>
+<h4 id="convnet-lua"><a href="#convnet-lua" class="headerlink" title="convnet.lua"></a>convnet.lua</h4><p>convnet.lua文件的目的是建立CNN结构，该文件仅仅包含一个函数：create_network。输入层的定义由初始化时的input_dims给出。注意到，在函数里对GPU和CPU的卷积层的实现方式有所区分。<br>卷积层的数量由初始化时的arg.n_units的长度给出（arg.n_units的每个元素的数值表示每一层的输出的feature map个数），如下所示，这里arg.nl()表示非线性层的意思。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i=<span class="number">1</span>,(#args.n_units<span class="number">-1</span>) <span class="keyword">do</span> <span class="comment">---第二个卷积层到最后一个卷积层</span></div><div class="line">    net:add(convLayer(args.n_units[i], args.n_units[i+<span class="number">1</span>],</div><div class="line">                        args.filter_size[i+<span class="number">1</span>], args.filter_size[i+<span class="number">1</span>],</div><div class="line">                        args.filter_stride[i+<span class="number">1</span>], args.filter_stride[i+<span class="number">1</span>]))</div><div class="line">    net:add(args.nl())</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>在卷积的最后一层通过人为构造0的输入的方式，进行前向传播，并对输出层进行nElement()的方法可以求得卷积最后一层的神经元数量。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nel = net:forward(torch.zeros(<span class="number">1</span>,<span class="built_in">unpack</span>(args.input_dims))):nElement()</div><div class="line">net:add(nn.Reshape(nel))</div></pre></td></tr></table></figure></p>
+<p>然后加入多个线性层，同样的，线性层的数量由arg.n_hid的长度给出（arg.n_hid的每个元素的数值表示每个线性层输出的神经元数量）<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i=<span class="number">1</span>,(#args.n_hid<span class="number">-1</span>) <span class="keyword">do</span>  <span class="comment">--第二哥线性层到最后一个线性层</span></div><div class="line">    last_layer_size = args.n_hid[i+<span class="number">1</span>]</div><div class="line">    net:add(nn.Linear(args.n_hid[i], last_layer_size))</div><div class="line">    net:add(args.nl())</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>最后加入一个线性层，其输出神经元的额数量等于actions的数量<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net:add(nn.Linear(last_layer_size, args.n_actions))</div></pre></td></tr></table></figure></p>
+<h4 id="convnet-atari3-lua"><a href="#convnet-atari3-lua" class="headerlink" title="convnet_atari3.lua"></a>convnet_atari3.lua</h4><p>这个文件主要是调用convnet.lua文件，并设置了一些对应的参数。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(args)</span></span></div><div class="line">    args.n_units        = &#123;<span class="number">32</span>, <span class="number">64</span>, <span class="number">64</span>&#125; <span class="comment">--三个卷积层，输出的feature map的数量是32,64,64</span></div><div class="line">    args.filter_size    = &#123;<span class="number">8</span>, <span class="number">4</span>, <span class="number">3</span>&#125; <span class="comment">--每个卷积层的卷积核大小</span></div><div class="line">    args.filter_stride  = &#123;<span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>&#125; <span class="comment">--每个卷积层的步长</span></div><div class="line">    args.n_hid          = &#123;<span class="number">512</span>&#125;   <span class="comment">--线性层的输出神经元数量</span></div><div class="line">    args.nl             = nn.Rectifier  <span class="comment">--非线性类型</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> create_network(args)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h4 id="net-downsample-2x-full-y-lua"><a href="#net-downsample-2x-full-y-lua" class="headerlink" title="net_downsample_2x_full_y.lua"></a>net_downsample_2x_full_y.lua</h4><p>这个文件会在构建网络时，在输入层增加一个Scale层，此时设置的长和宽均为84，Scale层会将输入的图像先变成灰度图，然后放缩成84x84的大小。</p>
+<h4 id="TransitionTable-lua"><a href="#TransitionTable-lua" class="headerlink" title="TransitionTable.lua"></a>TransitionTable.lua</h4><p>该文件主要创造了一个dqn.TransitionTable类，每个transition表示&lt;s,a,r,s’>，其中s表示state，a表示actions，r表示rewards，s’表示在s状态下执行a，得到的下一个状态s’。这个类用来存储一定数量的transitions，充当replay memory的角色。在CNN训练时，从这个replay memory中进行sample，sample出来的样本作为了网络的输入。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> trans = torch.class(<span class="string">'dqn.TransitionTable'</span>)</div></pre></td></tr></table></figure></p>
+<p>对于dqn.TransitionTable类，该文件中设计了不少的方法，这里进行一一的解读。</p>
+<h5 id="trans-init-args"><a href="#trans-init-args" class="headerlink" title="trans:__init(args)"></a>trans:__init(args)</h5><p>首先通过读args直接进行对象的初始化，这里包含的参数如下,在这里hist表示history的意思，每一个history中存储的帧图像合并才构成一个状态（<strong>这样做的原因是因为单独的某一帧的图像无法得到运动物体的速度信息等</strong>）：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">self.stateDim = args.stateDim    <span class="comment">--state的维度</span></div><div class="line">self.numActions = args.numActions   <span class="comment">--Actions的数量</span></div><div class="line">self.histLen = args.histLen    <span class="comment">--History的长度</span></div><div class="line">self.maxSize = args.maxSize <span class="keyword">or</span> <span class="number">1024</span>^<span class="number">2</span>    <span class="comment">--最大存储空间大小</span></div><div class="line">self.bufferSize = args.bufferSize <span class="keyword">or</span> <span class="number">1024</span>   <span class="comment">--缓存区的大小</span></div><div class="line">self.histType = args.histType <span class="keyword">or</span> <span class="string">"linear"</span>  <span class="comment">--采样History时使用类型，包括'linear','exp2','exp1.25'</span></div><div class="line">self.histSpacing = args.histSpacing <span class="keyword">or</span> <span class="number">1</span> <span class="comment">--History的间隔，如果histType的类型是’linear‘，表示每个histIndices之间相差histSpacing</span></div><div class="line">self.zeroFrames = args.zeroFrames <span class="keyword">or</span> <span class="number">1</span>  <span class="comment">--若该参数为0，则表示每一个history中可以包含不同episode的帧图像</span></div><div class="line">self.nonTermProb = args.nonTermProb <span class="keyword">or</span> <span class="number">1</span></div><div class="line">self.nonEventProb = args.nonEventProb <span class="keyword">or</span> <span class="number">1</span></div><div class="line">self.gpu = args.gpu</div><div class="line">self.numEntries = <span class="number">0</span>  <span class="comment">--存储transition的数量</span></div><div class="line">self.insertIndex = <span class="number">0</span></div><div class="line">self.histIndices = &#123;&#125; <span class="comment">--表示采样时的history下标</span></div></pre></td></tr></table></figure></p>
+<p>然后函数会针对不同的self.histType来设定不同的self.histIndices，同时，self.recentMemSize表示存储时的history的跨度，也就是histIndices[histLen]的值。</p>
+<blockquote>
+<p>在self.histLen=5的情况下，如果self.histType=”linear”，且self.histSpacing=2时，那么self.histIndices={2,4,6,8,10}，self.recentMemSize=10。如果self.histType=”exp2”，那么self.histIndices={1,2,4,8,16}，self.recentMemSize=16。</p>
+</blockquote>
+<p>接下来对self.s，self.a，self.r，self.t进行初始化设置。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">self.s = torch.ByteTensor(self.maxSize, self.stateDim):fill(<span class="number">0</span>) <span class="comment">--state，这里的state仅仅指一帧图像</span></div><div class="line">self.a = torch.LongTensor(self.maxSize):fill(<span class="number">0</span>)  <span class="comment">--actions</span></div><div class="line">self.r = torch.zeros(self.maxSize)  <span class="comment">--reward</span></div><div class="line">self.t = torch.ByteTensor(self.maxSize):fill(<span class="number">0</span>)  <span class="comment">--terminal</span></div><div class="line">self.action_encodings = torch.eye(self.numActions)</div></pre></td></tr></table></figure></p>
+<p>然后初始化了recent存储区，用来存储最近recentMemSize个帧的图像，也就是说在采样时这里只能采样一个状态，这可以用来建立最新的状态。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.recent_s = &#123;&#125;</div><div class="line">self.recent_a = &#123;&#125;</div><div class="line">self.recent_t = &#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>另外初始化时也定义了buffer区，在训练时的transition即来自buffer区。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> s_size = self.stateDim*histLen  <span class="comment">--s_size表示将histLen个帧图像连接在一起构成的新的状态的大小</span></div><div class="line">self.buf_a      = torch.LongTensor(self.bufferSize):fill(<span class="number">0</span>)</div><div class="line">self.buf_r      = torch.zeros(self.bufferSize)</div><div class="line">self.buf_term   = torch.ByteTensor(self.bufferSize):fill(<span class="number">0</span>)</div><div class="line">self.buf_s      = torch.ByteTensor(self.bufferSize, s_size):fill(<span class="number">0</span>)</div><div class="line">self.buf_s2     = torch.ByteTensor(self.bufferSize, s_size):fill(<span class="number">0</span>) <span class="comment">--s2表示s'，即在s下执行a得到的新的s</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>buffer区的state是由几个frame连接得到的，而self.s仅仅指一帧。</p>
+</blockquote>
+<h5 id="trans-reset"><a href="#trans-reset" class="headerlink" title="trans:reset()"></a>trans:reset()</h5><p>重置transition memory<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:reset</span><span class="params">()</span></span></div><div class="line">    self.numEntries = <span class="number">0</span></div><div class="line">    self.insertIndex = <span class="number">0</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-size"><a href="#trans-size" class="headerlink" title="trans:size()"></a>trans:size()</h5><p>返回self.numEntries</p>
+<h5 id="trans-empty"><a href="#trans-empty" class="headerlink" title="trans.empty()"></a>trans.empty()</h5><p>将self.numEntries置0</p>
+<h5 id="trans-concatFrames-index-use-recent"><a href="#trans-concatFrames-index-use-recent" class="headerlink" title="trans.concatFrames(index,use_recent)"></a>trans.concatFrames(index,use_recent)</h5><p>该函数负责将histLen个Frames的图像连接在一起，组成一个状态。至于Frames的选取方法，由self.histIndices的值来决定。<br>use_recent是一个bool型的变量，这个变量决定是否使用recent table<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> use_recent <span class="keyword">then</span></div><div class="line">    s, t = self.recent_s, self.recent_t</div><div class="line"><span class="keyword">else</span></div><div class="line">    s, t = self.s, self.t</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>函数新建了一个局部变量fullstate，用来存储histLen个Frames的数据。函数的输入变量index表示在s中采样的Frames的初始下标。<br>这个函数会在index与index+self.histIndice[histLen]-1之间的Frames，按照index+self.histIndice的方式进行采样，然而，如果在这些帧图像之间出现了terminal状态，也就是说游戏重新开始了一遍，这里会将出现terminal状态前的采样帧进行<strong>归零</strong>处理。也就是说最后得到的fullstate只包含最新的episode（每次从游戏开始到结束称为一个episode）。最终得到的一个fullstate称为一个状态。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--初始化fullstate，大小是histLen个s的大小</span></div><div class="line">    <span class="keyword">local</span> fullstate = s[<span class="number">1</span>].new()</div><div class="line">    fullstate:resize(self.histLen, <span class="built_in">unpack</span>(s[<span class="number">1</span>]:size():totable()))</div><div class="line"><span class="comment">--将除了最新的episode外的帧图像归零</span></div><div class="line">    <span class="keyword">local</span> zero_out = <span class="literal">false</span>  <span class="comment">--归零标志位</span></div><div class="line">    <span class="keyword">local</span> episode_start = self.histLen   <span class="comment">--最新的episode开始的帧在fullstate中的下标</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i=self.histLen<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-1</span> <span class="keyword">do</span>  <span class="comment">--反向搜索，一旦搜索到terminal，就对前面的采样进行操作</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> zero_out <span class="keyword">then</span></div><div class="line">            <span class="keyword">for</span> j=index+self.histIndices[i]<span class="number">-1</span>,index+self.histIndices[i+<span class="number">1</span>]<span class="number">-2</span> <span class="keyword">do</span></div><div class="line">                <span class="keyword">if</span> t[j] == <span class="number">1</span> <span class="keyword">then</span>   <span class="comment">--t表示terminal，如果在两个采样的帧之间出现了terminal，代表这两个采样属于不同的episode，因此将之前的采样全部归零。</span></div><div class="line">                    zero_out = <span class="literal">true</span></div><div class="line">                    <span class="keyword">break</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> zero_out <span class="keyword">then</span>   <span class="comment">--一旦zero_out变为true之后，会一直保持为ture的状态</span></div><div class="line">            fullstate[i]:zero()</div><div class="line">        <span class="keyword">else</span></div><div class="line">            episode_start = i</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> self.zeroFrames == <span class="number">0</span> <span class="keyword">then</span> <span class="comment">--self.zeroFrames参数，一旦等于0，则阻止归零的操作。</span></div><div class="line">        episode_start = <span class="number">1</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i=episode_start,self.histLen <span class="keyword">do</span></div><div class="line">        fullstate[i]:copy(s[index+self.histIndices[i]<span class="number">-1</span>])  <span class="comment">--将最新的episode中的帧copy到fullstate中</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> fullstate</div></pre></td></tr></table></figure></p>
+<h5 id="trans-concatActions-index-use-recent"><a href="#trans-concatActions-index-use-recent" class="headerlink" title="trans:concatActions(index,use_recent)"></a>trans:concatActions(index,use_recent)</h5><p>该函数的作用类似于trans:concatFrames，唯一的区别是它作用的对象是actions。</p>
+<h5 id="trans-get-index"><a href="#trans-get-index" class="headerlink" title="trans:get(index)"></a>trans:get(index)</h5><p>调用self:concatFrames(index)得到s和s2，我们取s中的最后一帧的action和reward作为整个state的action和reward，terminal取整个state后的第一帧的t值。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:get</span><span class="params">(index)</span></span></div><div class="line">    <span class="keyword">local</span> s = self:concatFrames(index)</div><div class="line">    <span class="keyword">local</span> s2 = self:concatFrames(index+<span class="number">1</span>)</div><div class="line">    <span class="keyword">local</span> ar_index = index+self.recentMemSize<span class="number">-1</span>  <span class="comment">--训练状态的最后一帧的下标</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> s, self.a[ar_index], self.r[ar_index], s2, self.t[ar_index+<span class="number">1</span>]</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-sample-one"><a href="#trans-sample-one" class="headerlink" title="trans:sample_one()"></a>trans:sample_one()</h5><p>在（2，self.numEntries-self.recentMemSize）之间进行均匀采样得到一个index，从2开始的原因是保证有一个previous action，index的最大值是self.numEntries-self.rencentMemSize，这样设置是因为训练的状态的最后一帧的下标与第一帧的下标之间相差recentMemSize。<br>同时如果self.nonTermProb和self.nonEventProb不等于1的情况下，采样的状态会被随机抛弃。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:sample_one</span><span class="params">()</span></span></div><div class="line">    <span class="built_in">assert</span>(self.numEntries &gt; <span class="number">1</span>)</div><div class="line">    <span class="keyword">local</span> index</div><div class="line">    <span class="keyword">local</span> valid = <span class="literal">false</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">not</span> valid <span class="keyword">do</span></div><div class="line">        index = torch.<span class="built_in">random</span>(<span class="number">2</span>, self.numEntries-self.recentMemSize) <span class="comment">--均匀随机采样一个index</span></div><div class="line">        <span class="keyword">if</span> self.t[index+self.recentMemSize<span class="number">-1</span>] == <span class="number">0</span> <span class="keyword">then</span></div><div class="line">            valid = <span class="literal">true</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">        <span class="keyword">if</span> self.nonTermProb &lt; <span class="number">1</span> <span class="keyword">and</span> self.t[index+self.recentMemSize] == <span class="number">0</span> <span class="keyword">and</span> torch.uniform() &gt; self.nonTermProb <span class="keyword">then</span></div><div class="line">        <span class="comment">--以（1-self.nonTermProb）的概率抛弃所采样的非terminal状态</span></div><div class="line">            valid = <span class="literal">false</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">        <span class="keyword">if</span> self.nonEventProb &lt; <span class="number">1</span> <span class="keyword">and</span> self.t[index+self.recentMemSize] == <span class="number">0</span> <span class="keyword">and</span> self.r[index+self.recentMemSize<span class="number">-1</span>] == <span class="number">0</span> <span class="keyword">and</span> torch.uniform() &gt; self.nonEventProb <span class="keyword">then</span> </div><div class="line">         <span class="comment">--以（1-nonEventProb）的概率随机抛弃所采样的非terminal和无reward状态</span></div><div class="line">            valid = <span class="literal">false</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> self:get(index)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-fill-buffer"><a href="#trans-fill-buffer" class="headerlink" title="trans:fill_buffer()"></a>trans:fill_buffer()</h5><p>这个函数通过调用trans:sample_one()的函数来进行采样，然后将这些随机采样的样本加入到buffer区。执行这个函数会刷新buffer区的数据。<br>注意到这里必须保证原存储区的样本个数大于buffer区。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">assert</span>(self.numEntries &gt;= self.bufferSize)</div><div class="line">self.buf_ind = <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>然后进行采样，注意到该函数调用后会初始化一个类成员变量self.buf_ind，这个变量表示在buffer中训练时的下标指示器。每次调用该函数就会使这个变量置为1，即表示现在的buffer区的数据还没有被训练。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> buf_ind=<span class="number">1</span>,self.bufferSize <span class="keyword">do</span></div><div class="line">    <span class="keyword">local</span> s, a, r, s2, term = self:sample_one(<span class="number">1</span>)</div><div class="line">    self.buf_s[buf_ind]:copy(s)</div><div class="line">    self.buf_a[buf_ind] = a</div><div class="line">    self.buf_r[buf_ind] = r</div><div class="line">    self.buf_s2[buf_ind]:copy(s2)</div><div class="line">    self.buf_term[buf_ind] = term</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-sample-batch-size"><a href="#trans-sample-batch-size" class="headerlink" title="trans:sample(batch_size)"></a>trans:sample(batch_size)</h5><p>在buffer区得到batch_size个tansition，注意到如果buffer区中所剩下的数据少于batch_size时会重新更新buffer区。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:sample</span><span class="params">(batch_size)</span></span></div><div class="line">    <span class="keyword">local</span> batch_size = batch_size <span class="keyword">or</span> <span class="number">1</span></div><div class="line">    <span class="built_in">assert</span>(batch_size &lt; self.bufferSize)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.buf_ind <span class="keyword">or</span> self.buf_ind + batch_size - <span class="number">1</span> &gt; self.bufferSize <span class="keyword">then</span> </div><div class="line">        self:fill_buffer() <span class="comment">--如果buffer区未更新过，或者剩余的数据量少于batch_size时，重新装填buffer区</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">local</span> index = self.buf_ind</div><div class="line"></div><div class="line">    self.buf_ind = self.buf_ind+batch_size <span class="comment">-- 更新self.buf_ind的值</span></div><div class="line">    <span class="keyword">local</span> range = &#123;&#123;index, index+batch_size<span class="number">-1</span>&#125;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">local</span> buf_s, buf_s2, buf_a, buf_r, buf_term = self.buf_s, self.buf_s2,self.buf_a, self.buf_r, self.buf_term</div><div class="line">    <span class="keyword">return</span> buf_s[range], buf_a[range], buf_r[range], buf_s2[range], buf_term[range]</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-add-s-a-r-term"><a href="#trans-add-s-a-r-term" class="headerlink" title="trans:add(s,a,r,term)"></a>trans:add(s,a,r,term)</h5><p>该文件会将一组新的s，a，r，term（terminal）写进存储区，每写进一个数据self.numEntries会加1，直到self.maxSize为止。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.numEntries &lt; self.maxSize <span class="keyword">then</span></div><div class="line">    self.numEntries = self.numEntries + <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>这里用self.inserIndex来控制写入的下标，当存储区写满后，又从头开始写入。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">self.insertIndex = self.insertIndex + <span class="number">1</span></div><div class="line"><span class="comment">-- 如果写满了，则重头开始</span></div><div class="line"><span class="keyword">if</span> self.insertIndex &gt; self.maxSize <span class="keyword">then</span></div><div class="line">    self.insertIndex = <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>写入存储区<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">self.s[self.insertIndex] = s:clone():float():mul(<span class="number">255</span>)</div><div class="line">self.a[self.insertIndex] = a</div><div class="line">self.r[self.insertIndex] = r</div><div class="line"><span class="keyword">if</span> term <span class="keyword">then</span></div><div class="line">    self.t[self.insertIndex] = <span class="number">1</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    self.t[self.insertIndex] = <span class="number">0</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-add-recent-state-s-term-trans-add-recent-action-a"><a href="#trans-add-recent-state-s-term-trans-add-recent-action-a" class="headerlink" title="trans:add_recent_state(s,term),trans:add_recent_action(a)"></a>trans:add_recent_state(s,term),trans:add_recent_action(a)</h5><p>这两个函数分别将s，term和a加入recent存储区，注意到由于recent存储区只存储一个状态，因此函数里面有维持recent存储区的大小等于self.recentMemSize的操作。</p>
+<h5 id="trans-get-recent"><a href="#trans-get-recent" class="headerlink" title="trans:get_recent()"></a>trans:get_recent()</h5><p> 从recent存储区取一个状态<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trans:get_recent</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">return</span> self:concatFrames(<span class="number">1</span>, <span class="literal">true</span>):float():div(<span class="number">255</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h5 id="trans-write-file"><a href="#trans-write-file" class="headerlink" title="trans:write(file)"></a>trans:write(file)</h5><p>将trans类的参数序列化写入文件</p>
+<h5 id="trans-read-file"><a href="#trans-read-file" class="headerlink" title="trans:read(file)"></a>trans:read(file)</h5><p>执行反序列化，从文件中读取参数</p>
+<h3 id="下一页"><a href="#下一页" class="headerlink" title="下一页"></a><a href="https://chendagui16.github.io/2016/09/09/Deep-Q-learning-2/">下一页</a></h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/Q-learning/" rel="tag"># Q-learning</a>
+          
+            <a href="/tags/deepmind/" rel="tag"># deepmind</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/05/Hexo-github/" rel="next" title="Hexo_github">
+                <i class="fa fa-chevron-left"></i> Hexo_github
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/09/Deep-Q-learning-2/" rel="prev" title="Deep-Q-learning-2">
+                Deep-Q-learning-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Q-Learning-Code-Analyze-1"><span class="nav-number">1.</span> <span class="nav-text">Deep Q Learning Code Analyze (1)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件结构"><span class="nav-number">1.1.</span> <span class="nav-text">文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#initenv-lua"><span class="nav-number">1.1.1.</span> <span class="nav-text">initenv.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nnutils-lua"><span class="nav-number">1.1.2.</span> <span class="nav-text">nnutils.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scale-lua"><span class="nav-number">1.1.3.</span> <span class="nav-text">Scale.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rectifier-lua"><span class="nav-number">1.1.4.</span> <span class="nav-text">Rectifier.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#convnet-lua"><span class="nav-number">1.1.5.</span> <span class="nav-text">convnet.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#convnet-atari3-lua"><span class="nav-number">1.1.6.</span> <span class="nav-text">convnet_atari3.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#net-downsample-2x-full-y-lua"><span class="nav-number">1.1.7.</span> <span class="nav-text">net_downsample_2x_full_y.lua</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TransitionTable-lua"><span class="nav-number">1.1.8.</span> <span class="nav-text">TransitionTable.lua</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-init-args"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">trans:__init(args)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-reset"><span class="nav-number">1.1.8.2.</span> <span class="nav-text">trans:reset()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-size"><span class="nav-number">1.1.8.3.</span> <span class="nav-text">trans:size()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-empty"><span class="nav-number">1.1.8.4.</span> <span class="nav-text">trans.empty()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-concatFrames-index-use-recent"><span class="nav-number">1.1.8.5.</span> <span class="nav-text">trans.concatFrames(index,use_recent)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-concatActions-index-use-recent"><span class="nav-number">1.1.8.6.</span> <span class="nav-text">trans:concatActions(index,use_recent)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-get-index"><span class="nav-number">1.1.8.7.</span> <span class="nav-text">trans:get(index)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-sample-one"><span class="nav-number">1.1.8.8.</span> <span class="nav-text">trans:sample_one()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-fill-buffer"><span class="nav-number">1.1.8.9.</span> <span class="nav-text">trans:fill_buffer()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-sample-batch-size"><span class="nav-number">1.1.8.10.</span> <span class="nav-text">trans:sample(batch_size)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-add-s-a-r-term"><span class="nav-number">1.1.8.11.</span> <span class="nav-text">trans:add(s,a,r,term)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-add-recent-state-s-term-trans-add-recent-action-a"><span class="nav-number">1.1.8.12.</span> <span class="nav-text">trans:add_recent_state(s,term),trans:add_recent_action(a)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-get-recent"><span class="nav-number">1.1.8.13.</span> <span class="nav-text">trans:get_recent()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-write-file"><span class="nav-number">1.1.8.14.</span> <span class="nav-text">trans:write(file)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#trans-read-file"><span class="nav-number">1.1.8.15.</span> <span class="nav-text">trans:read(file)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下一页"><span class="nav-number">1.2.</span> <span class="nav-text">下一页</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2016/09/06/Deep-Q-learning/';
+          this.page.identifier = '2016/09/06/Deep-Q-learning/';
+          this.page.title = 'Deep_Q_learning';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

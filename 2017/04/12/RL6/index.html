@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,machine learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="reference:    UCL Course on RL lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems Value Function Approximati">
+<meta name="keywords" content="reinforcement learning,machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL6 Value Function Approximation">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/12/RL6/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="reference:    UCL Course on RL lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems Value Function Approximati">
+<meta property="og:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/cadbe9e888675272.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/38730a39ee8d3a93.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/16ffcde59dce7eca.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/887027f627e53e74.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/389f21e4a037e7b3.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/12115cfd47cc51c7.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/5103a9f8f57b6a60.png">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL6 Value Function Approximation">
+<meta name="twitter:description" content="reference:    UCL Course on RL lecture 6 Value Function ApproximationIntroductionLarge-Scale Reinforcement LearningReinforcement learning can be used to solve large problems Value Function Approximati">
+<meta name="twitter:image" content="http://i2.muimg.com/567571/7a57308447c99963.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/12/RL6/"/>
+
+
+
+
+
+  <title>RL6 Value Function Approximation | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/12/RL6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RL6 Value Function Approximation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-12T20:05:28+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reinforcement-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">reinforcement learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/12/RL6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/12/RL6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/12/RL6/" class="leancloud_visitors" data-flag-title="RL6 Value Function Approximation">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
+<h1 id="lecture-6-Value-Function-Approximation"><a href="#lecture-6-Value-Function-Approximation" class="headerlink" title="lecture 6 Value Function Approximation"></a>lecture 6 Value Function Approximation</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Large-Scale Reinforcement Learning</strong><br>Reinforcement learning can be used to solve large problems</p>
+<p><strong>Value Function Approximation</strong><br>Value Function by a lookup table</p>
+<ul>
+<li>Every state $s$ has an entry Q(s,a) </li>
+<li>Or every state-action pair $s,a$ has an entry $Q(s,a)$<br>Problem with larger MDPs</li>
+<li>There are many states and/or actions to store in memory</li>
+<li>It is too slow to learn the value of each state individually<br>Solution for large MDPs</li>
+<li>Estimate value functions with function approximation $ \hat{v} (s,w) \approx v_{\pi}(s) $ or $ \hat{q} (s,a,w) \approx q_\pi (s,a) $</li>
+<li>Generalise from seen states to unseen states</li>
+<li>Update parameters w using MC or TD learning</li>
+</ul>
+<h3 id="Types-of-value-function-approximation"><a href="#Types-of-value-function-approximation" class="headerlink" title="Types of value function approximation"></a>Types of value function approximation</h3><p><img src="http://i2.muimg.com/567571/7a57308447c99963.png" alt="types of value function approximation"><br>We consider differentiable function approximators </p>
+<ol>
+<li>Linear combinations of features</li>
+<li>Neural network</li>
+<li>Decision tree</li>
+<li>Nearest neighbour</li>
+<li>Fourier/wavelet bases</li>
+<li>$\dots$<br>Furthermore, we require a training method that is suitable for non-stationary, non-iid data</li>
+</ol>
+<h2 id="Incremental-Methods"><a href="#Incremental-Methods" class="headerlink" title="Incremental Methods"></a>Incremental Methods</h2><h3 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h3><ul>
+<li>Goal: find parameters vector $w$ minimising mean-squared error between approximate value fn $\hat{v}(s,w)$ and true value fn $v_{\pi} (s) $<br>$$ J(w) = E_\pi [(v_\pi (S) -\hat{v} (S,w) )^2] $$</li>
+<li>Gradient descent finds a local minimum<br>$$ \Delta w = -\frac{1}{2} \alpha \nabla_w J(w)= \alpha E_\pi \left[ (v_\pi(S) -\hat{v}(S,w))\nabla_w \hat{v} (S,w) \right] $$</li>
+<li>Stochastic gradient descent samples the gradient<br>$$ \Delta w = \alpha (v_\pi (S) - \hat{v} (S,w)) \nabla_w \hat{v} (S,w) $$</li>
+<li>Expected update is equal to full gradient update</li>
+</ul>
+<h3 id="Linear-Function-Approximation"><a href="#Linear-Function-Approximation" class="headerlink" title="Linear Function Approximation"></a>Linear Function Approximation</h3><p><strong>Linear Value Function Approximation</strong></p>
+<ul>
+<li>Represent value function by a linear combination of features<br>$$ \hat{S,w} = x(S)^T w = \sum_{j=1}^{n} x_j (S) w_j $$</li>
+<li>Objective function is quadratic in parameters $w$<br>$$ J(w) = E_\pi \left[ (v_\pi(S) - x(S)^T w)^2\right] $$</li>
+<li>Stochastic gradient descent converges on global optimum</li>
+<li>Update rule is particularly simple<br><em>Updata = step-size $\times$ prediction error $\times$ feature value</em></li>
+</ul>
+<p><strong>Table Lookup Features</strong></p>
+<ul>
+<li>Table lookup is special case of linear value function approximation</li>
+<li>Using table lookup features<br>$$ x^{table} (S) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} $$</li>
+<li>Parameter vector $w$ gives value of each individual state<br>$$ \hat{v} (S,w) = \begin{bmatrix} 1(S=s_1) \\ \vdots \\ 1(S=s_n) \end{bmatrix} \cdot \begin{bmatrix} w_1 \\ \vdots \\ w_n \end{bmatrix} $$</li>
+</ul>
+<h3 id="Incremental-Prediction-Algorithms"><a href="#Incremental-Prediction-Algorithms" class="headerlink" title="Incremental Prediction Algorithms"></a>Incremental Prediction Algorithms</h3><ul>
+<li>Have assumed true value function $v_{\pi} (s)$ given by supervisor</li>
+<li>But in RL there is no supervisor, only rewards</li>
+<li>In practice, we substitute a target for $v_{\pi} (s)$<ul>
+<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+<li>For TD(0), the target is the TD target $R_{t+1} + \gamma \hat{v} (S_{t+1},w) $<br>$$ \Delta w = \alpha (R_{t+1} + \gamma \hat{v} (S_{t+1},w) - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+<li>For TD($\lambda$), the target is the $\lambda$-return $G_t^\lambda$<br>$$ \Delta w = \alpha (G_t^\lambda - \hat{v} (S_t,w)) \nabla_{w} \hat{v} (S_t,w) $$</li>
+</ul>
+</li>
+</ul>
+<p><strong>MC with Value Function Approximation</strong></p>
+<ul>
+<li>Return $G_t$ is an unbiased, noisy sample of true value $v_{pi} (S_t)$</li>
+<li>Can therefore apply supervised learning to “training data”:<br>$$ (S_1, G_1), (S_2, G_2), \dots, (S_T, G_T) $$</li>
+<li>For example, using linear MC policy evaluation<br>$$ \Delta w = \alpha (G_t - \hat{v} (S_t,w)) \Delta_w \hat{v} (S_t,w) = \alpha(G_t - \hat{v} (S_t,w))x(S_t) $$</li>
+<li>Monte-Carlo evaluation converges to a local optimum </li>
+<li>Even when using non-linear value function approximation</li>
+</ul>
+<p><strong>TD Learning with Value Function Approximation</strong></p>
+<ul>
+<li>The TD-target $R_{t+1} + \gamma \hat{v} (S_{t+1},w)$ is a biased sample of true value $v_\pi (S_t)$</li>
+<li>Can still apply supervised learning to “training data”:<br>$$ (S_1, R_2 + \gamma \hat{v} (S_2,w) ), (S_2, R_3 + \gamma \hat{v} (S_3,w)), \dots, (R_{T-1},R_T) $$</li>
+<li>For example, using linear TD(0)<br>$$ \Delta w = \alpha (R+\gamma \hat{v} (S’,w) - \hat{v} (S,w)) \Delta_w \hat{v} (S,w) = \alpha \delta x(S) $$</li>
+<li>Linear TD(0) converges (close) to global optimum</li>
+</ul>
+<h3 id="Incremental-Control-Algorithm"><a href="#Incremental-Control-Algorithm" class="headerlink" title="Incremental Control Algorithm"></a>Incremental Control Algorithm</h3><p><strong>Control with Value function Approximation</strong><br><em>Policy evaluation</em>: Approximate policy evaluation, $\hat{q}(\cdot,\cdot,w) \approx q_\pi$<br><em>Policy improvement</em>: $\epsilon$-greedy policy improvement</p>
+<p><strong>Action-Value Function Approximation</strong></p>
+<ul>
+<li>Approximate the action-value function $\hat{q}(S,A,w) \approx q_{\pi} (S,A)$</li>
+<li>Minimise mean-squared error between approximate action-value fn $\hat{q}(S,A,w)$ and true action-value fn $q_\pi (S,A)$<br>$$ J(w) = E_\pi \left[(q_\pi (S,A) - \hat{q} (S,A,w))^2 \right] $$</li>
+<li>Use stochastic gradient descent to find a local minimum<br>$$ -\frac{1}{2} \nabla_w J(w) = ( q_{\pi} (S,A) -\hat{q} (S,A,w)) \nabla_w \hat{q} (S,A,w) \\ \Delta w = \alpha (q_{\pi} (S,A) -\hat{q} (S,A,w))\nabla_w \hat{q} (S,A,w) $$</li>
+</ul>
+<p><strong>Linear Action-Value Funtion Approximation</strong></p>
+<ul>
+<li>Represent state and action by a feature vector<br>$$ X(S,A) = \begin{pmatrix} x_1 (S,A) \\ \vdots \\ x_n (S,A) \end{pmatrix} $$</li>
+<li>Represent action-value fn by linear combination of features<br>$$ \hat{q} (S,A,w) = x(S,A)^T w = \sum_{j=1}^n x_j (S,A)w_j $$</li>
+<li>Stochastic gradient descent update<br>$$ \nabla_w \hat{q} (S,A,w) = x(S,A) \\ \Delta w =\alpha (q_\pi (S,A) - \hat{q} (S,A,w)) x(S,A) $$</li>
+</ul>
+<p><strong>Incremental Control Algorithms</strong></p>
+<ul>
+<li>Like prediction, we must substitute a target for $q_\pi (S,A)$<ul>
+<li>For MC, the target is the return $G_t$<br>$$ \Delta w = \alpha (G_t - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For TD(0), the target is the TD target $R_{t+1} + \gamma Q(S_{t+1},A_{t+1}) $<br>$$ \Delta w = \alpha (R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For forward-view TD($\lambda$), target is the action-value $\lambda$-return<br>$$ \Delta w = \alpha (q_t^\lambda - \hat{q} (S_t,A_t,w)) \nabla_w \hat{q} (S_t,A_t,w) $$</li>
+<li>For backward-view TD($\lambda$), equivalent update is<br>$$ \delta_t = R_{t+1}+\gamma\hat{q} (S_{t+1},A_{t+1},w) - \hat{q} (S_t,A_t,w) \\ E_t =\gamma \lambda E_{t-1} + \Delta_w \hat{q} (S_t,A_t,w) \\ \Delta w = \alpha \delta_t E_t $$</li>
+</ul>
+</li>
+</ul>
+<h3 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h3><p><strong>Convergence of Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/cadbe9e888675272.png" alt="Convergence of Prediction Algorhms"><br><strong>Gradient Temporal-Difference Learning</strong></p>
+<ul>
+<li>TD does not follow the gradient of any objective function</li>
+<li>This is why TD can diverge when off-policy or using non-linear function approximation</li>
+<li><em>Gradient TD</em> follows true gradient of projected Bellman error<br><img src="http://i4.buimg.com/567571/38730a39ee8d3a93.png" alt="Gradient TD"></li>
+</ul>
+<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i2.muimg.com/567571/16ffcde59dce7eca.png" alt="Convergence of Control Algorithms"></p>
+<h2 id="Batch-Methods"><a href="#Batch-Methods" class="headerlink" title="Batch Methods"></a>Batch Methods</h2><p><strong>Batch Reinforcement Learning</strong></p>
+<ul>
+<li>Gradient descent is simple and appealing</li>
+<li>But it is not sample efficient</li>
+<li>Batch methods seek to find the best fitting value function</li>
+<li>Given the agent’s experience (‘training data”)</li>
+</ul>
+<h3 id="Least-Squares-Prediction"><a href="#Least-Squares-Prediction" class="headerlink" title="Least Squares Prediction"></a>Least Squares Prediction</h3><ul>
+<li>Given value function approximation $\hat{v}(s,w) \approx v_\pi (s) $</li>
+<li>And experience D consisting of (<em>state</em>,<em>value</em>) pairs<br>$$ D = ((s_1,v_1^\pi),(s_2,v_2^\pi),\dots,(s_T,v_T^\pi)) $$</li>
+<li>Which parameters $w$ given the best fitting value fn $\hat{v} (s,w)$?</li>
+<li><strong>Least squares</strong> algorithms find parameters vector $w$ minimising sum-squared error between $\hat{v} (s_t,w)$ and target values $v_t^\pi$<br>$$ LS(w) = \sum_{t=1}^{T} (v_t^T - \hat{v} (s_t,w))^2 = E_D \left[ (v^\pi - \hat{v} (s,w))^2\right] $$</li>
+</ul>
+<p><strong>Stochastic Gradient Descent with Experience Replay</strong><br>Repeat:</p>
+<ol>
+<li>Sample state, value from experience $(s,v^\pi)\sim D$</li>
+<li>Apply stochastic gradient descent update $\Delta w = \alpha (v^\pi -\hat{v} (s,w)) \nabla_w \hat{v} (s,w) $<br>Converges to least squares solution<br>$$ w^\pi = \arg\min_w LS(w) $$</li>
+</ol>
+<p><strong>Experience Replay in Deep Q-Network(DQN)</strong><br>DQN uses <strong>experience replay</strong> and <strong>fixed Q-targets</strong></p>
+<ul>
+<li>Take action $a_t$ according to $\epsilon$-greedy policy </li>
+<li>Store transition $(s_t,a_t,r_{t+1},s_{t+1})$ in replay memory $D$</li>
+<li>Sample random mini-batch of transitions $(s,a,r,s’)$ from $D$</li>
+<li>Compute Q-learning targets w.r.t old, fixed parameters $w^-$</li>
+<li>Optimise MSE between Q-network and Q-learning targets<br>$$ L_i (w_i) = E_{s,a,r,s’ \sim D_i} \left[ \left( r + \gamma \max_{a’} Q(s’,a’;w_i^-) - Q(s,a;w_i) \right)^2 \right] $$</li>
+<li>Using variant of stochastic gradient descent</li>
+</ul>
+<p><strong>Linear Least Squares Prediction</strong></p>
+<ul>
+<li>Experience replay finds least squares solution</li>
+<li>But it may take many iterations</li>
+<li>Using linear value function approximation $\hat{v} (s,w) = x(s)^T w $</li>
+<li>We can solve the least squares solution directly<ul>
+<li>At minimum of $LS(w)$, the expected update must be zero, $E_D (\Delta w) = 0$<br>$$ \alpha \sum_{t=1}^{T} x(s_t) (v_t^\pi -x(s_t)^T w) = 0 \\  w =\left( \sum_{t=1}^T x(s_t)x(s_t)^T \right)^{-1} \sum_{t=1}^T x(s_t) v_t^\pi $$</li>
+<li>For $N$ features, direct solution time is $O(n^3)$</li>
+<li>Incremental solution time is $O(n^2)$ using Shermann-Morrison</li>
+</ul>
+</li>
+</ul>
+<p><strong>Linear Least Squares Prediction Algorithms</strong></p>
+<ul>
+<li>We don’t know true values $v_t^\pi$</li>
+<li>In practice, our “training data” must use noisy or biased sample of $v_t^\pi$<ul>
+<li><strong>LSMC</strong> Least Squares MC uses return $v_t^\pi \approx G_t$</li>
+<li><strong>LSTD</strong> Least Squares TD uses TD target $v_t^\pi \approx R_{t+1} + \gamma \hat{v}(S_{t_1},w) $</li>
+<li><strong>LSTD($\lambda$)</strong> Least Squares TD($\lambda$) use $\lambda$-return $v_t^\pi \approx G_t^\lambda$</li>
+</ul>
+</li>
+<li>In each case solve directly for fixed point of MC/TD/TD($\lambda$)<br><img src="http://i4.buimg.com/567571/887027f627e53e74.png" alt="Direct solution for LS"></li>
+</ul>
+<p><strong>Convergence of Linear Least Squares Prediction Algorithms</strong><br><img src="http://i1.piimg.com/567571/389f21e4a037e7b3.png" alt="Convergence of LS prediction algorithms"></p>
+<h3 id="Least-Squares-Control"><a href="#Least-Squares-Control" class="headerlink" title="Least Squares Control"></a>Least Squares Control</h3><p><strong>Least Squares Policy Iteration</strong><br><em>Policy evaluation</em> Policy evaluation by least squares Q-learning<br><em>Policy improvement</em> Greedy policy improvement</p>
+<p><strong>Least Squares Action-Value Function Approximation</strong></p>
+<ul>
+<li>Approximate action-value function $q_\pi (s,a)$</li>
+<li>using linear combination of features $x(s,a)$<br>$$ \hat{q} (s,a,w) = x(s,a)^T w \approx q_\pi (s,a) $$</li>
+<li>Minimise least squares error between $\hat{q} (s,a,w)$ and $q_\pi (s,a)$</li>
+<li>form experience generated using policy $\pi$</li>
+<li>consisting of $&lt;(state,action),value>$ pairs<br>$$ D = \{ &lt; (s_1,a_1),v_1^\pi >, &lt;(s_2,a_2),v_2^\pi>,\dots,&lt;(s_T,a_T),v_T^\pi> \} $$</li>
+</ul>
+<p><strong>Least Squares Control</strong></p>
+<ul>
+<li>For policy evaluation, we want to efficiently use all experience</li>
+<li>For control, we also want to improve the policy</li>
+<li>This experience is generated from many policies</li>
+<li>So to evaluate $q_pi (S,A)$ we must learn off-policy</li>
+<li>We use the same idea as Q-learning:<ul>
+<li>Use experience generated by old policy, $ S_t,A_t,R_{t+1},S_{t+1} \sim \pi_{old} $</li>
+<li>Consider alternative successor action $ A’ = \pi_{new} (S_{t+1}) $</li>
+<li>Update $\hat{q} (S_t,A_t,w) $ towards value of alternative action $R_{t+1} + \gamma \hat{q} (S_{t+1},A’,w)$</li>
+</ul>
+</li>
+</ul>
+<p><strong>Least Squares Q-Learning</strong></p>
+<ul>
+<li>Consider the following linear Q-learning update<br>$$ \delta = R_{t+1} + \gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) - \hat{q} (S_t,A_t,w) \\ \Delta w =\alpha \delta x(S_t,A_t) $$</li>
+<li>LSTDQ alorithm: solve for total update = zero<br>$$ 0 = \sum_{t=1}^T \alpha (R_{t+1} +\gamma \hat{q} (S_{t+1},\pi(S_{t+1}),w) -\hat{q} (S_t,A_t,w)) x(S_t,A_t) \\ w = \left( \sum_{t=1}^T x(S_t,A_t) (x(S_t,A_t)-\gamma x(S_{t+1},\pi(S_{t+1})))^T \right)^{-1} \sum_{t=1}^T x(S_t,A_t) R_{t+1} $$</li>
+</ul>
+<p><strong>Least Squares Policy Iteration Algorithm</strong></p>
+<ul>
+<li>The following pseudocode uses LSTDQ for policy evaluation</li>
+<li>It repeatedly re-evaluates experience $D$ with difference policy<br><img src="http://i4.buimg.com/567571/12115cfd47cc51c7.png" alt="LSPI algorithm"></li>
+</ul>
+<p><strong>Convergence of Control Algorithms</strong><br><img src="http://i4.buimg.com/567571/5103a9f8f57b6a60.png" alt="Convergence of Control Algorithms"><br>$(\checkmark)$ = chatters around near-optimal value function</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/11/sortAlgorithm/" rel="next" title="sortAlgorithm">
+                <i class="fa fa-chevron-left"></i> sortAlgorithm
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/14/data-structure/" rel="prev" title="data structure">
+                data structure <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-6-Value-Function-Approximation"><span class="nav-number">1.</span> <span class="nav-text">lecture 6 Value Function Approximation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-value-function-approximation"><span class="nav-number">1.1.1.</span> <span class="nav-text">Types of value function approximation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Incremental-Methods"><span class="nav-number">1.2.</span> <span class="nav-text">Incremental Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stochastic-Gradient-Descent"><span class="nav-number">1.2.1.</span> <span class="nav-text">Stochastic Gradient Descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-Function-Approximation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Linear Function Approximation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Incremental-Prediction-Algorithms"><span class="nav-number">1.2.3.</span> <span class="nav-text">Incremental Prediction Algorithms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Incremental-Control-Algorithm"><span class="nav-number">1.2.4.</span> <span class="nav-text">Incremental Control Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Convergence"><span class="nav-number">1.2.5.</span> <span class="nav-text">Convergence</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Methods"><span class="nav-number">1.3.</span> <span class="nav-text">Batch Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Least-Squares-Prediction"><span class="nav-number">1.3.1.</span> <span class="nav-text">Least Squares Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Least-Squares-Control"><span class="nav-number">1.3.2.</span> <span class="nav-text">Least Squares Control</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/12/RL6/';
+          this.page.identifier = '2017/04/12/RL6/';
+          this.page.title = 'RL6 Value Function Approximation';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

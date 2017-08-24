@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,machine learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="reference:    UCL Course on RL lecture 3 Planning by Dynamic ProgrammingintroductionDefinition Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a polic">
+<meta name="keywords" content="reinforcement learning,machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL3 Planning by Dynamic Programming">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/05/RL3/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="reference:    UCL Course on RL lecture 3 Planning by Dynamic ProgrammingintroductionDefinition Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a polic">
+<meta property="og:image" content="http://i1.piimg.com/567571/ed3f6444e4b26860.png">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL3 Planning by Dynamic Programming">
+<meta name="twitter:description" content="reference:    UCL Course on RL lecture 3 Planning by Dynamic ProgrammingintroductionDefinition Dynamic: sequential or temporal component to the problemProgramming: optimising a “program”, i.e. a polic">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/ed3f6444e4b26860.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/05/RL3/"/>
+
+
+
+
+
+  <title>RL3 Planning by Dynamic Programming | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/05/RL3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RL3 Planning by Dynamic Programming</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-05T20:11:50+08:00">
+                2017-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reinforcement-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">reinforcement learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/05/RL3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/05/RL3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/05/RL3/" class="leancloud_visitors" data-flag-title="RL3 Planning by Dynamic Programming">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
+<h1 id="lecture-3-Planning-by-Dynamic-Programming"><a href="#lecture-3-Planning-by-Dynamic-Programming" class="headerlink" title="lecture 3 Planning by Dynamic Programming"></a>lecture 3 Planning by Dynamic Programming</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><blockquote>
+<p>Dynamic: sequential or temporal component to the problem<br>Programming: optimising a “program”, i.e. a policy</p>
+</blockquote>
+<ul>
+<li>A method for solving complex problems</li>
+<li>By breaking them down into sub-problems<ul>
+<li>Solve the sub-problems</li>
+<li>Combine solutions to sub-problems</li>
+</ul>
+</li>
+</ul>
+<h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h3><p>Dynamic Programming is a very general solution method for problems which have two properties:</p>
+<ol>
+<li>Optimal substructure<ul>
+<li>Principle of optimality applies</li>
+<li>Optimal solution can be decomposed into sub-problems</li>
+</ul>
+</li>
+<li>Overlapping sub-problems<ul>
+<li>Sub-problems recur many times</li>
+<li>Solution can be cached and reused</li>
+</ul>
+</li>
+</ol>
+<p>Markov decision processes satisfy both properties</p>
+<ul>
+<li>Bellman equation gives recursive decomposition</li>
+<li>Value function stores and reuses solutions</li>
+</ul>
+<h3 id="Planning-by-DP"><a href="#Planning-by-DP" class="headerlink" title="Planning by DP"></a>Planning by DP</h3><ul>
+<li>DP assumes full knowledge of the MDP</li>
+<li>It is used for planning in an MDP</li>
+<li>For prediction<ul>
+<li>Input: MDP (S,A,P,R,y) and policy $\pi$</li>
+<li>or: MRP $(S,P^{\pi},R^{\pi},y)$</li>
+<li>Output: value function $v_{\pi}$</li>
+</ul>
+</li>
+<li>Or for control:<ul>
+<li>Input: MDP (S,A,P,R,y)</li>
+<li>Output: optimal value function $v_*$</li>
+<li>and: optimal policy $\pi_*$</li>
+</ul>
+</li>
+</ul>
+<h2 id="Policy-Evaluation"><a href="#Policy-Evaluation" class="headerlink" title="Policy Evaluation"></a>Policy Evaluation</h2><h3 id="Iterative-Policy-Evaluation"><a href="#Iterative-Policy-Evaluation" class="headerlink" title="Iterative Policy Evaluation"></a>Iterative Policy Evaluation</h3><ul>
+<li>Problem: evaluate a given policy $\pi$</li>
+<li>Solution: iterative application of Bellman expectation backup</li>
+<li>Using synchronous backups<ul>
+<li>At each iteration $k+1$</li>
+<li>For all states $s\in S$</li>
+<li>Update $v_{k+1} (s)$ from $v_k(s’)$</li>
+<li>where $s’$ is a successor state of $s$<br>$$ v^{k+1} = R^{\pi} + y P^{\pi} v^k $$</li>
+</ul>
+</li>
+</ul>
+<h2 id="Policy-Iteration"><a href="#Policy-Iteration" class="headerlink" title="Policy Iteration"></a>Policy Iteration</h2><h3 id="Policy-Improvement"><a href="#Policy-Improvement" class="headerlink" title="Policy Improvement"></a>Policy Improvement</h3><ul>
+<li>Given a policy $\pi$<ul>
+<li>Evaluate the policy $\pi$</li>
+<li>Improve the policy by acting greedily with respect to $v_{\pi}$</li>
+</ul>
+</li>
+<li>In general, need more iterations of improvement/evaluation</li>
+<li>But this process of policy iteration always converges to $\pi^*$</li>
+</ul>
+<p><strong> STEP </strong></p>
+<ol>
+<li>Consider a deterministic policy, $a=\pi (s) $</li>
+<li>We can improve the policy by acting greedily </li>
+<li>This improves the value from any state $s$ over one step</li>
+<li>It therefore improves the value function, $v_{\pi’} (s) \ge v_{\pi} (s) $</li>
+<li>If improvements stop, $q_{\pi} (s,\pi’(s)) = v_{\pi} (s)$</li>
+<li>Then the Bellman optimality equation has been satisfied $v_{\pi} (s) = \max_{a\in A} q_{\pi} (s,a)$</li>
+<li>Therefore $v_{\pi} (s) = v_* (s) $ for all $s\in S$, so $\pi$ is an optimal policy</li>
+</ol>
+<h3 id="Extension-to-Policy-Iteration"><a href="#Extension-to-Policy-Iteration" class="headerlink" title="Extension to Policy Iteration"></a>Extension to Policy Iteration</h3><ul>
+<li>Does policy evaluation need to converge to $v_{\pi}$</li>
+<li>Or should we introduce a stopping condition</li>
+<li>Or simply stop after k iterations of iterative policy evaluation</li>
+</ul>
+<h2 id="Value-Iteration"><a href="#Value-Iteration" class="headerlink" title="Value Iteration"></a>Value Iteration</h2><h3 id="Principle-of-Optimality"><a href="#Principle-of-Optimality" class="headerlink" title="Principle of Optimality"></a>Principle of Optimality</h3><p>Any optimal policy can be subdivided into two components</p>
+<ul>
+<li>An optimal first action $A_*$</li>
+<li>Followed by an optimal policy from successor state $S’$</li>
+</ul>
+<blockquote>
+<p><strong> Theorem </strong><br>A policy $\pi (a|s)$ achieves the optimal value from state $s$, $v_{\pi} (s) = v_* (s)$, if and only if </p>
+<ul>
+<li>For any state $s’$ reachable from s</li>
+<li>$\pi$ achieves the optimal value from state $s’$</li>
+</ul>
+</blockquote>
+<h3 id="Deterministic-Value-Iteration"><a href="#Deterministic-Value-Iteration" class="headerlink" title="Deterministic Value Iteration"></a>Deterministic Value Iteration</h3><ul>
+<li>If we know the solution to sub-problems $v_*(s’)$</li>
+<li>Then solution $v_*(s)$ can be found by one-step lookahead</li>
+<li>The idea of value iteration is to apply these updates iteratively</li>
+<li>Intuition: start with final rewards and work backwards</li>
+<li>Still works with loopy, stochastic MDPs</li>
+</ul>
+<h3 id="Value-Iteration-1"><a href="#Value-Iteration-1" class="headerlink" title="Value Iteration"></a>Value Iteration</h3><ul>
+<li><strong>Problem</strong>: find optimal policy $\pi$</li>
+<li><strong>Solution</strong>: iterative application of Bellman optimality backup</li>
+<li>Unlike policy iteration, there is no explicit policy</li>
+<li>Intermediate value functions may not correspond to any policy</li>
+</ul>
+<h3 id="Summary-of-DP-algorithms"><a href="#Summary-of-DP-algorithms" class="headerlink" title="Summary of DP algorithms"></a>Summary of DP algorithms</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">Problem</th>
+<th style="text-align:center">Bellman Equation</th>
+<th style="text-align:left">Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Prediction</td>
+<td style="text-align:center">Bellman Expectation Equation</td>
+<td style="text-align:left">Iterative Policy Evaluation</td>
+</tr>
+<tr>
+<td style="text-align:left">Control</td>
+<td style="text-align:center">Bellman Expectation Equation + Greedy Policy Improvement</td>
+<td style="text-align:left">Policy Iteration</td>
+</tr>
+<tr>
+<td style="text-align:left">Control</td>
+<td style="text-align:center">Bellman Optimality Equation</td>
+<td style="text-align:left">Value Iteration</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Algorithms are based on state-value function $v_{\pi} (s) $ or $v_* (s) $</li>
+<li>Complexity $O(mn^2)$ per iteration, for $m$ action and $n$ states</li>
+<li>Could also apply to action-value function $q_{\pi} (s,a)$ or $q_* (s,a)$</li>
+<li>Complexity $O(m^2 n^2)$ per iteration</li>
+</ul>
+<h2 id="Extensions-to-DP"><a href="#Extensions-to-DP" class="headerlink" title="Extensions to DP"></a>Extensions to DP</h2><h3 id="Asynchronous-DP"><a href="#Asynchronous-DP" class="headerlink" title="Asynchronous DP"></a>Asynchronous DP</h3><ul>
+<li>Asynchronous DP backs up states individually, in any order</li>
+<li>For each selected state, apply the appropriate backup</li>
+<li>Can significantly reduce computation</li>
+<li>Guaranteed to converge if all states continue to be selected</li>
+</ul>
+<p><strong>Three simple ideas</strong></p>
+<ul>
+<li><p>In-place dynamic programming</p>
+<blockquote>
+<p>Synchronous value iteration stores two copies of value function for all $s$ in $S$<br>In-place value iteration only stores one copy of value function for all $s$</p>
+</blockquote>
+</li>
+<li><p>Prioritised sweeping</p>
+<blockquote>
+<p>Use magnitude of Bellman error to guide state selection<br>Backup the state with the largest remaining Bellman error<br>Update Bellman error of affected states after each backup<br>Require knowledge of reverse dynamics<br>Can be implemented efficiently by maintaining a priority queue</p>
+</blockquote>
+</li>
+<li><p>Real-time dynamic programming </p>
+<blockquote>
+<p>Idea: only states that are relevant to agent<br>Use agent’s experience to guide the selection of states<br>After each time-step $S_t,A_t,R_{t+1}$<br>Backup the state $S_t$</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Full-width-and-sample-backups"><a href="#Full-width-and-sample-backups" class="headerlink" title="Full-width and sample backups"></a>Full-width and sample backups</h3><p><strong>Full-width Backups</strong></p>
+<ul>
+<li>DP uses full-width backups</li>
+<li>For each backup (sync or async)<ul>
+<li>Every successor state and action is considered</li>
+<li>Using knowledge of the MDP transitions and reward function</li>
+</ul>
+</li>
+<li>DP is effective for medium-sized problems (millions of states)</li>
+<li>For large problems DP suffers Bellman’s <em>curse of dimensionality</em></li>
+<li>Even one backup can be too expensive</li>
+</ul>
+<p><strong>Sample Backups</strong></p>
+<ul>
+<li>Instead of reward function R and transition dynamics P</li>
+<li>Advantages<ul>
+<li>Model-free: no advance knowledge of MDP required</li>
+<li>Breaks the curse of dimensionality through sampling</li>
+<li>Cost of backup is constant, independent of $n=|S|$</li>
+</ul>
+</li>
+</ul>
+<h3 id="Approximate-Dynamic-Programming"><a href="#Approximate-Dynamic-Programming" class="headerlink" title="Approximate Dynamic Programming"></a>Approximate Dynamic Programming</h3><ul>
+<li>Approximate the value function</li>
+<li>Using a function approximator $\hat{v} (s,w)$</li>
+<li>Apply dynamic programming to $\hat{v} (\cdot,w)$</li>
+</ul>
+<h2 id="Contraction-Mapping"><a href="#Contraction-Mapping" class="headerlink" title="Contraction Mapping"></a>Contraction Mapping</h2><p>Contraction Mapping resolves that convergence problem such as converge or not, uniqueness, and converge speed</p>
+<h3 id="Value-function-Space"><a href="#Value-function-Space" class="headerlink" title="Value function Space"></a>Value function Space</h3><ul>
+<li>Consider the vector space $V$ over value functions</li>
+<li>There are |S| dimensions</li>
+<li>Each points in this space fully specifies a value function</li>
+<li>Bellman backup brings values functions closer</li>
+<li>And therefore the backups must converge on a unique solution</li>
+</ul>
+<h3 id="Bellman-Expectation-Backup-is-a-Contraction"><a href="#Bellman-Expectation-Backup-is-a-Contraction" class="headerlink" title="Bellman Expectation Backup is a Contraction"></a>Bellman Expectation Backup is a Contraction</h3><p>When use the $\infty$ norm as the distance metric, we have</p>
+<ul>
+<li>Define the Bellman expectation backup operator $T^{\pi}$<br>$$ T^{\pi} (v) = R^{\pi} + yP^{\pi} v $$</li>
+<li>This operator is a y-contraction, it makes value functions closer by at least y<br><img src="http://i1.piimg.com/567571/ed3f6444e4b26860.png" alt="Contraction mapping"></li>
+</ul>
+<blockquote>
+<p><strong>Theorem</strong> (Contraction Mapping Theorem)<br>For any metric space $V$ that is complete under an operator $T(v)$, where $T$ is a y-contraction</p>
+<ul>
+<li>$T$ converges to a unique fixed point</li>
+<li>At a linear convergence rate of y</li>
+</ul>
+</blockquote>
+<p><strong>Convergence of Iter. Policy Evaluation and Policy Iteration</strong></p>
+<ul>
+<li>The Bellman expectation operator $T^{\pi}$ has a unique fixed point</li>
+<li>$v_{\pi}$ is a fixed point of $T^{\pi}$ (by Bellman expectation equation)</li>
+<li>By contraction mapping theorem </li>
+<li>Iterative policy evaluation converges on $v_{\pi}$</li>
+<li>Policy iteration converges on $v_*$</li>
+</ul>
+<h3 id="Bellman-Optimality-Backup-is-a-Contraction"><a href="#Bellman-Optimality-Backup-is-a-Contraction" class="headerlink" title="Bellman Optimality Backup is a Contraction"></a>Bellman Optimality Backup is a Contraction</h3><ul>
+<li>Define the Bellman optimality backup operator $T^*$<br>$$ T^* (v) = \max_{a\in A} R^a + y P^a v$$</li>
+<li>This operator is a y-contraction, it makes value function closer by at least $y$<br>$$ ||T^* (u) - T^* (v) ||_{\infty} \le y||u-v||_{\infty} $$</li>
+</ul>
+<p><strong>Convergence of Value Iteration</strong></p>
+<ul>
+<li>The bellman optimality operator $T^*$ has a unique fixed point</li>
+<li>$v_*$ is a fixed point of $T^*$ (by Bellman optimality equation)</li>
+<li>By contraction mapping theorem</li>
+<li>Value iteration converges on $v_*$</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/30/RL1/" rel="next" title="RL1 Introduction to RL">
+                <i class="fa fa-chevron-left"></i> RL1 Introduction to RL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/06/RL4/" rel="prev" title="RL4 Model-Free Prediction">
+                RL4 Model-Free Prediction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-3-Planning-by-Dynamic-Programming"><span class="nav-number">1.</span> <span class="nav-text">lecture 3 Planning by Dynamic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.1.</span> <span class="nav-text">introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition"><span class="nav-number">1.1.1.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Requirements"><span class="nav-number">1.1.2.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Planning-by-DP"><span class="nav-number">1.1.3.</span> <span class="nav-text">Planning by DP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Policy-Evaluation"><span class="nav-number">1.2.</span> <span class="nav-text">Policy Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterative-Policy-Evaluation"><span class="nav-number">1.2.1.</span> <span class="nav-text">Iterative Policy Evaluation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Policy-Iteration"><span class="nav-number">1.3.</span> <span class="nav-text">Policy Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Improvement"><span class="nav-number">1.3.1.</span> <span class="nav-text">Policy Improvement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extension-to-Policy-Iteration"><span class="nav-number">1.3.2.</span> <span class="nav-text">Extension to Policy Iteration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Value-Iteration"><span class="nav-number">1.4.</span> <span class="nav-text">Value Iteration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-of-Optimality"><span class="nav-number">1.4.1.</span> <span class="nav-text">Principle of Optimality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deterministic-Value-Iteration"><span class="nav-number">1.4.2.</span> <span class="nav-text">Deterministic Value Iteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Value-Iteration-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">Value Iteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-of-DP-algorithms"><span class="nav-number">1.4.4.</span> <span class="nav-text">Summary of DP algorithms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extensions-to-DP"><span class="nav-number">1.5.</span> <span class="nav-text">Extensions to DP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Asynchronous-DP"><span class="nav-number">1.5.1.</span> <span class="nav-text">Asynchronous DP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-width-and-sample-backups"><span class="nav-number">1.5.2.</span> <span class="nav-text">Full-width and sample backups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approximate-Dynamic-Programming"><span class="nav-number">1.5.3.</span> <span class="nav-text">Approximate Dynamic Programming</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contraction-Mapping"><span class="nav-number">1.6.</span> <span class="nav-text">Contraction Mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Value-function-Space"><span class="nav-number">1.6.1.</span> <span class="nav-text">Value function Space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Expectation-Backup-is-a-Contraction"><span class="nav-number">1.6.2.</span> <span class="nav-text">Bellman Expectation Backup is a Contraction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Optimality-Backup-is-a-Contraction"><span class="nav-number">1.6.3.</span> <span class="nav-text">Bellman Optimality Backup is a Contraction</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/05/RL3/';
+          this.page.identifier = '2017/04/05/RL3/';
+          this.page.title = 'RL3 Planning by Dynamic Programming';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

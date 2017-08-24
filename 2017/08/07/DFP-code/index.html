@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,code," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Code Structure common util.py tf_ops.py defaults.py   Simulator doom_simulator.py multi_doom_simulator.py   Agent  agent.py future_predictor_agent_basic.py future_predictor_agent_advantage.py future_p">
+<meta name="keywords" content="reinforcement learning,code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DFP_code">
+<meta property="og:url" content="https://chendagui16.github.io/2017/08/07/DFP-code/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="Code Structure common util.py tf_ops.py defaults.py   Simulator doom_simulator.py multi_doom_simulator.py   Agent  agent.py future_predictor_agent_basic.py future_predictor_agent_advantage.py future_p">
+<meta property="og:updated_time" content="2017-08-24T07:17:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DFP_code">
+<meta name="twitter:description" content="Code Structure common util.py tf_ops.py defaults.py   Simulator doom_simulator.py multi_doom_simulator.py   Agent  agent.py future_predictor_agent_basic.py future_predictor_agent_advantage.py future_p">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/08/07/DFP-code/"/>
+
+
+
+
+
+  <title>DFP_code | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/08/07/DFP-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DFP_code</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T21:10:59+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code-analyze/" itemprop="url" rel="index">
+                    <span itemprop="name">code analyze</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/07/DFP-code/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/07/DFP-code/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/07/DFP-code/" class="leancloud_visitors" data-flag-title="DFP_code">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Code-Structure"><a href="#Code-Structure" class="headerlink" title="Code Structure"></a>Code Structure</h1><ul>
+<li>common<ul>
+<li>util.py</li>
+<li>tf_ops.py</li>
+<li>defaults.py</li>
+</ul>
+</li>
+<li>Simulator<ul>
+<li>doom_simulator.py</li>
+<li>multi_doom_simulator.py</li>
+</ul>
+</li>
+<li>Agent <ul>
+<li>agent.py</li>
+<li>future_predictor_agent_basic.py</li>
+<li>future_predictor_agent_advantage.py</li>
+<li>future_predictor_agent_advantage_nonorm.py</li>
+</ul>
+</li>
+<li>target<ul>
+<li>future_target_maker.py</li>
+</ul>
+</li>
+<li>experience<ul>
+<li>multi_experience_memory.py</li>
+<li>multi_experience.py</li>
+</ul>
+</li>
+</ul>
+<h1 id="Common"><a href="#Common" class="headerlink" title="Common"></a>Common</h1><h2 id="util-py"><a href="#util-py" class="headerlink" title="util.py"></a>util.py</h2><h3 id="make-objective-indices-and-coeffs-temporal-coeffs-meas-coeffs"><a href="#make-objective-indices-and-coeffs-temporal-coeffs-meas-coeffs" class="headerlink" title="make_objective_indices_and_coeffs(temporal_coeffs, meas_coeffs):"></a>make_objective_indices_and_coeffs(temporal_coeffs, meas_coeffs):</h3><p>网络使用两个系数作为目标的系数作为最终决断的系数，一个是temporal_coeffs, 即时间尺度上的系数，分别对应不同时间段对目标值的贡献，meas_coeffs表示不同的measure对目标值的贡献。</p>
+<h3 id="make-array-shape-1-dtype-np-float32-shared-False-fill-val-None"><a href="#make-array-shape-1-dtype-np-float32-shared-False-fill-val-None" class="headerlink" title="make_array(shape=(1,), dtype=np.float32, shared=False, fill_val=None):"></a>make_array(shape=(1,), dtype=np.float32, shared=False, fill_val=None):</h3><p>生成array，如果有array共享的话，从共享的区域中生成array</p>
+<h3 id="merge-two-dicts-x-y"><a href="#merge-two-dicts-x-y" class="headerlink" title="merge_two_dicts(x, y)"></a>merge_two_dicts(x, y)</h3><p>合并两个dict，用于defaults.py 中的参数和不同模型的参数合并</p>
+<h3 id="StackedBarPlot"><a href="#StackedBarPlot" class="headerlink" title="StackedBarPlot"></a>StackedBarPlot</h3><p>用于画不同的预测值的直方图，并可以动态显示</p>
+<h2 id="tf-ops"><a href="#tf-ops" class="headerlink" title="tf_ops"></a>tf_ops</h2><h3 id="msra-stddev-x-k-h-k-w"><a href="#msra-stddev-x-k-h-k-w" class="headerlink" title="msra_stddev(x, k_h, k_w)"></a>msra_stddev(x, k_h, k_w)</h3><p>参数初始化方差</p>
+<h3 id="mse-ignore-nans-preds-targs-kwargs"><a href="#mse-ignore-nans-preds-targs-kwargs" class="headerlink" title="mse_ignore_nans(preds, targs. **kwargs)"></a>mse_ignore_nans(preds, targs. **kwargs)</h3><p>忽略Nan 求MSE</p>
+<h3 id="conv2d-input-output-dim-k-h-k-w-d-h-d-w-msra-coeff-name"><a href="#conv2d-input-output-dim-k-h-k-w-d-h-d-w-msra-coeff-name" class="headerlink" title="conv2d(input_, output_dim, k_h, k_w, d_h, d_w, msra_coeff, name)"></a>conv2d(input_, output_dim, k_h, k_w, d_h, d_w, msra_coeff, name)</h3><p>构建卷积层的api</p>
+<h3 id="lrelu-x-leak-name"><a href="#lrelu-x-leak-name" class="headerlink" title="lrelu(x, leak, name)"></a>lrelu(x, leak, name)</h3><p>构建lrelu层的api</p>
+<h3 id="linear-input-output-size-name-msra-coeff"><a href="#linear-input-output-size-name-msra-coeff" class="headerlink" title="linear(input_, output_size, name, msra_coeff)"></a>linear(input_, output_size, name, msra_coeff)</h3><p>线性函数api</p>
+<h3 id="conv-encoder-data-params-name-msra-coeff"><a href="#conv-encoder-data-params-name-msra-coeff" class="headerlink" title="conv_encoder(data, params, name, msra_coeff)"></a>conv_encoder(data, params, name, msra_coeff)</h3><p>根据conv_params的参数构建连续的卷积层</p>
+<h3 id="fc-net-data-param-name-last-linear-return-layers-msra-coeff"><a href="#fc-net-data-param-name-last-linear-return-layers-msra-coeff" class="headerlink" title="fc_net(data, param, name, last_linear, return_layers, msra_coeff)"></a>fc_net(data, param, name, last_linear, return_layers, msra_coeff)</h3><p>根据fc_params的参数构建连续的全连接层；根据return_layers的性质，确定最后一层的fc是否要接relu</p>
+<h3 id="flatten-data"><a href="#flatten-data" class="headerlink" title="flatten(data)"></a>flatten(data)</h3><p>构建flatten层的api</p>
+<h2 id="defaults-py"><a href="#defaults-py" class="headerlink" title="defaults.py"></a>defaults.py</h2><p>default.py主要提供不同的默认参数dict，其中主要分为4类， target_maker, simulator, experiment(experiment, train_experiment, test_policy), agent。 给不同的文件提供不同的默认参数配置， 在具体使用的时候，该参数会被不同文件中的参数给覆盖。</p>
+<h3 id="target-maker-args"><a href="#target-maker-args" class="headerlink" title="target_maker_args"></a>target_maker_args</h3><p>这里的min_num_targs, 表示目标target的最小数量， 对于那些target数量不足的样本，会用nan替换</p>
+<h3 id="simulator-args"><a href="#simulator-args" class="headerlink" title="simulator_args"></a>simulator_args</h3><p>frame_skip表示不使用连续的帧作为状态，使用间隔的帧作为状态。</p>
+<h3 id="experience-args"><a href="#experience-args" class="headerlink" title="experience_args"></a>experience_args</h3><p>这里分为三个文件experience_args, train_experience_args, test_policy_experience_args</p>
+<h3 id="agent-args"><a href="#agent-args" class="headerlink" title="agent_args"></a>agent_args</h3><p>存储所有关于网络的参数</p>
+<h1 id="Simulator"><a href="#Simulator" class="headerlink" title="Simulator"></a>Simulator</h1><h2 id="DoomSimulator"><a href="#DoomSimulator" class="headerlink" title="DoomSimulator"></a>DoomSimulator</h2><p>DoomSimulator类</p>
+<h3 id="init-self-args"><a href="#init-self-args" class="headerlink" title="init(self, args)"></a><strong>init</strong>(self, args)</h3><p>初始化程序配置，设置doom的各项参数，具体参考<a href="https://github.com/mwydmuch/ViZDoom/tree/master/doc" target="_blank" rel="external">doom_doc</a><br>使用analyze_controls(self, config_file), 解析获得available_controls, continuous_controls, discrete_control，注意到这些都是index. 比如continuous_controls = [1,2,3], discrete_control = [4,5,6]</p>
+<h3 id="analyze-controls-self-config-file"><a href="#analyze-controls-self-config-file" class="headerlink" title="analyze_controls(self, config_file)"></a>analyze_controls(self, config_file)</h3><p>利用正则表达式解析available_controls, continuous_controls, discrete_control.</p>
+<h3 id="init-game-close-game-get-random-action-is-new-episode-next-map-new-episode"><a href="#init-game-close-game-get-random-action-is-new-episode-next-map-new-episode" class="headerlink" title="init_game, close_game, get_random_action, is_new_episode, next_map, new_episode"></a>init_game, close_game, get_random_action, is_new_episode, next_map, new_episode</h3><p>函数作用如名所示，注意doom的具体动作可以使用多个动作的组合，比如可控的动作是[1, 2]， 那么实际可能的动作为[True, True] or [True, False] or [False, True] or [False, False]</p>
+<h3 id="step-self-action"><a href="#step-self-action" class="headerlink" title="step(self, action)"></a>step(self, action)</h3><p>执行一步动作，返回img，measure, reward, terminal. 这里action是一个bool vector, 图像均为黑白(彩色会报错), img指doomSimulator返回的图像，meas指config文件中的指定的variable<br>，这里特指{AMMO2, HEALTH, USER2}(这里的user2指kill_count, 在wad文件里面使用). rwrd特指doomSimulator返回的reward，这个是doom内部自带的reward.</p>
+<h2 id="MultiDoomSimulator"><a href="#MultiDoomSimulator" class="headerlink" title="MultiDoomSimulator"></a>MultiDoomSimulator</h2><p>多个doomSimulator的类，可以用来同时执行一个action的列表，同时返回imgs, meass, rwrds, terms（均为list）</p>
+<h1 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h1><h2 id="agent-py"><a href="#agent-py" class="headerlink" title="agent.py"></a>agent.py</h2><h3 id="init-self-sess-args"><a href="#init-self-sess-args" class="headerlink" title="init(self, sess, args):"></a><strong>init</strong>(self, sess, args):</h3><p>初始化各项参数<br>同时调用prepare_controls_and_actions(), 初始化所有的control和action</p>
+<h3 id="prepare-controls-and-actions-self"><a href="#prepare-controls-and-actions-self" class="headerlink" title="prepare_controls_and_actions(self)"></a>prepare_controls_and_actions(self)</h3><p>注意到这里controls表示action的index，action用bool vector表示。其中controls分为两类，一类是由网络生成的discrete_controls_to_net, 一类是外部赋予的discrete_controls_manual. 同时net_discrete_actions是一个numpy array，表示list of vector(除掉了冲突的action), 这些vector可以用来直接执行动作。<br>另外，初始化了action_to_index的dict，用来查询不同的action的index, 初始化了onehot_dizhscrete_actions用一个one-hot向量表达不同的action，这里可以用作网络的输入。</p>
+<h3 id="preprocess-actiosn-self-acts"><a href="#preprocess-actiosn-self-acts" class="headerlink" title="preprocess_actiosn(self, acts)"></a>preprocess_actiosn(self, acts)</h3><p>这里的acts表示batch_size个动作，每个动作用一个bool vector(包含了net_action和manunal_action)表示，该函数的作用是把这些acts转化成对应的one-hot-vector输入到网络中去.</p>
+<h3 id="postprocess-actions-self-acts-net-act-manual"><a href="#postprocess-actions-self-acts-net-act-manual" class="headerlink" title="postprocess_actions(self, acts_net, act_manual)"></a>postprocess_actions(self, acts_net, act_manual)</h3><p>将acts_net和act_manual组合成一个正式的输出的动作，该函数的输入的acts_net是一个[batch_size]的输入，每个值均为action的index，act_manual是一个bool_vector。将act_nets, act_manual组合成一个正式的action，可以用做simulator的输入.</p>
+<h3 id="random-actions-self-num-samples"><a href="#random-actions-self-num-samples" class="headerlink" title="random_actions(self, num_samples)"></a>random_actions(self, num_samples)</h3><p>获得随机的action</p>
+<h3 id="make-net-make-losses，act-nets-act-manual"><a href="#make-net-make-losses，act-nets-act-manual" class="headerlink" title="make_net, make_losses，act_nets, act_manual"></a>make_net, make_losses，act_nets, act_manual</h3><p>这几个函数都没有执行，在装饰器文件如future_predictor_agent_basic等中执行</p>
+<h3 id="act-self-state-imgs-state-meas-objective-coeffs"><a href="#act-self-state-imgs-state-meas-objective-coeffs" class="headerlink" title="act(self, state_imgs, state_meas, objective_coeffs)"></a>act(self, state_imgs, state_meas, objective_coeffs)</h3><p>调用act_net得到net_action，调用act_manual得到munual_action，使用postprocess_actions函数将其组合成一个具体的动作</p>
+<h3 id="build-model-self"><a href="#build-model-self" class="headerlink" title="build_model(self)"></a>build_model(self)</h3><p>该函数主要构建tf的模型，具体的模型参考论文</p>
+<ul>
+<li>需要输入的参数包括input_images, input_measurement, input_targets, input_actions, input_objective_coeffs</li>
+<li>如果提供了预处理的函数，则会根据预处理函数对输入进行预处理，预处理的方式参考论文<ul>
+<li>将img的值放缩在[-1, 1]</li>
+<li>将mesurements的值放缩在[-1, 1]</li>
+<li>将三个target分别除以7.5, 30, 1</li>
+</ul>
+</li>
+<li>调用make_net和make_loss构建网络</li>
+<li>构建训练节点，学习率衰减节点，summary节点</li>
+</ul>
+<h3 id="Actor"><a href="#Actor" class="headerlink" title="Actor"></a>Actor</h3><p>一个子类，用作实际操作action的一个接口<br><strong><strong>init</strong>(self, agent, objective_coeffs, random_prob, random_objective_coeffs)</strong><br>初始化objective_coeffs, 如果使用随机的初始化策略，则调用reset_objective_coeffs(self, indices), 使用均匀分布来初始化，否则直接对objective_coeffs赋值<br><strong>reset_objective_coeffs(self, indices)</strong><br>使用均匀分布初始化objective_coeffs<br><strong>act(self, state_imgs, state_meas)</strong><br>$\epsilon$-greedy算法，以$\epsilon$的概率执行随机的动作，以1-$\epsilon$的概率调用agent.act()函数执行动作<br><strong>act_with_multi_memory(slef, multi_memory)</strong><br>执行和act一样的功能，但是针对mutil_memory，调用这个函数执行多个动作要比使用上面的函数高校，因为这样只会在需要的时候才会读取state。</p>
+<h3 id="get-actor-self-objective-coeffs-random-prob-random-objective-coeffs"><a href="#get-actor-self-objective-coeffs-random-prob-random-objective-coeffs" class="headerlink" title="get_actor(self, objective_coeffs, random_prob, random_objective_coeffs)"></a>get_actor(self, objective_coeffs, random_prob, random_objective_coeffs)</h3><p>返回actor的子类</p>
+<h3 id="train-one-batch-self-experience"><a href="#train-one-batch-self-experience" class="headerlink" title="train_one_batch(self, experience)"></a>train_one_batch(self, experience)</h3><ul>
+<li>调用experience.get_random_batch函数得到state_imgs, state_meas, rwrds, terms, acts, targs, objs</li>
+<li>forward网络一次</li>
+<li>在特定的步数打印错误，存储summary，或存储histogram</li>
+<li>步数+1</li>
+</ul>
+<h3 id="train-self-simulator-experience-num-steps-test-police-experience"><a href="#train-self-simulator-experience-num-steps-test-police-experience" class="headerlink" title="train(self, simulator, experience, num_steps, test_police_experience)"></a>train(self, simulator, experience, num_steps, test_police_experience)</h3><ul>
+<li>如果可以的话，载入checkpoint</li>
+<li>初始化writer, 和actor接口</li>
+<li>调用experience.add_n_steps_with_actor填充训练的memory</li>
+<li>调用train_one_batch共num_steps次，一共训练num_steps个batch</li>
+<li>每隔固定的步数保存checkpoint或者测试test_policy，同时每隔一定的步数重新填充memory，注意到这里会衰减$\epsilon$</li>
+</ul>
+<h3 id="test-policy-self-simulator-experience-objective-coeffs-num-steps-random-prob-write-summary-write-prdiction"><a href="#test-policy-self-simulator-experience-objective-coeffs-num-steps-random-prob-write-summary-write-prdiction" class="headerlink" title="test_policy(self, simulator, experience, objective_coeffs, num_steps, random_prob, write_summary, write_prdiction)"></a>test_policy(self, simulator, experience, objective_coeffs, num_steps, random_prob, write_summary, write_prdiction)</h3><p>测试一次policy, 注意到这里会调用experience.compute_avg_meas_and_rwrd去计算得到这一次的policy的平均reward和平均measure。<br>另外，为了保证每次测试不改变head_offset, 会暂时保存该值，并在测试完之后恢复</p>
+<h3 id="save-load-set-init-step"><a href="#save-load-set-init-step" class="headerlink" title="save, load, set_init_step"></a>save, load, set_init_step</h3><p>功能如其，set_init_step可以接着之前的step继续训练</p>
+<h2 id="future-predictoragent-py"><a href="#future-predictoragent-py" class="headerlink" title="future_predictoragent*.py"></a>future_predictor<em>agent</em>*.py</h2><p>这里一共包含3个文件(future_predictor_agent_basic, future_predictor_agent_advantage, future_predictor_agent_advantage_nonorm), 都是作为agent类的子类，重写了agent类中的make_net, make_losses, act_nets的成员函数，用于对比实验</p>
+<h3 id="make-net-self-input-images-input-measurement-input-actions-input-objectives-reuse"><a href="#make-net-self-input-images-input-measurement-input-actions-input-objectives-reuse" class="headerlink" title="make_net(self, input_images, input_measurement, input_actions, input_objectives, reuse)"></a>make_net(self, input_images, input_measurement, input_actions, input_objectives, reuse)</h3><ul>
+<li>根据卷积和全联接的参数调用tf_ops中的接口来搭建网络<ul>
+<li>future_predictor_agent_basic中没有使用分支结构</li>
+<li>future_predictor_agent_advantage中是论文中的标准结构</li>
+<li>future_predictor_agent_advantage_nonorm是论文中的标准结构但是去除了normalization的环节</li>
+</ul>
+</li>
+<li>这里input_images, input_measurement, input_actions均为网络的输入，而input_actions(bool of vector)用来指出哪个所有的预测中与当前动作相关的预测。</li>
+</ul>
+<h3 id="make-losses-self-pred-relevant-targets-preprocessed-objective-indices-objective-coeffs"><a href="#make-losses-self-pred-relevant-targets-preprocessed-objective-indices-objective-coeffs" class="headerlink" title="make_losses(self, pred_relevant, targets_preprocessed, objective_indices, objective_coeffs)"></a>make_losses(self, pred_relevant, targets_preprocessed, objective_indices, objective_coeffs)</h3><p>构建loss的计算节点，并同时去除nan，构建summry节点</p>
+<h3 id="act-net-self-state-imgs-state-meas-objective-coeffs"><a href="#act-net-self-state-imgs-state-meas-objective-coeffs" class="headerlink" title="act_net(self, state_imgs, state_meas, objective_coeffs)"></a>act_net(self, state_imgs, state_meas, objective_coeffs)</h3><ul>
+<li>更新prediction</li>
+<li>按照objective_coeffs求出使收益最大的动作。</li>
+</ul>
+<h1 id="target"><a href="#target" class="headerlink" title="target"></a>target</h1><h2 id="future-target-maker-py"><a href="#future-target-maker-py" class="headerlink" title="future_target_maker.py"></a>future_target_maker.py</h2><p>target_maker类，负责生成网络的学习目标</p>
+<h3 id="init-self-args-1"><a href="#init-self-args-1" class="headerlink" title="init(self, args)"></a><strong>init</strong>(self, args)</h3><p>构造函数，注意几点</p>
+<ul>
+<li>min_num_targs: target的最小数量，对于某些靠近end of episode的样本，其可能的target数量少于min_num_targs，所以这些样本无效，会用nan替代</li>
+<li>根据不同的gamma值，对不同的future step对reward进行指数衰减。在具体的实验中，由于并没有用到simulator中的reward值，因此gamma值为空</li>
+<li>每个时刻需要预测的target的维度包括两个部分: 1, 不同gamma衰减下的reward；2，不同的measure。 所以num_targets = len(self.meas_to_predict) + self.num_reward_targets。注意num_targets的长度必须与agent中的objective_coeffs_meas的长度相同，因为objective_coeffs_meas就是用来衡量不同的target对最终结果的加权系数</li>
+<li>总的target的维度为self.num_targets * len(self.future_steps). 注意self.future_steps的长度必须与agent中的objective_coeffs_temporal的长度相同</li>
+<li>根据min_num_targs，确定min_future_frames，将来用来确定该帧与之后的min_future_frames处的帧是否处于同一个episode来判断当前帧是否有效.</li>
+</ul>
+<h3 id="make-targets-self-indices-meas-rwrds-n-episode-meas-mean-meas-std"><a href="#make-targets-self-indices-meas-rwrds-n-episode-meas-mean-meas-std" class="headerlink" title="make_targets(self, indices, meas, rwrds, n_episode, meas_mean, meas_std)"></a>make_targets(self, indices, meas, rwrds, n_episode, meas_mean, meas_std)</h3><p>生成对应indices处的targets<br>该函数主要是在multi_experience_memory处调用，所以提供的meas，rwards都是一个大的memory, indices负责指示想要生成batch的样本所在memory处的位置.</p>
+<ul>
+<li>capacity指memory的大小</li>
+<li>target分为两个部分，一个是measurement, 一个是reward</li>
+<li>对于measurement，如果有meas_mean或者meas_std的话，会进行normalization的处理，不在一个epsisode的样本的measurement会用最近的measurement进行替换。</li>
+<li>对于reward，target是对一个时间窗口(self.future_steps)内的rwrd进行指数衰减下的加权求和。</li>
+</ul>
+<h1 id="experience"><a href="#experience" class="headerlink" title="experience"></a>experience</h1><h2 id="multi-experience-memory-py"><a href="#multi-experience-memory-py" class="headerlink" title="multi_experience_memory.py"></a>multi_experience_memory.py</h2><p>MultiExperienceMemory类</p>
+<h3 id="init-self-args-multi-simulator-target-maker"><a href="#init-self-args-multi-simulator-target-maker" class="headerlink" title="init(self, args, multi_simulator, target_maker)"></a><strong>init</strong>(self, args, multi_simulator, target_maker)</h3><p>初始化空的memory，这里包含两个假设：1，观测都是连续的，在每一个episode内都有一个停止的状态；2，每一个episode都比memory的长度要短。<br>调用reset函数，初始化各项私有变量</p>
+<h3 id="reset-self"><a href="#reset-self" class="headerlink" title="reset(self)"></a>reset(self)</h3><ul>
+<li>self._curr_indices设置成不同memory的indices</li>
+<li>self._episode_counts用来设置不同memory的eposide值，用来区分不同frame在memory中的位置</li>
+</ul>
+<h3 id="add-self-imgs-meass-rwrds-terms-acts-objs-preds"><a href="#add-self-imgs-meass-rwrds-terms-acts-objs-preds" class="headerlink" title="add(self, imgs, meass, rwrds, terms, acts, objs, preds)"></a>add(self, imgs, meass, rwrds, terms, acts, objs, preds)</h3><ul>
+<li>更新images, measurements, rewards, terminals, actions，n_episode, objectives, predictions</li>
+<li>在term处的measurements使用上一个状态measurements，同时对于term处，对measurement进行一定的衰减</li>
+<li>为了防止出现两个term状态，在出现第二个term时，将第二个term状态的measurements置零</li>
+<li>更新episode_counts, curr_indices和terminals</li>
+</ul>
+<h3 id="add-step-self-multi-simulator-acts-objs-preds"><a href="#add-step-self-multi-simulator-acts-objs-preds" class="headerlink" title="add_step(self, multi_simulator, acts, objs, preds)"></a>add_step(self, multi_simulator, acts, objs, preds)</h3><p>调用multi_simulator执行一次acts, 并将其结果加入memory</p>
+<h3 id="add-n-steps-with-actor-self-multi-simulator-num-steps-actor-verbose-write-prediction-write-logs-global-step"><a href="#add-n-steps-with-actor-self-multi-simulator-num-steps-actor-verbose-write-prediction-write-logs-global-step" class="headerlink" title="add_n_steps_with_actor(self, multi_simulator, num_steps, actor, verbose, write_prediction, write_logs, global_step)"></a>add_n_steps_with_actor(self, multi_simulator, num_steps, actor, verbose, write_prediction, write_logs, global_step)</h3><ul>
+<li>log中会写入具体的episode, step, time, accu_reward, prev_meas, avg_meas</li>
+<li>如果有prediction的话，会写入prediction</li>
+<li>调用add_steps共num_steps次，使用actor类的接口加入memory</li>
+</ul>
+<h3 id="get-states-self-indices"><a href="#get-states-self-indices" class="headerlink" title="get_states(self, indices)"></a>get_states(self, indices)</h3><p>根据indices从memory中选择state_imgs, state_meas。注意到这里的的state_imgs包含history_step个历史，且每个历史之间相差不同的history_len<br>而state_meas仅仅包含当前indices处的measurements</p>
+<h3 id="get-current-state-self"><a href="#get-current-state-self" class="headerlink" title="get_current_state(self)"></a>get_current_state(self)</h3><p>获得当前最近的观测值</p>
+<h3 id="get-last-indices-self"><a href="#get-last-indices-self" class="headerlink" title="get_last_indices(self)"></a>get_last_indices(self)</h3><p>返回最近的indices</p>
+<h3 id="get-target-self-indices"><a href="#get-target-self-indices" class="headerlink" title="get_target(self, indices)"></a>get_target(self, indices)</h3><p>使用target_maker.make_targets类返回indices处的targets.<br>这里使用了一个hack，对不同的memory处使用了一12345678 * self._n_head的数值，用来区分不同的head处的episode值</p>
+<h3 id="has-valid-history-self-index"><a href="#has-valid-history-self-index" class="headerlink" title="has_valid_history(self, index)"></a>has_valid_history(self, index)</h3><p>判断index处是否有足够的history进行训练</p>
+<h3 id="has-valid-target-self-index"><a href="#has-valid-target-self-index" class="headerlink" title="has_valid_target(self, index)"></a>has_valid_target(self, index)</h3><p>判断index处是否有足够的target进行训练</p>
+<h3 id="is-valid-target-self-index"><a href="#is-valid-target-self-index" class="headerlink" title="is_valid_target(self, index)"></a>is_valid_target(self, index)</h3><p>判断index处的状态是否有效，即是否有足够的history和target</p>
+<h3 id="get-observations-self-indices"><a href="#get-observations-self-indices" class="headerlink" title="get_observations(self, indices)"></a>get_observations(self, indices)</h3><p>得到indices处的所有信息包括<br>state_imgs, state_meas, rwrds, terms, acts, targs, objs</p>
+<h3 id="get-random-batch-self-batch-size"><a href="#get-random-batch-self-batch-size" class="headerlink" title="get_random_batch(self, batch_size)"></a>get_random_batch(self, batch_size)</h3><p>从memory中随机采用batch_size个有效的样本</p>
+<h3 id="compute-avg-meas-and-rwrd-self-start-idx-end-idx"><a href="#compute-avg-meas-and-rwrd-self-start-idx-end-idx" class="headerlink" title="compute_avg_meas_and_rwrd(self, start_idx, end_idx)"></a>compute_avg_meas_and_rwrd(self, start_idx, end_idx)</h3><p>统计从start_idx，end_idx中所有的episode中的平均measurements和rewards</p>
+<h3 id="show-self-start-idx-end-idx-display-write-imgs-write-video-preprocess-targets-show-predictions-net-discrete-actions"><a href="#show-self-start-idx-end-idx-display-write-imgs-write-video-preprocess-targets-show-predictions-net-discrete-actions" class="headerlink" title="show(self, start_idx, end_idx, display, write_imgs, write_video, preprocess_targets, show_predictions, net_discrete_actions)"></a>show(self, start_idx, end_idx, display, write_imgs, write_video, preprocess_targets, show_predictions, net_discrete_actions)</h3><p>show的接口，提供display, write_imgs, write_vedio, show_prediction的选项</p>
+<h2 id="multi-experiement-py"><a href="#multi-experiement-py" class="headerlink" title="multi_experiement.py"></a>multi_experiement.py</h2><h3 id="init-self-target-maker-args-simulator-args-train-experience-args-test-policy-experience-args-agent-args-experiment-args"><a href="#init-self-target-maker-args-simulator-args-train-experience-args-test-policy-experience-args-agent-args-experiment-args" class="headerlink" title="init(self, target_maker_args, simulator_args, train_experience_args, test_policy_experience_args, agent_args, experiment_args)"></a><strong>init</strong>(self, target_maker_args, simulator_args, train_experience_args, test_policy_experience_args, agent_args, experiment_args)</h3><p>将默认的参数和给定的参数进行合并，得到具体的参数.<br>部分参数在此处求解，比如各种shape的参数</p>
+<h3 id="run-self-mode"><a href="#run-self-mode" class="headerlink" title="run(self, mode)"></a>run(self, mode)</h3><ul>
+<li>show模式，将训练的head_offset和测试的head_offset错开。测试policy，并show_memory中的结果</li>
+<li>train模式，训练网络, 更新参数.</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/code/" rel="tag"># code</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/05/OCR/" rel="next" title="OCR">
+                <i class="fa fa-chevron-left"></i> OCR
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Code-Structure"><span class="nav-number">1.</span> <span class="nav-text">Code Structure</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Common"><span class="nav-number">2.</span> <span class="nav-text">Common</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#util-py"><span class="nav-number">2.1.</span> <span class="nav-text">util.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#make-objective-indices-and-coeffs-temporal-coeffs-meas-coeffs"><span class="nav-number">2.1.1.</span> <span class="nav-text">make_objective_indices_and_coeffs(temporal_coeffs, meas_coeffs):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-array-shape-1-dtype-np-float32-shared-False-fill-val-None"><span class="nav-number">2.1.2.</span> <span class="nav-text">make_array(shape=(1,), dtype=np.float32, shared=False, fill_val=None):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge-two-dicts-x-y"><span class="nav-number">2.1.3.</span> <span class="nav-text">merge_two_dicts(x, y)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StackedBarPlot"><span class="nav-number">2.1.4.</span> <span class="nav-text">StackedBarPlot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tf-ops"><span class="nav-number">2.2.</span> <span class="nav-text">tf_ops</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#msra-stddev-x-k-h-k-w"><span class="nav-number">2.2.1.</span> <span class="nav-text">msra_stddev(x, k_h, k_w)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mse-ignore-nans-preds-targs-kwargs"><span class="nav-number">2.2.2.</span> <span class="nav-text">mse_ignore_nans(preds, targs. **kwargs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conv2d-input-output-dim-k-h-k-w-d-h-d-w-msra-coeff-name"><span class="nav-number">2.2.3.</span> <span class="nav-text">conv2d(input_, output_dim, k_h, k_w, d_h, d_w, msra_coeff, name)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lrelu-x-leak-name"><span class="nav-number">2.2.4.</span> <span class="nav-text">lrelu(x, leak, name)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linear-input-output-size-name-msra-coeff"><span class="nav-number">2.2.5.</span> <span class="nav-text">linear(input_, output_size, name, msra_coeff)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conv-encoder-data-params-name-msra-coeff"><span class="nav-number">2.2.6.</span> <span class="nav-text">conv_encoder(data, params, name, msra_coeff)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fc-net-data-param-name-last-linear-return-layers-msra-coeff"><span class="nav-number">2.2.7.</span> <span class="nav-text">fc_net(data, param, name, last_linear, return_layers, msra_coeff)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flatten-data"><span class="nav-number">2.2.8.</span> <span class="nav-text">flatten(data)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defaults-py"><span class="nav-number">2.3.</span> <span class="nav-text">defaults.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#target-maker-args"><span class="nav-number">2.3.1.</span> <span class="nav-text">target_maker_args</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simulator-args"><span class="nav-number">2.3.2.</span> <span class="nav-text">simulator_args</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#experience-args"><span class="nav-number">2.3.3.</span> <span class="nav-text">experience_args</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#agent-args"><span class="nav-number">2.3.4.</span> <span class="nav-text">agent_args</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Simulator"><span class="nav-number">3.</span> <span class="nav-text">Simulator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DoomSimulator"><span class="nav-number">3.1.</span> <span class="nav-text">DoomSimulator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-self-args"><span class="nav-number">3.1.1.</span> <span class="nav-text">init(self, args)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#analyze-controls-self-config-file"><span class="nav-number">3.1.2.</span> <span class="nav-text">analyze_controls(self, config_file)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init-game-close-game-get-random-action-is-new-episode-next-map-new-episode"><span class="nav-number">3.1.3.</span> <span class="nav-text">init_game, close_game, get_random_action, is_new_episode, next_map, new_episode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-self-action"><span class="nav-number">3.1.4.</span> <span class="nav-text">step(self, action)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiDoomSimulator"><span class="nav-number">3.2.</span> <span class="nav-text">MultiDoomSimulator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent"><span class="nav-number">4.</span> <span class="nav-text">Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#agent-py"><span class="nav-number">4.1.</span> <span class="nav-text">agent.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-self-sess-args"><span class="nav-number">4.1.1.</span> <span class="nav-text">init(self, sess, args):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prepare-controls-and-actions-self"><span class="nav-number">4.1.2.</span> <span class="nav-text">prepare_controls_and_actions(self)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#preprocess-actiosn-self-acts"><span class="nav-number">4.1.3.</span> <span class="nav-text">preprocess_actiosn(self, acts)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#postprocess-actions-self-acts-net-act-manual"><span class="nav-number">4.1.4.</span> <span class="nav-text">postprocess_actions(self, acts_net, act_manual)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random-actions-self-num-samples"><span class="nav-number">4.1.5.</span> <span class="nav-text">random_actions(self, num_samples)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-net-make-losses，act-nets-act-manual"><span class="nav-number">4.1.6.</span> <span class="nav-text">make_net, make_losses，act_nets, act_manual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#act-self-state-imgs-state-meas-objective-coeffs"><span class="nav-number">4.1.7.</span> <span class="nav-text">act(self, state_imgs, state_meas, objective_coeffs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-model-self"><span class="nav-number">4.1.8.</span> <span class="nav-text">build_model(self)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Actor"><span class="nav-number">4.1.9.</span> <span class="nav-text">Actor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-actor-self-objective-coeffs-random-prob-random-objective-coeffs"><span class="nav-number">4.1.10.</span> <span class="nav-text">get_actor(self, objective_coeffs, random_prob, random_objective_coeffs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#train-one-batch-self-experience"><span class="nav-number">4.1.11.</span> <span class="nav-text">train_one_batch(self, experience)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#train-self-simulator-experience-num-steps-test-police-experience"><span class="nav-number">4.1.12.</span> <span class="nav-text">train(self, simulator, experience, num_steps, test_police_experience)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-policy-self-simulator-experience-objective-coeffs-num-steps-random-prob-write-summary-write-prdiction"><span class="nav-number">4.1.13.</span> <span class="nav-text">test_policy(self, simulator, experience, objective_coeffs, num_steps, random_prob, write_summary, write_prdiction)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save-load-set-init-step"><span class="nav-number">4.1.14.</span> <span class="nav-text">save, load, set_init_step</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#future-predictoragent-py"><span class="nav-number">4.2.</span> <span class="nav-text">future_predictoragent*.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#make-net-self-input-images-input-measurement-input-actions-input-objectives-reuse"><span class="nav-number">4.2.1.</span> <span class="nav-text">make_net(self, input_images, input_measurement, input_actions, input_objectives, reuse)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-losses-self-pred-relevant-targets-preprocessed-objective-indices-objective-coeffs"><span class="nav-number">4.2.2.</span> <span class="nav-text">make_losses(self, pred_relevant, targets_preprocessed, objective_indices, objective_coeffs)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#act-net-self-state-imgs-state-meas-objective-coeffs"><span class="nav-number">4.2.3.</span> <span class="nav-text">act_net(self, state_imgs, state_meas, objective_coeffs)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#target"><span class="nav-number">5.</span> <span class="nav-text">target</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#future-target-maker-py"><span class="nav-number">5.1.</span> <span class="nav-text">future_target_maker.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-self-args-1"><span class="nav-number">5.1.1.</span> <span class="nav-text">init(self, args)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-targets-self-indices-meas-rwrds-n-episode-meas-mean-meas-std"><span class="nav-number">5.1.2.</span> <span class="nav-text">make_targets(self, indices, meas, rwrds, n_episode, meas_mean, meas_std)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#experience"><span class="nav-number">6.</span> <span class="nav-text">experience</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#multi-experience-memory-py"><span class="nav-number">6.1.</span> <span class="nav-text">multi_experience_memory.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-self-args-multi-simulator-target-maker"><span class="nav-number">6.1.1.</span> <span class="nav-text">init(self, args, multi_simulator, target_maker)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reset-self"><span class="nav-number">6.1.2.</span> <span class="nav-text">reset(self)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-self-imgs-meass-rwrds-terms-acts-objs-preds"><span class="nav-number">6.1.3.</span> <span class="nav-text">add(self, imgs, meass, rwrds, terms, acts, objs, preds)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-step-self-multi-simulator-acts-objs-preds"><span class="nav-number">6.1.4.</span> <span class="nav-text">add_step(self, multi_simulator, acts, objs, preds)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-n-steps-with-actor-self-multi-simulator-num-steps-actor-verbose-write-prediction-write-logs-global-step"><span class="nav-number">6.1.5.</span> <span class="nav-text">add_n_steps_with_actor(self, multi_simulator, num_steps, actor, verbose, write_prediction, write_logs, global_step)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-states-self-indices"><span class="nav-number">6.1.6.</span> <span class="nav-text">get_states(self, indices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-current-state-self"><span class="nav-number">6.1.7.</span> <span class="nav-text">get_current_state(self)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-last-indices-self"><span class="nav-number">6.1.8.</span> <span class="nav-text">get_last_indices(self)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-target-self-indices"><span class="nav-number">6.1.9.</span> <span class="nav-text">get_target(self, indices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#has-valid-history-self-index"><span class="nav-number">6.1.10.</span> <span class="nav-text">has_valid_history(self, index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#has-valid-target-self-index"><span class="nav-number">6.1.11.</span> <span class="nav-text">has_valid_target(self, index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#is-valid-target-self-index"><span class="nav-number">6.1.12.</span> <span class="nav-text">is_valid_target(self, index)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-observations-self-indices"><span class="nav-number">6.1.13.</span> <span class="nav-text">get_observations(self, indices)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-random-batch-self-batch-size"><span class="nav-number">6.1.14.</span> <span class="nav-text">get_random_batch(self, batch_size)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compute-avg-meas-and-rwrd-self-start-idx-end-idx"><span class="nav-number">6.1.15.</span> <span class="nav-text">compute_avg_meas_and_rwrd(self, start_idx, end_idx)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show-self-start-idx-end-idx-display-write-imgs-write-video-preprocess-targets-show-predictions-net-discrete-actions"><span class="nav-number">6.1.16.</span> <span class="nav-text">show(self, start_idx, end_idx, display, write_imgs, write_video, preprocess_targets, show_predictions, net_discrete_actions)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multi-experiement-py"><span class="nav-number">6.2.</span> <span class="nav-text">multi_experiement.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-self-target-maker-args-simulator-args-train-experience-args-test-policy-experience-args-agent-args-experiment-args"><span class="nav-number">6.2.1.</span> <span class="nav-text">init(self, target_maker_args, simulator_args, train_experience_args, test_policy_experience_args, agent_args, experiment_args)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-self-mode"><span class="nav-number">6.2.2.</span> <span class="nav-text">run(self, mode)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/08/07/DFP-code/';
+          this.page.identifier = '2017/08/07/DFP-code/';
+          this.page.title = 'DFP_code';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,machine learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="reference:    UCL Course on RL lecture 7 Policy GradientIntroductionPolicy-Based Reinforcement Learning  In the last lecture we approximated the value or action-value function using parameter $\theta$">
+<meta name="keywords" content="reinforcement learning,machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL7 Policy Gradient">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/18/RL7/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="reference:    UCL Course on RL lecture 7 Policy GradientIntroductionPolicy-Based Reinforcement Learning  In the last lecture we approximated the value or action-value function using parameter $\theta$">
+<meta property="og:image" content="http://i1.piimg.com/567571/54c0e94c6b0f2936.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/bcf6e47f246e7bf9.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/ef9684519bf5952d.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/45365e91fb7af247.png">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL7 Policy Gradient">
+<meta name="twitter:description" content="reference:    UCL Course on RL lecture 7 Policy GradientIntroductionPolicy-Based Reinforcement Learning  In the last lecture we approximated the value or action-value function using parameter $\theta$">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/54c0e94c6b0f2936.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/18/RL7/"/>
+
+
+
+
+
+  <title>RL7 Policy Gradient | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/18/RL7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RL7 Policy Gradient</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-18T19:27:51+08:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reinforcement-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">reinforcement learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/18/RL7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/18/RL7/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/18/RL7/" class="leancloud_visitors" data-flag-title="RL7 Policy Gradient">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
+<h1 id="lecture-7-Policy-Gradient"><a href="#lecture-7-Policy-Gradient" class="headerlink" title="lecture 7 Policy Gradient"></a>lecture 7 Policy Gradient</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>Policy-Based Reinforcement Learning</strong></p>
+<ul>
+<li>In the last lecture we approximated the value or action-value function using parameter $\theta$</li>
+<li>A policy was generated directly from the value function</li>
+<li>In this lecture, we will directly parametrise the <strong>policy</strong><br>$$ \pi_{\theta} (s,a) = P(a|s,\theta) $$</li>
+<li>We will focus again on model-free reinforcement learning</li>
+</ul>
+<p><strong>Value-Based and Policy-Based RL</strong></p>
+<ul>
+<li>Value Based<ul>
+<li>Learnt Value Function</li>
+<li>Implicit policy (e.g. $\epsilon$-greedy)</li>
+</ul>
+</li>
+<li>Policy Based<ul>
+<li>No Value Function</li>
+<li>Learnt Policy </li>
+</ul>
+</li>
+<li>Actor-Critic<ul>
+<li>Learnt Value Function</li>
+<li>Learnt Policy</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages of Policy-Based RL</strong><br>Advantages:</p>
+<ul>
+<li>Better convergence properties</li>
+<li>Effective in high-dimensional or continuous action spaces</li>
+<li>Can learn stochastic policies<br>Disadvantages:</li>
+<li>Typically converge to a local rather than global optimum</li>
+<li>Evaluating a policy is typically inefficient and high variance</li>
+</ul>
+<h3 id="Policy-Search"><a href="#Policy-Search" class="headerlink" title="Policy Search"></a>Policy Search</h3><p><strong>Policy Objective Functions</strong></p>
+<ul>
+<li>Goal: given policy $\pi_{\theta} (s,a) $ with parameters $\theta$, find best $\theta$.</li>
+<li>But how do we measure the quality of a policy $\pi_theta$?</li>
+<li>In episodic environments we can use the start value.<br>$$ J_1 (\theta) = V^{\pi_\theta} (s_1) = E_{\pi_\theta} (v_1) $$</li>
+<li>In continuing environments we can use the average value<br>$$ J_{avV} (\theta) = \sum_{s} d^{\pi_\theta} (s) V^{\pi_\theta} (s) $$</li>
+<li>Or the average reward per time-step<br>$$ J_{avR} (\theta) = \sum_{s} d^{\pi_\theta} (s) \sum_{a} \pi_\theta (s,a) R_s^a $$</li>
+<li>where $d^{\pi_\theta} (s)$ is <strong>stationary distribution</strong> of Markov chain for $\pi_\theta$</li>
+</ul>
+<h3 id="Policy-Optimisation"><a href="#Policy-Optimisation" class="headerlink" title="Policy Optimisation"></a>Policy Optimisation</h3><ul>
+<li>Policy based reinforcement learning is an <strong>optimisation</strong> problem</li>
+<li>Find $\theta$ that maximises $J(\theta)$ </li>
+<li>Some approaches do not use gradient <ul>
+<li>Hill climbing </li>
+<li>Simplex/amoeba/Nelder Mead</li>
+<li>Genetic algorithms</li>
+</ul>
+</li>
+<li>Greater efficiency often possible using gradient<ul>
+<li>Gradient descent</li>
+<li>Conjugate gradient</li>
+<li>Quasi-Newton</li>
+</ul>
+</li>
+<li>We focus on gradient descent, many extensions possible</li>
+<li>And on methods that exploit sequential structure</li>
+</ul>
+<h2 id="Finite-Difference-Policy-Gradient"><a href="#Finite-Difference-Policy-Gradient" class="headerlink" title="Finite Difference Policy Gradient"></a>Finite Difference Policy Gradient</h2><p><strong>Policy Gradient</strong></p>
+<ul>
+<li>Let $J(\theta)$ be any policy objective function</li>
+<li>Policy gradient algorithms search for a local maximum in $J(\theta)$ by ascending the gradient of the policy, w.r.t parameters $\theta$<br>$$ \Delta \theta = \alpha \nabla_\theta J(\theta) $$</li>
+<li>Where $\Delta_\theta J(\theta)$ is the <strong>policy gradient</strong>, and $\alpha$ is a step-size parameter</li>
+</ul>
+<p><strong>Computing Gradients By Finite Differences</strong></p>
+<ul>
+<li>To evaluate policy gradient of $\pi_\theta (s,a)$</li>
+<li>For each dimension $k \in [1,n]$<ul>
+<li>Estimate $k$th partial derivative of objective function w.r.t $\theta$</li>
+<li>By perturbing $\theta$ by small amount $\epsilon$ in $k$th dimension</li>
+</ul>
+</li>
+<li>Uses $n$ evaluations to compute policy gradient in $n$ dimensions</li>
+<li>Simple, noisy, inefficient - but sometimes effective</li>
+<li>Works for arbitrary policies, even if policy is not differentiable</li>
+</ul>
+<h2 id="Monte-Carlo-Policy-Gradient"><a href="#Monte-Carlo-Policy-Gradient" class="headerlink" title="Monte-Carlo Policy Gradient"></a>Monte-Carlo Policy Gradient</h2><h3 id="Likelihood-Ratios"><a href="#Likelihood-Ratios" class="headerlink" title="Likelihood Ratios"></a>Likelihood Ratios</h3><p><strong>Score Function</strong></p>
+<ul>
+<li>We now compute the policy gradient analytically</li>
+<li>Assume policy $\pi_\theta$ is differentiable whenever it is non-zero</li>
+<li>and we know the gradient $\nabla_\theta \pi_\theta (s,a) $</li>
+<li><strong>Likelihood ratios</strong> exploit the following identity<br>$$ \nabla_\theta \pi_\theta (s,a) = \pi_\theta (s,a) \frac{\nabla_\theta \pi_\theta (s,a)}{\pi_\theta (s,a)} = \pi_{\theta} (s,a) \nabla_\theta \log \pi_\theta (s,a) $$</li>
+<li>The <strong>score function</strong> is $\nabla_\theta \log \pi_{\theta} (s,a)$</li>
+</ul>
+<p><strong>Softmax Policy</strong></p>
+<ul>
+<li>We will use a softmax policy as a running example</li>
+<li>Weight actions using linear combination of features $\phi(s,a)^T \theta$</li>
+<li>Probability of action is proportional to exponential weight<br>$$ \pi_\theta (s,a) \propto e^{\phi(s,a)^T \theta} $$</li>
+<li>The score function is<br>$$ \nabla_\theta \log \pi_\theta (s,a) = \phi(s,a) - E_{\pi_\theta} (\phi(s,\cdot)) $$</li>
+</ul>
+<p><strong>Gaussian Policy</strong></p>
+<ul>
+<li>In continuous action spaces, a Gaussian policy is natural</li>
+<li>Mean is a linear combination of state feature $\mu(s) = \phi(s)^T \theta$</li>
+<li>Variance may be fixed $\sigma^2$, or can also parametrised</li>
+<li>Policy is Gaussian, $a \sim N(\mu(s),\sigma^2)$</li>
+<li>The score function is<br>$$ \nabla_\theta \log \pi_{\theta} (s,a) = \frac{(a-\mu(s))\phi(s)}{\sigma^2} $$</li>
+</ul>
+<h3 id="Policy-Gradient-Theorem"><a href="#Policy-Gradient-Theorem" class="headerlink" title="Policy Gradient Theorem"></a>Policy Gradient Theorem</h3><p><strong>One-Step MDPs</strong></p>
+<ul>
+<li>Consider a simple class of <strong>one-step</strong> MDPs<ul>
+<li>Starting in state $s\sim d(s)$</li>
+<li>Terminating after one time-step with reward $r=R_{s,a}$</li>
+</ul>
+</li>
+<li>Use likelihood ratios to compute the policy gradient<br>$$ J(\theta) = E_{\pi_\theta} (r) = \sum_{s \in S} d(s) \sum_{a \in A} \pi_\theta (s,a) R_{s,a} \\ \nabla_\theta J(\theta) = \sum_{s \in S} d(s) \sum_{a \in A} \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a) R_{s,a} = E_{\pi_\theta} (\nabla_\theta \log \pi_\theta (s,a) r)  $$</li>
+</ul>
+<p><strong>Policy Gradient Theorem</strong></p>
+<ul>
+<li>The policy gradient theorem generalised the likelihood ratio approach to multi-step MDPs</li>
+<li>Replaces instantaneous reward $r$ with long-term value $Q^\pi (s,a)$</li>
+<li>Policy gradient theorem applies to start state objective, average reward and average value objective, average reward and average value objective<blockquote>
+<p><strong>Theorem</strong><br>For any differentiable policy $\pi_\theta(s,a)$, for any of the policy objective functions $J=J_1,J_{avR}$ or $\frac{1}{1-\gamma} J_{avV}$, the policy gradient is<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q^{\pi_\theta} (s,a)\right] $$</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Monte-Carlo Policy Gradient(REINFORCE)</strong></p>
+<ul>
+<li>Update parameters by stochastic gradient ascent</li>
+<li>Using policy gradient theorem </li>
+<li>Using return $v_t$ as an unbiased sample of $Q^{\pi_\theta} (s_t,a_t)$<br>$$ \Delta \theta_t = \alpha \nabla_\theta \log \pi_\theta (s_t,a_t)v_t $$<br><img src="http://i1.piimg.com/567571/54c0e94c6b0f2936.png" alt="PG algorithm"></li>
+</ul>
+<h2 id="Actor-Critic-Policy-Gradient"><a href="#Actor-Critic-Policy-Gradient" class="headerlink" title="Actor-Critic Policy Gradient"></a>Actor-Critic Policy Gradient</h2><h3 id="Introduction-to-AC"><a href="#Introduction-to-AC" class="headerlink" title="Introduction to AC"></a>Introduction to AC</h3><p><strong>Reducing Variance Using a Critic</strong></p>
+<ul>
+<li>Monte-Carlo policy gradient still has high variance</li>
+<li>We use a <strong>critic</strong> to estimate the action-value function, $ Q_w (s,a) \approx Q^{\pi_\theta} (s,a)$</li>
+<li>Actor-critic algorithms maintain two sets of parameters<ul>
+<li><strong>Critic</strong> Updates action-value function parameters $w$</li>
+<li><strong>Actor</strong> Updates policy parameters $\theta$, in direction suggested by critic</li>
+</ul>
+</li>
+<li>Actor-critic algorithms follow an approximate policy gradient<br>$$ \nabla_\theta J(\theta) \approx E_{\pi_\theta} (\nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) ) \\ \Delta \theta = \alpha \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) $$</li>
+</ul>
+<p><strong>Estimating the Action-Value Function</strong></p>
+<ul>
+<li>The critic is solving a familiar problem: <strong>policy evaluation</strong></li>
+<li>How good is policy $\pi_theta$ for current parameters $\theta$?</li>
+<li>This problem was explored in previous two lectures, e.g.<ul>
+<li>Monte-Carlo policy evaluation</li>
+<li>Temporal-Difference learning</li>
+<li>TD($\lambda$)</li>
+</ul>
+</li>
+<li>Could also use e.g least-squares policy evaluation</li>
+</ul>
+<p><strong>Action-value Actor-Critic</strong></p>
+<ul>
+<li>Simple actor-critic algorithm based on action-value critic</li>
+<li>Using linear value fn approx $Q_w (s,a) = \phi(s,a)^T w $<ul>
+<li><strong>Critic</strong> Updates $w$ by linear TD(0)</li>
+<li><strong>Actor</strong> Updates $\theta$ by policy gradient<br><img src="http://i1.piimg.com/567571/bcf6e47f246e7bf9.png" alt="Simple actor-critic algorithm"></li>
+</ul>
+</li>
+</ul>
+<h3 id="Compatible-Function-Approximation"><a href="#Compatible-Function-Approximation" class="headerlink" title="Compatible Function Approximation"></a>Compatible Function Approximation</h3><p><strong>Bias in Actor-Critic Algorithms</strong></p>
+<ul>
+<li>Approximating the policy gradient introduces bias</li>
+<li>A biased policy gradient may not find the right solution<ul>
+<li>e.g if $Q_w(s,a)$ uses aliased features, can we solve gridworld example?</li>
+</ul>
+</li>
+<li>Luckily, if we choose value function approximation carefully</li>
+<li>Then we can avoid introducing any bias</li>
+<li>i.e We can still follow the exact policy gradient </li>
+</ul>
+<p><strong>Compatible Function Approximation</strong></p>
+<blockquote>
+<p><strong>Theorem(Compatible Function Approximation Theorem)</strong><br>If the following two conditions are satisfied</p>
+<ol>
+<li>Value function approximator is compatible to the policy<br>$$ \nabla_w Q_w(s,a) = \nabla_\theta \log \pi_\theta (s,a) $$</li>
+<li>Value function parameters $w$ minimise the mean-squared error<br>$$ \epsilon = E_{\pi_\theta} \left[ (Q^{\pi_\theta}(s,a) -Q_w(s,a))^2\right] $$<br>Then the policy gradient is exact<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) \right] $$</li>
+</ol>
+</blockquote>
+<p><strong>Proof of Compatible Function Approximation Theorem</strong><br>If $w$ is chosen to minimise mean-squared error, gradient of $\epsilon$ w.r.t $w$ must be zero<br><img src="http://i2.muimg.com/567571/ef9684519bf5952d.png" alt="Proof"><br>So $Q_w (s,a)$ can be substituted directly into the policy gradient<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) Q_w (s,a) \right] $$</p>
+<h3 id="Advantage-Function-Critic"><a href="#Advantage-Function-Critic" class="headerlink" title="Advantage Function Critic"></a>Advantage Function Critic</h3><p><strong>Reducing Variance Using a Baseline</strong></p>
+<ul>
+<li>We subtract a baseline function $B(s)$ from the policy gradient</li>
+<li>This can reduce variance, without changing expectation<br>$$ E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) B(s) \right] = \sum_{s \in S} d^{\pi_\theta} (s) \sum_s \nabla_\theta \pi_\theta (s,a) B(s) \\ = \sum_{s \in S} d^{\pi_\theta} B(s) \nabla_\theta \sum_{a \in A} \pi_\theta (s,a) = 0 $$</li>
+<li>A good baseline is the state value function $B(s) = V^{\pi_\theta} (s)$</li>
+<li>So we can rewrite the policy gradient using the advantage function $A^{\pi_\theta} (s,a)$<br>$$ A^{\pi_\theta} (s,a) = Q^{\pi_\theta} (s,a) - V^{\pi_\theta} (s) \\ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) A^{\pi_\theta} (s,a) \right] $$</li>
+</ul>
+<p><strong>Estimating the Advantage Function</strong></p>
+<ul>
+<li>The advantage function can significantly reduce variance of policy gradient</li>
+<li>So the critic should really estimate the advantage function</li>
+<li>For example, by estimating both $V^{\pi_\theta} (s)$ and $Q^{\pi_\theta} (s,a)$</li>
+<li>Using two function approximating and two parameter vectors<br>$$ V_v (s) \approx V^{\pi_\theta} (s) \\ Q_w (s,a) \approx Q^{\pi_\theta} (s,a) \\ A(s,a) = Q_w(s,a) - V_v (s) $$</li>
+<li>And updating both value functions by e.g TD learning </li>
+<li>For the true value function $V^{\pi_\theta} (s)$, the TD error $\delta^{\pi_\theta}$<br>$$ \delta^{\pi_\theta} = r + \gamma V^{\pi_\theta} (s’) - V^{\pi_\theta} (s)$$</li>
+<li>is an unbiased estimate of the advantage function<br>$$ E_{\pi_\theta} \left[ \delta^{\pi_\theta} | s,a\right]=  E_{\pi_\theta} \left[r+\gamma V^{\pi_\theta} (s’) | s,a \right] - V^{\pi_\theta} (s) \\ = Q^{\pi_\theta} (s,a) -V^{\pi_\theta} (s) = A^{\pi_\theta} (s,a) $$ </li>
+<li>So we can use the TD error to compute the policy gradient<br>$$ \nabla_\theta J(\theta) = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) \delta^{\pi_\theta} \right] $$</li>
+<li>In practice we can use an approximate TD error<br>$$ \delta_v = r + \gamma V_v (s’) - V_v (s) $$</li>
+<li>This approach only requires one set of critic parameters $v$</li>
+</ul>
+<h3 id="Eligibility-Traces"><a href="#Eligibility-Traces" class="headerlink" title="Eligibility Traces"></a>Eligibility Traces</h3><p><strong>Critics at Different Time-Scales</strong></p>
+<ul>
+<li>Critic can estimate value function $V_\theta(s)$ from many targets at different time-scales <ul>
+<li>For MC, the target is the return $v_t$<br>$$ \Delta \theta = \alpha (v_t - V_\theta(s)) \phi(s) $$</li>
+<li>For TD(0), the target is the TD target $r+ \gamma V(s’)$<br>$$ \Delta \theta = \alpha (r + \gamma V(s’)  - V_\theta(s)) \phi(s) $$</li>
+<li>For forward-view TD($\lambda$), the target is the $\lambda$-return $v_t^\lambda$<br>$$ \Delta \theta =\alpha (v_t^\lambda - V_\theta (s)) \phi(s) $$</li>
+<li>For backward-view TD($\lambda$), we use eligibility traces<br>$$ \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t) \\ e_t = \gamma \lambda e_{t-1} + \phi(s_t) \\ \Delta \theta = \alpha \delta_t e_t $$</li>
+</ul>
+</li>
+</ul>
+<p><strong>Policy Gradient with Eligibility Traces</strong></p>
+<ul>
+<li>Just like forward-view TD($\lambda$), we can mix over time-scales<br>$$ \Delta \theta = \alpha (v_t^\lambda - V_v (s_t) ) \nabla_\theta \log \pi_\theta (s_t,a_t) $$</li>
+<li>where $v_t^\lambda -V_v(s_t)$ is a biased estimate of advantage fn</li>
+<li>Like backward-view TD($\lambda$), we can also use eligibility traces<ul>
+<li>By equivalence with TD($\lambda$), substituting $\phi(s) = \nabla_\theta \log \pi_\theta (s,a)$<br>$$ \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t) \\ e_{t+1} = \lambda e_{t} + \nabla_\theta \log \pi_\theta (s,a)  \\ \Delta \theta = \alpha \delta_t e_t $$</li>
+</ul>
+</li>
+<li>This update can be applied online, to incomplete sequences</li>
+</ul>
+<h3 id="Natural-Policy-Gradient"><a href="#Natural-Policy-Gradient" class="headerlink" title="Natural Policy Gradient"></a>Natural Policy Gradient</h3><p><strong>Alternative Policy Gradient Direction</strong></p>
+<ul>
+<li>Gradient ascent algorithm can follow any ascent direction</li>
+<li>A good ascent direction can significantly speed convergence</li>
+<li>Also, a policy can often be reparametrised without changing action probabilities</li>
+<li>For example, increasing score of all actions in a softmax policy</li>
+<li>The vanilla gradient is sensitive to these reparametrisations</li>
+</ul>
+<p><strong>Natural Policy Gradient</strong></p>
+<ul>
+<li>The <strong>natural policy gradient</strong> is parametrisation independent</li>
+<li>It finds ascent direction that is closet to vanilla gradient, when changing policy by a small, fixed amount<br>$$ \nabla_\theta^{nat} \pi_\theta (s,a) = G_\theta^{-1} \nabla_\theta \pi_\theta (s,a) $$</li>
+<li>where $G_\theta$ is the Fisher information matrix<br>$$ G_\theta = E_\theta \left[ \nabla_\theta \log \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a)^T \right] $$</li>
+</ul>
+<p><strong>Natural Actor-Critic</strong></p>
+<ul>
+<li>Using compatible function approximation<br>$$ \nabla_w A_w (s,a) = \nabla_\theta \log \pi_\theta (s,a) $$</li>
+<li>So the natural policy gradient simplifies,<br>$$ \nabla_\theta J(\theta) = E_{\theta_\pi} \left[ \nabla_\theta \log \pi_\theta (s,a) A^{\pi_\theta} (s,a) \right] \\ = E_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta (s,a) \nabla_\theta \log \pi_\theta (s,a)^T w \right] = G_\theta w $$<br>so we can get $ \nabla_\theta^{nat} J(\theta) = w $</li>
+<li>update actor parameters in direction of critic parameters</li>
+</ul>
+<h2 id="Summary-of-Policy-Gradient-Algorithms"><a href="#Summary-of-Policy-Gradient-Algorithms" class="headerlink" title="Summary of Policy Gradient Algorithms"></a>Summary of Policy Gradient Algorithms</h2><ul>
+<li>The <strong>policy gradient</strong> has many equivalent forms<br>  <img src="http://i2.muimg.com/567571/45365e91fb7af247.png" alt="PG equivalent forms"></li>
+<li>Each leads a stochastic gradient ascent algorithm</li>
+<li>Critic uses <strong>policy evaluation</strong> (e.g MC or TD learning) to estimate $Q^\pi (s,a), A^\pi (s,a)$ or $V^\pi (s)$</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/16/NLP3/" rel="next" title="NLP3 More Word Vectors">
+                <i class="fa fa-chevron-left"></i> NLP3 More Word Vectors
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/23/tmux/" rel="prev" title="tmux">
+                tmux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-7-Policy-Gradient"><span class="nav-number">1.</span> <span class="nav-text">lecture 7 Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Search"><span class="nav-number">1.1.1.</span> <span class="nav-text">Policy Search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Optimisation"><span class="nav-number">1.1.2.</span> <span class="nav-text">Policy Optimisation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Finite-Difference-Policy-Gradient"><span class="nav-number">1.2.</span> <span class="nav-text">Finite Difference Policy Gradient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monte-Carlo-Policy-Gradient"><span class="nav-number">1.3.</span> <span class="nav-text">Monte-Carlo Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Likelihood-Ratios"><span class="nav-number">1.3.1.</span> <span class="nav-text">Likelihood Ratios</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Gradient-Theorem"><span class="nav-number">1.3.2.</span> <span class="nav-text">Policy Gradient Theorem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Actor-Critic-Policy-Gradient"><span class="nav-number">1.4.</span> <span class="nav-text">Actor-Critic Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction-to-AC"><span class="nav-number">1.4.1.</span> <span class="nav-text">Introduction to AC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compatible-Function-Approximation"><span class="nav-number">1.4.2.</span> <span class="nav-text">Compatible Function Approximation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advantage-Function-Critic"><span class="nav-number">1.4.3.</span> <span class="nav-text">Advantage Function Critic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eligibility-Traces"><span class="nav-number">1.4.4.</span> <span class="nav-text">Eligibility Traces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Natural-Policy-Gradient"><span class="nav-number">1.4.5.</span> <span class="nav-text">Natural Policy Gradient</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-Policy-Gradient-Algorithms"><span class="nav-number">1.5.</span> <span class="nav-text">Summary of Policy Gradient Algorithms</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/18/RL7/';
+          this.page.identifier = '2017/04/18/RL7/';
+          this.page.title = 'RL7 Policy Gradient';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

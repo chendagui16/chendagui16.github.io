@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="machine learning,NLP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="referencecs224n lecture 2 Word VectorsWord meaningDefinition: meaning  the idea that is represented by a word, phrase, etc. the idea that a person wants to express by using words, signs, etc. the idea">
+<meta name="keywords" content="machine learning,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP2 Word Vectors">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/16/NLP2/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="referencecs224n lecture 2 Word VectorsWord meaningDefinition: meaning  the idea that is represented by a word, phrase, etc. the idea that a person wants to express by using words, signs, etc. the idea">
+<meta property="og:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/61b440b00b028d9f.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/297e4570b1723090.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/ae499869a4a9ea58.png">
+<meta property="og:image" content="http://i2.muimg.com/567571/314a54b706896593.png">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP2 Word Vectors">
+<meta name="twitter:description" content="referencecs224n lecture 2 Word VectorsWord meaningDefinition: meaning  the idea that is represented by a word, phrase, etc. the idea that a person wants to express by using words, signs, etc. the idea">
+<meta name="twitter:image" content="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/16/NLP2/"/>
+
+
+
+
+
+  <title>NLP2 Word Vectors | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/16/NLP2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP2 Word Vectors</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-16T10:41:40+08:00">
+                2017-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/16/NLP2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/16/NLP2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/16/NLP2/" class="leancloud_visitors" data-flag-title="NLP2 Word Vectors">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>reference<br><a href="http://web.stanford.edu/class/cs224n/syllabus.html" target="_blank" rel="external">cs224n</a></p>
+<h1 id="lecture-2-Word-Vectors"><a href="#lecture-2-Word-Vectors" class="headerlink" title="lecture 2 Word Vectors"></a>lecture 2 Word Vectors</h1><h2 id="Word-meaning"><a href="#Word-meaning" class="headerlink" title="Word meaning"></a>Word meaning</h2><p>Definition: <strong>meaning</strong></p>
+<ul>
+<li>the idea that is represented by a word, phrase, etc.</li>
+<li>the idea that a person wants to express by using words, signs, etc.</li>
+<li>the idea that is expressed in a word of writing<br>Commonest linguistic way of thinking of meaning</li>
+<li>signifier $\iff$ signified (idea or thing) = denotation</li>
+</ul>
+<h3 id="One-hot-vector-meaning-in-computer"><a href="#One-hot-vector-meaning-in-computer" class="headerlink" title="One-hot vector(meaning in computer)"></a>One-hot vector(meaning in computer)</h3><p>Common answer: Use a taxonomy like WordNet that has hypernyms relationships and synonym sets<br><strong>Problems with this discrete representation</strong></p>
+<ul>
+<li>Great as a resource but missing nuances, e.g. <em>synonyms</em><ul>
+<li>adept, expert, good, practiced, proficient, skillful</li>
+</ul>
+</li>
+<li>Missing new words (impossible to keep up to date):<ul>
+<li>wicked, badness, nifty, crack, ace, wizard, genius, ninja</li>
+</ul>
+</li>
+<li>Subjective</li>
+<li>Requires human labor to create and adapt</li>
+<li>Hard to compute accurate word similarity</li>
+<li>The vast majority of rule-based and statistical NLP work regards words as atomic symbols</li>
+</ul>
+<p>We use usually a localist representation (“one-hot”) to represent discrete word, but the different word vector $ a^T b = 0$, which means that our query and document vectors are orthogonal. There is no natural notion of similarity in a set of one-hot vectors</p>
+<p>“one-hot” vector could deal with similarity separately;<br>instead we explore a direct approach where vectors encode it</p>
+<h3 id="Distributional-similarity-based-representations"><a href="#Distributional-similarity-based-representations" class="headerlink" title="Distributional similarity based representations"></a>Distributional similarity based representations</h3><p>You can get a lot of value by representing a word by means of its neighbors</p>
+<blockquote>
+<p>You shall know a word by the company it keeps<br>We will build a dense vector for each word type, chosen so that it is good at predicting other words appearing in its context</p>
+</blockquote>
+<h3 id="Basic-idea-of-learning-neural-network-word-embeddings"><a href="#Basic-idea-of-learning-neural-network-word-embeddings" class="headerlink" title="Basic idea of learning neural network word embeddings"></a>Basic idea of learning neural network word embeddings</h3><p>Define a model that aims to predict between a center word $w_t$ and context words in terms of vectors<br>$$ p(context | w_t) = \dots $$<br>which has a loss function, e.g.<br>$$ J = 1 - p(w_{-t} | w_t ) $$<br>We look at many positions $t$ in a big language corpus<br>We keep adjusting the vector representations of words to minimize this loss</p>
+<h3 id="Directly-learning-low-dimensional-word-vectors"><a href="#Directly-learning-low-dimensional-word-vectors" class="headerlink" title="Directly learning low-dimensional word vectors"></a>Directly learning low-dimensional word vectors</h3><ul>
+<li>Learning representations by back-propagating errors (Rumelhart et al., 1986)</li>
+<li><strong>A neural probabilistic language model</strong> (Bengio et al., 2003)</li>
+<li>NLP (almost) from Scratch (Collobert &amp; Weston, 2008)</li>
+<li>A recent, even simpler and faster model:<br>word2vec (Mikolov et al. 2013) $\rightarrow$ intro now</li>
+</ul>
+<h2 id="Main-idea-of-word2vec"><a href="#Main-idea-of-word2vec" class="headerlink" title="Main idea of word2vec"></a>Main idea of word2vec</h2><p><strong>Predict between every word and its context words</strong><br>Two algorithms</p>
+<ol>
+<li><strong>Skip-grams(SG)</strong><br> Predict context words given target (position independent)</li>
+<li>Continuous Bag of Words(CBOW)<br> Predict target from bag-of-words context</li>
+</ol>
+<p>Two (moderately efficient) training methods</p>
+<ol>
+<li>Hierarchical softmax</li>
+<li>Negative sampling<br><strong>Naive softmax</strong></li>
+</ol>
+<h3 id="The-skip-gram-model"><a href="#The-skip-gram-model" class="headerlink" title="The skip-gram model"></a>The skip-gram model</h3><p>reference: <a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="external">Skip-gram tutorial</a><br>Word2vec uses a trick that we train a simple neural network with a single hidden layer to perform a certain task(<strong>Fake Task</strong>), but then we’re not actually going to use that neural network for the task we trained it on!<br>Instead, the goal is actually just to learn the weights of the hidden layer (<strong>Similar to auto-encoder</strong>)</p>
+<p><strong>Fake Task</strong><br><em>Task goal</em> : Given a specific word in the middle of a sentence, look at the words nearby and pick one at random. The network is going to tell us the probability for every word in our vocabulary of being the “nearby word” that we chose.</p>
+<blockquote>
+<p>When I say “nearby”, there is actually a “window size” parameter to the algorithm. A typical window size might be 5, meaning 5 words behind and 5 words ahead</p>
+</blockquote>
+<p>A sample, window size = 5<br><img src="http://i4.buimg.com/567571/4ec276dc62e7c4c8.png" alt="sample"><br><img src="http://i2.muimg.com/567571/61b440b00b028d9f.png" alt="another explanation"></p>
+<p><strong>Model detail</strong></p>
+<ul>
+<li>Input: one-hot vector(dimension means the scale of vocabulary)</li>
+<li>Hidden layer: the word vector for picked word</li>
+<li>Output layer: softmax layer, probability that a randomly selected nearby word is that vocabulary word<br><img src="http://i1.piimg.com/567571/297e4570b1723090.png" alt="skip gram"></li>
+</ul>
+<blockquote>
+<p>For example, we’re going to say that we’re learning word vectors with 300 features. So the hidden layer is going to be represented by a weight matrix with 10000 rows (one for every word in our vocabulary) and 300 columns (one for every hidden neuron)</p>
+</blockquote>
+<p><img src="http://i1.piimg.com/567571/ae499869a4a9ea58.png" alt="word vector"><br>So the end goal of all of this is really just to learn this hidden layer weight matrix.<br><strong>one-hot vector $\times$ hidden layer weight matrix $\iff$ lookup table</strong><br><img src="http://i2.muimg.com/567571/314a54b706896593.png" alt="lookup table"></p>
+<p><strong>objective function</strong><br>For each word $t=1,\dots,T$, predict surrounding words in a window of “radius” $m$ of every word.</p>
+<p>Maximize the probability of any context word given the current center word<br>$$ J’(\theta) = \prod_{t=1}^{\pi} \prod_{-m \le j \le m, j \neq 0 } p \left(w_{t+j} | w_t; \theta \right) $$<br>Negative Log likelihood<br>$$ J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \le j \le m, j \neq 0} \log p \left( w_{t+j} | w_{t} \right) $$<br>Where $\theta$ represents all variable we will optimize</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/16/NLP1/" rel="next" title="NLP1 Introduction to NLP and DL">
+                <i class="fa fa-chevron-left"></i> NLP1 Introduction to NLP and DL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/16/NLP3/" rel="prev" title="NLP3 More Word Vectors">
+                NLP3 More Word Vectors <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-2-Word-Vectors"><span class="nav-number">1.</span> <span class="nav-text">lecture 2 Word Vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Word-meaning"><span class="nav-number">1.1.</span> <span class="nav-text">Word meaning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#One-hot-vector-meaning-in-computer"><span class="nav-number">1.1.1.</span> <span class="nav-text">One-hot vector(meaning in computer)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Distributional-similarity-based-representations"><span class="nav-number">1.1.2.</span> <span class="nav-text">Distributional similarity based representations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-idea-of-learning-neural-network-word-embeddings"><span class="nav-number">1.1.3.</span> <span class="nav-text">Basic idea of learning neural network word embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Directly-learning-low-dimensional-word-vectors"><span class="nav-number">1.1.4.</span> <span class="nav-text">Directly learning low-dimensional word vectors</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-idea-of-word2vec"><span class="nav-number">1.2.</span> <span class="nav-text">Main idea of word2vec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-skip-gram-model"><span class="nav-number">1.2.1.</span> <span class="nav-text">The skip-gram model</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/16/NLP2/';
+          this.page.identifier = '2017/04/16/NLP2/';
+          this.page.title = 'NLP2 Word Vectors';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

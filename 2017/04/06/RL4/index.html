@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="reinforcement learning,machine learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="reference:    UCL Course on RL Lecture 4 Model-Free PredictionEstimate the value function of an unknown MDP Monte-Carlo Reinforcement learning MC methods learn directly from episodes of experience MC">
+<meta name="keywords" content="reinforcement learning,machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL4 Model-Free Prediction">
+<meta property="og:url" content="https://chendagui16.github.io/2017/04/06/RL4/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="reference:    UCL Course on RL Lecture 4 Model-Free PredictionEstimate the value function of an unknown MDP Monte-Carlo Reinforcement learning MC methods learn directly from episodes of experience MC">
+<meta property="og:image" content="http://i2.muimg.com/567571/5c127fc9c91b8549.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/7ff4a8d6a853c8e6.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/2a0f5cc516550dc4.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/6122d65e7fd835a5.png">
+<meta property="og:image" content="http://i4.buimg.com/567571/718d23886e0d9e53.png">
+<meta property="og:updated_time" content="2017-04-30T11:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL4 Model-Free Prediction">
+<meta name="twitter:description" content="reference:    UCL Course on RL Lecture 4 Model-Free PredictionEstimate the value function of an unknown MDP Monte-Carlo Reinforcement learning MC methods learn directly from episodes of experience MC">
+<meta name="twitter:image" content="http://i2.muimg.com/567571/5c127fc9c91b8549.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/04/06/RL4/"/>
+
+
+
+
+
+  <title>RL4 Model-Free Prediction | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/04/06/RL4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RL4 Model-Free Prediction</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-06T19:22:03+08:00">
+                2017-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/reinforcement-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">reinforcement learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/06/RL4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/06/RL4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/06/RL4/" class="leancloud_visitors" data-flag-title="RL4 Model-Free Prediction">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>reference:<br>    <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html" target="_blank" rel="external">UCL Course on RL</a></p>
+<h1 id="Lecture-4-Model-Free-Prediction"><a href="#Lecture-4-Model-Free-Prediction" class="headerlink" title="Lecture 4 Model-Free Prediction"></a>Lecture 4 Model-Free Prediction</h1><p>Estimate the value function of an unknown MDP</p>
+<h2 id="Monte-Carlo-Reinforcement-learning"><a href="#Monte-Carlo-Reinforcement-learning" class="headerlink" title="Monte-Carlo Reinforcement learning"></a>Monte-Carlo Reinforcement learning</h2><ul>
+<li>MC methods learn directly from episodes of experience</li>
+<li>MC is model-free: no knowledge of MDP transition/rewards</li>
+<li>MC learns from complete episodes: no bootstrapping</li>
+<li>MC uses the simplest possible idea: value = mean return</li>
+<li>Caveat: can only apply MC to episodic MDPs<ul>
+<li>All episodes must terminate</li>
+</ul>
+</li>
+</ul>
+<h3 id="MC-Policy-Evaluation"><a href="#MC-Policy-Evaluation" class="headerlink" title="MC Policy Evaluation"></a>MC Policy Evaluation</h3><ul>
+<li><strong>Goal</strong>: learn $v_{\pi}$ from episodes of experience under policy $\pi$, $S_1,A_1,R_2,\dots,S_k \sim \pi $</li>
+<li>Recall that the return is the total discounted reward: $G_t = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^{T-1} R_{T} $</li>
+<li>Recall that the value function is the expected return: $v_{\pi} (s) = E_{\pi} [G_t|S_t =s]$</li>
+<li>MC policy evaluation uses empirical mean return instead of expected return</li>
+</ul>
+<h3 id="First-Visit-MC-Policy-Evaluation"><a href="#First-Visit-MC-Policy-Evaluation" class="headerlink" title="First-Visit MC Policy Evaluation"></a>First-Visit MC Policy Evaluation</h3><ul>
+<li>To evaluate state $s$</li>
+<li>The <strong>first</strong> time-step $t$ that state $s$ is visited in an episode</li>
+<li>Increment counter $N(s) \longleftarrow N(s) +1 $</li>
+<li>Increment total return $S(s) \longleftarrow S(s) +G_t$</li>
+<li>Value is estimated by mean return $V(s) = S(s)/N(s) $</li>
+<li>By law of large numbers, $V(s) \rightarrow v_{\pi} (s) $ as $N(s) \rightarrow \infty$</li>
+</ul>
+<h3 id="Every-Visit-MC-Policy-Evaluation"><a href="#Every-Visit-MC-Policy-Evaluation" class="headerlink" title="Every-Visit MC Policy Evaluation"></a>Every-Visit MC Policy Evaluation</h3><ul>
+<li>To evaluate state $s$</li>
+<li><strong>Every</strong> time-step $t$ that state $s$ is visited in an episode</li>
+<li>Increment counter $N(s) \longleftarrow N(s) +1 $</li>
+<li>Increment total return $S(s) \longleftarrow S(s) +G_t$</li>
+<li>Value is estimated by mean return $V(s) = S(s)/N(s) $</li>
+<li>By law of large numbers, $V(s) \rightarrow v_{\pi} (s) $ as $N(s) \rightarrow \infty$</li>
+</ul>
+<h3 id="Incremental-MC"><a href="#Incremental-MC" class="headerlink" title="Incremental MC"></a>Incremental MC</h3><p><strong>Incremental Mean</strong><br>The mean $\mu_1,\mu_2,\dots$ of a sequence $x_1,x_2,\dots$ can be computed incrementally,<br>$$\mu_k = \mu_{k-1} + \frac{1}{k} (x_k - \mu_{k-1}) $$</p>
+<p><strong>Incremental MC updates</strong></p>
+<ul>
+<li>Update $V(s)$ incrementally after episode $S_1,A_1,R_1,\dots,S_T$</li>
+<li>For each state $S_t$ with return $G_t$.<br>$$ N(S_t) \leftarrow N(S_t) + 1 $$<br>$$ V(S_t) \leftarrow V(S_t) + \frac{1}{N(S_t)} (G_t - V(S_t)) $$ </li>
+<li>In non-stationary problems, it can be useful to track a running mean, i.e. forget old episodes<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (G-V(S_t)) $$</li>
+</ul>
+<p>$\alpha$ is the update rate.</p>
+<h2 id="Temporal-Difference-Learning"><a href="#Temporal-Difference-Learning" class="headerlink" title="Temporal-Difference Learning"></a>Temporal-Difference Learning</h2><ul>
+<li>TD method learn directly from episodes of experience</li>
+<li>TD is <em>model-free</em>: no knowledge of MDP transitions/rewards</li>
+<li>TD learns from <em>incomplete</em> episodes, by bootstrapping</li>
+<li>TD updates a guess towards a guess</li>
+</ul>
+<h3 id="TD-algorithm"><a href="#TD-algorithm" class="headerlink" title="TD algorithm"></a>TD algorithm</h3><ul>
+<li><strong>Goal</strong>: learn $v_{\pi}$ online from experience under policy $\pi$</li>
+<li>Incremental every-visit MC<ul>
+<li>Update value $V(S_t)$ toward actual return $G_t$<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (G_t - V(S_t)) $$</li>
+</ul>
+</li>
+<li>Simplest temporal-difference learning algorithm: TD(0)<ul>
+<li>Update value $V(S_t)$ toward estimated return $R_{t+1} + \gamma V(S_{t+1})$<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (R_{t+1} + \gamma V(S_{t+1}) -V(S_t)) $$</li>
+<li>$R_{t+1}+\gamma V(S_{t+1})$ is called the TD target</li>
+<li>$\delta_t = R_{t+1} + \gamma V(S_{t+1}) -V(S_t)$ is called the TD error</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bias-Variance-Trade-off"><a href="#Bias-Variance-Trade-off" class="headerlink" title="Bias/Variance Trade-off"></a>Bias/Variance Trade-off</h3><ul>
+<li>Return $G_t = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^{T-1} R_T$ is unbiased estimate of $v_{\pi} (S_t)$</li>
+<li>True TD target $R_{t+1} + \gamma v_{\pi} (S_{t+1}) $ is unbiased estimate of $v_{\pi}(S_t)$</li>
+<li>TD target $R_{t+1} + \gamma V(S_{t+1})$ is biased estimate of $v_{\pi} (S_t)$</li>
+<li>TD target is much lower variance than the return<ul>
+<li>Return depends on many random actions, transitions, rewards</li>
+<li>TD target depends on one random action, transition, reward</li>
+</ul>
+</li>
+</ul>
+<h3 id="Batch-MC-and-TD"><a href="#Batch-MC-and-TD" class="headerlink" title="Batch MC and TD"></a>Batch MC and TD</h3><ul>
+<li>MC and TD converge: $V(s) \rightarrow v_{\pi} (s)$ as experience $\rightarrow \infty$</li>
+<li>But what about batch solution for finite experience?<ul>
+<li>e.g. Repeatedly sample episode $k\in [1,K] $</li>
+<li>Apply MC or TD(0) to episode $k$</li>
+</ul>
+</li>
+</ul>
+<h3 id="Certainty-Equivalence"><a href="#Certainty-Equivalence" class="headerlink" title="Certainty Equivalence"></a>Certainty Equivalence</h3><ul>
+<li><p>MC converges to solution with minimum mean-squared error</p>
+<ul>
+<li>Best fit to the observed returns<br>$$ \sum_{k=1}^{K} \sum_{t=1}^{T_k} (G_t^k -V(s_t^k))^2 $$</li>
+</ul>
+</li>
+<li><p>TD(0) converges to solution of max likelihood Markov model</p>
+<ul>
+<li>Solution to the MDP $(S,A,\hat{P},\hat{R},\gamma)$ that best fits the data<br>$$ \hat{P}_{s,s’}^a = \frac{1}{N(s,a)} \sum_{k=1}^{K} \sum_{t=1}^{T_k} 1(s_t^k,a_t^k,s_{t+1}^k = s,a,s’) $$<br>$$ \hat{R}_s^a = \frac{1}{N(s,a)} \sum_{k=1}^{K} \sum_{t=1}^{T_k} 1(s_t^k,a_t^k = s,a) r_t^k $$ <h3 id="Advantages-and-Disadvantages-of-MC-vs-TD"><a href="#Advantages-and-Disadvantages-of-MC-vs-TD" class="headerlink" title="Advantages and Disadvantages of MC vs. TD"></a>Advantages and Disadvantages of MC vs. TD</h3></li>
+</ul>
+</li>
+<li>TD can learn before knowing the final outcome<ul>
+<li>TD can learn online after every step</li>
+<li>MC must wait until end of episode before return is known</li>
+</ul>
+</li>
+<li>TD can learn without the final outcome<ul>
+<li>TD can learn from incomplete sequences</li>
+<li>MC can only learn from complete sequences</li>
+<li>TD works in continuing (non-terminating) environments</li>
+<li>MC only works for episodic (terminating) environments</li>
+</ul>
+</li>
+<li>MC has high variance, zero bias<ul>
+<li>Good convergence properties</li>
+<li>(even with function approximation)</li>
+<li>Not every sensitive to initial value</li>
+<li>Very simple to understand and use</li>
+</ul>
+</li>
+<li>TD has low variance, some bias<ul>
+<li>Usually more efficient than MC</li>
+<li>TD(0) converges to $v_{\pi} (s)$</li>
+<li>(but not always with function approximation)</li>
+<li>More sensitive to initial value</li>
+</ul>
+</li>
+<li>TD exploits Markov property<ul>
+<li>Usually more efficient in Markov environments</li>
+</ul>
+</li>
+<li>MC does not exploit Markov property<ul>
+<li>Usually more efficient in non-Markov environments</li>
+</ul>
+</li>
+</ul>
+<h3 id="Unified-View"><a href="#Unified-View" class="headerlink" title="Unified View"></a>Unified View</h3><p>Monte-Carlo Backup<br><img src="http://i2.muimg.com/567571/5c127fc9c91b8549.png" alt="MC Backup"><br>Temporal-Difference Backup<br><img src="http://i4.buimg.com/567571/7ff4a8d6a853c8e6.png" alt="TD Backup"><br>Dynamic Programming Backup<br><img src="http://i1.piimg.com/567571/2a0f5cc516550dc4.png" alt="DP Backup"><br>Unified View of Reinforcement Learning<br><img src="http://i1.piimg.com/567571/6122d65e7fd835a5.png" alt="Unified View of RL"></p>
+<h3 id="Bootstrapping-and-Sampling"><a href="#Bootstrapping-and-Sampling" class="headerlink" title="Bootstrapping and Sampling"></a>Bootstrapping and Sampling</h3><ul>
+<li><strong>Bootstrapping</strong>: update involves an estimate<ul>
+<li>MC dose not bootstrap</li>
+<li>DP/TD bootstraps</li>
+</ul>
+</li>
+<li><strong>Sampling</strong>: update samples an expectation<ul>
+<li>MC/TD samples</li>
+<li>DP does not sample</li>
+</ul>
+</li>
+</ul>
+<h2 id="TD-lambda"><a href="#TD-lambda" class="headerlink" title="TD($\lambda$)"></a>TD($\lambda$)</h2><h3 id="n-Step-Return"><a href="#n-Step-Return" class="headerlink" title="n-Step Return"></a>n-Step Return</h3><ul>
+<li>Consider the following n-step returns for $n=1,2,\dots$<ul>
+<li>n=1 (TD) $G_t^{(1)}=R_{t+1} + \gamma V(S_{t+1})$</li>
+<li>n=2 $G_t^{(2)} = R_{t+1} + \gamma R_{t+2} + \gamma^2 V(S_{t+2})$</li>
+<li>n=$\infty$, $G_t^{(\infty)} = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^{T-1} R_T $</li>
+</ul>
+</li>
+<li>Define the n-step return<br>$$ G_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \dots + \gamma^{n-1} R_{t+n} + \gamma^{n} V(S_{t+n})$$</li>
+<li>n-step temporal-difference learning<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (G_{(n)} - V(S_t)) $$</li>
+</ul>
+<h3 id="Averaging-n-Step-Returns"><a href="#Averaging-n-Step-Returns" class="headerlink" title="Averaging n-Step Returns"></a>Averaging n-Step Returns</h3><ul>
+<li>We can average n-step returns over different n</li>
+<li>e.g average the 2-step and 4-step returns $\frac{1}{2} G^{(2)} + \frac{1}{2} G^{(4)}$</li>
+<li>Combines information from two different time-steps</li>
+<li>Can we efficiently combine information from all time-steps</li>
+</ul>
+<h3 id="lambda-return"><a href="#lambda-return" class="headerlink" title="$\lambda$ return"></a>$\lambda$ return</h3><ul>
+<li>The $\lambda-$return $G_t^{\lambda}$ combines all n-step return $G_t^{(n)}$</li>
+<li>Using weight $(1-\lambda)\lambda^{n-1}$<br>$$ G_t^{\lambda} = (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1} G_t^{(n)} $$</li>
+<li>Forward-view TD($\lambda$)<br>$$ V(S_t) \leftarrow V(S_t) + \alpha (G_t^{\lambda} -V(S_t)) $$</li>
+</ul>
+<h3 id="Forward-view-TD-lambda"><a href="#Forward-view-TD-lambda" class="headerlink" title="Forward-view TD($\lambda$)"></a>Forward-view TD($\lambda$)</h3><p>$$ G_{t}^{\lambda} = (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1} G_t^{(n)} $$</p>
+<ul>
+<li>Update value function towards the $\lambda$-return</li>
+<li>Forward-view looks into the future to compute $G_t^{\lambda}$</li>
+<li>Like MC, can only be computed from complete episodes</li>
+</ul>
+<h3 id="Backward-view-TD-lambda"><a href="#Backward-view-TD-lambda" class="headerlink" title="Backward-view TD($\lambda$)"></a>Backward-view TD($\lambda$)</h3><ul>
+<li>Forward view provides theory</li>
+<li>Backward view provides mechanism</li>
+<li>Update online, every step, from incomplete sequences</li>
+</ul>
+<h3 id="Relationship-Between-Forward-and-Backward-TD"><a href="#Relationship-Between-Forward-and-Backward-TD" class="headerlink" title="Relationship Between Forward and Backward TD"></a>Relationship Between Forward and Backward TD</h3><p><strong>TD($\lambda$) and TD(0)</strong></p>
+<ul>
+<li>when $\lambda=0$, only current state is updated<br>$$ E_t (s) = 1(S_t =s) \qquad V(s) \leftarrow V(s) + \alpha \delta_t E_t(s)$$</li>
+<li>This is exactly equivalent to TD(0) update<br>$$ V(S_t) \leftarrow V(S_t) + \alpha \delta_t $$</li>
+</ul>
+<p><strong>TD($\lambda$) and MC</strong></p>
+<ul>
+<li>When $\lambda=1$, credit is deferred until end of episode</li>
+<li>Consider episodic environments with offline updates</li>
+<li>Over the course of an episode, total update for TD(1) is the same as total update for MC<blockquote>
+<p><strong>Theorem</strong><br>The sum of offline updates is identical for forward-view and backward-view TD($\lambda$)<br>$$ \sum_{t=1}^{T} \alpha \delta_t E_t(s) = \sum_{t=1}^T \alpha (G_t^{\lambda} - V(S_t) ) 1(S_t =s) $$</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Forward-and-Backward-Equivalence"><a href="#Forward-and-Backward-Equivalence" class="headerlink" title="Forward and Backward Equivalence"></a>Forward and Backward Equivalence</h3><p><strong>MC and TD(1)</strong></p>
+<ul>
+<li>Consider an episode where $s$ is visited once at time-step $k$.</li>
+<li>TD(1) eligibility trace discounts time since visit,<br>$$ E_t(s) = \gamma E_{t-1} (s) + 1(S_t = s) = \begin{cases} 0 &amp; \text{if}~ t&lt;k \\  \gamma^{t-k} &amp; \text{if} ~ t\ge k \end{cases}$$</li>
+<li>TD(1) updates accumulate error online<br>$$ \sum_{t=1}^{T-1} \alpha \delta_t E_t(s) = \alpha \sum_{t=k}^{T-1} \gamma^{t-k} \delta_t = \alpha (G_k - V(S_k)) $$</li>
+<li>By end of episode it accumulates total error<br>$$ \delta_k + \gamma \delta_{k+1} + \gamma^2 \delta_{k+2} + \dots + \gamma^{T-1-k} \delta_{T-1} $$</li>
+</ul>
+<p><strong>TD(\lambda) and TD(1)</strong></p>
+<ul>
+<li>TD(1) is roughly equivalent to every-visit Monte-Carlo</li>
+<li>Error is accumulated online, step-by-step</li>
+<li>If value function is only updated offline at end of episode</li>
+<li>Then total update is exactly the same as MC</li>
+</ul>
+<p><strong>Forward and Backwards TD($\lambda$)</strong></p>
+<ul>
+<li>Consider an episode where $s$ is visited once at time-step $k$</li>
+<li>TD($\lambda$) eligibility trace discounts time since visit<br>$$ E_t(s) = \gamma\lambda E_{t-1} (s) + 1(S_t = s) = \begin{cases} 0 &amp; \text{if}~ t&lt;k \\  (\gamma\lambda)^{t-k} &amp; \text{if} ~ t\ge k \end{cases}$$</li>
+<li>Backward TD($\lambda$) updates accumulate error online<br>$$ \sum_{t=1}^{T} \alpha \delta_t E_t(s) = \alpha \sum_{t=k}^T (\gamma\lambda)^{t-k} \delta_t = \alpha(G_k^\lambda - V(S_k)) $$</li>
+<li>By end of episode it accumulates total error for $\lambda$-return</li>
+<li>For multiple visits to $s$, $E_t(s)$ accumulates many errors</li>
+</ul>
+<p><strong>Offline Equivalence of Forward and Backward TD</strong><br>Offline updates</p>
+<ul>
+<li>Updates are accumulated within episode</li>
+<li>but applied in batch at the end of episode</li>
+</ul>
+<p>Online updates</p>
+<ul>
+<li>TD($\lambda$) updates are applied online at each step within episode</li>
+<li>Forward and backward-view TD($\lambda$) are slightly different</li>
+<li><strong>New</strong>: Exact online TD($\lambda$) achieves perfect equivalence</li>
+<li>By using a slightly differently form of eligibility trace</li>
+</ul>
+<h3 id="Summary-of-Forward-and-Backward-TD-lambda"><a href="#Summary-of-Forward-and-Backward-TD-lambda" class="headerlink" title="Summary of Forward and Backward TD($\lambda$)"></a>Summary of Forward and Backward TD($\lambda$)</h3><p><img src="http://i4.buimg.com/567571/718d23886e0d9e53.png" alt="Summary of Forward and Backward TD($\lambda$)"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/05/RL3/" rel="next" title="RL3 Planning by Dynamic Programming">
+                <i class="fa fa-chevron-left"></i> RL3 Planning by Dynamic Programming
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/10/RL5/" rel="prev" title="RL5 Model-Free Control">
+                RL5 Model-Free Control <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpeg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-4-Model-Free-Prediction"><span class="nav-number">1.</span> <span class="nav-text">Lecture 4 Model-Free Prediction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Monte-Carlo-Reinforcement-learning"><span class="nav-number">1.1.</span> <span class="nav-text">Monte-Carlo Reinforcement learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MC-Policy-Evaluation"><span class="nav-number">1.1.1.</span> <span class="nav-text">MC Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Visit-MC-Policy-Evaluation"><span class="nav-number">1.1.2.</span> <span class="nav-text">First-Visit MC Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Every-Visit-MC-Policy-Evaluation"><span class="nav-number">1.1.3.</span> <span class="nav-text">Every-Visit MC Policy Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Incremental-MC"><span class="nav-number">1.1.4.</span> <span class="nav-text">Incremental MC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temporal-Difference-Learning"><span class="nav-number">1.2.</span> <span class="nav-text">Temporal-Difference Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TD-algorithm"><span class="nav-number">1.2.1.</span> <span class="nav-text">TD algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bias-Variance-Trade-off"><span class="nav-number">1.2.2.</span> <span class="nav-text">Bias/Variance Trade-off</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-MC-and-TD"><span class="nav-number">1.2.3.</span> <span class="nav-text">Batch MC and TD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Certainty-Equivalence"><span class="nav-number">1.2.4.</span> <span class="nav-text">Certainty Equivalence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advantages-and-Disadvantages-of-MC-vs-TD"><span class="nav-number">1.2.5.</span> <span class="nav-text">Advantages and Disadvantages of MC vs. TD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unified-View"><span class="nav-number">1.2.6.</span> <span class="nav-text">Unified View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bootstrapping-and-Sampling"><span class="nav-number">1.2.7.</span> <span class="nav-text">Bootstrapping and Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TD-lambda"><span class="nav-number">1.3.</span> <span class="nav-text">TD($\lambda$)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#n-Step-Return"><span class="nav-number">1.3.1.</span> <span class="nav-text">n-Step Return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Averaging-n-Step-Returns"><span class="nav-number">1.3.2.</span> <span class="nav-text">Averaging n-Step Returns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda-return"><span class="nav-number">1.3.3.</span> <span class="nav-text">$\lambda$ return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forward-view-TD-lambda"><span class="nav-number">1.3.4.</span> <span class="nav-text">Forward-view TD($\lambda$)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backward-view-TD-lambda"><span class="nav-number">1.3.5.</span> <span class="nav-text">Backward-view TD($\lambda$)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relationship-Between-Forward-and-Backward-TD"><span class="nav-number">1.3.6.</span> <span class="nav-text">Relationship Between Forward and Backward TD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forward-and-Backward-Equivalence"><span class="nav-number">1.3.7.</span> <span class="nav-text">Forward and Backward Equivalence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary-of-Forward-and-Backward-TD-lambda"><span class="nav-number">1.3.8.</span> <span class="nav-text">Summary of Forward and Backward TD($\lambda$)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/04/06/RL4/';
+          this.page.identifier = '2017/04/06/RL4/';
+          this.page.title = 'RL4 Model-Free Prediction';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
