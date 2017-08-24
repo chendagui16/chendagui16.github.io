@@ -133,7 +133,7 @@ menu:
   archives: /archives/
   tags: /tags/
   #sitemap: /sitemap.xml
-  #commonweal: /404/
+  commonweal: /404.html
 
 # Enable/Disable menu icons.
 # Icon Mapping:
