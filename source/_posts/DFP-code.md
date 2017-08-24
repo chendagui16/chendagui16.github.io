@@ -2,7 +2,7 @@
 title: DFP_code
 mathjax: true
 date: 2017-08-07 21:10:59
-categories: reinforecement learning
+categories: code analyze
 tags: [reinforcement learning, code]
 ---
 
