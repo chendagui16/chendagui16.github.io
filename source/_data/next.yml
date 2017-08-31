@@ -445,15 +445,15 @@ valine:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
-##  type: button
+baidushare:
+  type: slide
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
 # And you can find the use guide at official webiste: http://www.jiathis.com/.
 # Warning: JiaThis does not support https.
-jiathis:
-  uid: 2130803 #Get this uid from http://www.jiathis.com/
+# jiathis:
+#  uid: 2130803 #Get this uid from http://www.jiathis.com/
 #add_this_id:
 
 # Share
