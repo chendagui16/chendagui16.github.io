@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="work tips,vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="实用的vim配置 作为一个工具控，平日里就喜欢配置一些好用的工具。俗话说，工欲善其事，必先利其器，而vim可以说就是这里面的尚方宝剑了。 话说我身边使用vim的人大致分为两种：第一类是由于特殊原因（比如在服务器）无法使用图形界面，所以被迫使用了这样的可以在命令汗工作的编辑工具；第二类是主动去学习这样一款“世界上最好的编辑器”，并真心觉得它很cool的人。我的这篇博客也是面对这样的人。 至于对vim">
+<meta name="keywords" content="work tips,vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim">
+<meta property="og:url" content="https://chendagui16.github.io/2017/10/03/vim/index.html">
+<meta property="og:site_name" content="Chen Dagui&#39;s Blog">
+<meta property="og:description" content="实用的vim配置 作为一个工具控，平日里就喜欢配置一些好用的工具。俗话说，工欲善其事，必先利其器，而vim可以说就是这里面的尚方宝剑了。 话说我身边使用vim的人大致分为两种：第一类是由于特殊原因（比如在服务器）无法使用图形界面，所以被迫使用了这样的可以在命令汗工作的编辑工具；第二类是主动去学习这样一款“世界上最好的编辑器”，并真心觉得它很cool的人。我的这篇博客也是面对这样的人。 至于对vim">
+<meta property="og:image" content="http://odchpimz0.bkt.clouddn.com/20171008150746687987862.png">
+<meta property="og:image" content="http://odchpimz0.bkt.clouddn.com/20171009150755168013935.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif">
+<meta property="og:image" content="https://camo.githubusercontent.com/eb64a0924422c0a70f86cd0c91697b5ff36e5d3f/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f3330363530322f313036303833312f30356330386161632d313162632d313165332d383437302d6135303661333033376634352e706e67">
+<meta property="og:image" content="http://odchpimz0.bkt.clouddn.com/20171005150719403895945.png">
+<meta property="og:image" content="http://odchpimz0.bkt.clouddn.com/20171007150734916375512.png">
+<meta property="og:image" content="https://camo.githubusercontent.com/3fe0388df11cb787f36e1fa108398fd3f757eef4/687474703a2f2f692e696d6775722e636f6d2f6a534377476a552e6769663f31">
+<meta property="og:image" content="https://camo.githubusercontent.com/353e531f32ee489c830236b6f8225cda271192cd/687474703a2f2f7261772e6769746875622e636f6d2f67726567736578746f6e2f676974762f6d61737465722f696d672f676974762d636f6d6d69742e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/f88161827e0cbb3144455b9e5c7582fdd5b5fc83/68747470733a2f2f7261772e6769746875622e636f6d2f616972626c6164652f76696d2d6769746775747465722f6d61737465722f73637265656e73686f742e706e67">
+<meta property="og:image" content="https://raw.githubusercontent.com/w0rp/ale/master/img/example.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/junegunn/i/master/vim-easy-align-slow.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/mattn/emmet-vim/master/doc/screenshot.gif">
+<meta property="og:image" content="https://camo.githubusercontent.com/1f3f922431d5363224b20e99467ff28b04e810e2/687474703a2f2f692e696d6775722e636f6d2f304f50346f6f642e676966">
+<meta property="og:image" content="https://camo.githubusercontent.com/296aecf30e1607233814196db6bd3f5f47e70c73/68747470733a2f2f7261772e6769746875622e636f6d2f5369725665722f756c7469736e6970732f6d61737465722f646f632f64656d6f2e676966">
+<meta property="og:image" content="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif">
+<meta property="og:image" content="https://camo.githubusercontent.com/64655fb5626161f9245df9b562ff8584fc61067f/68747470733a2f2f7261772e6769746875622e636f6d2f74657272796d612f76696d2d657870616e642d726567696f6e2f6d61737465722f657870616e642d726567696f6e2e676966">
+<meta property="og:updated_time" content="2017-10-09T15:38:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim">
+<meta name="twitter:description" content="实用的vim配置 作为一个工具控，平日里就喜欢配置一些好用的工具。俗话说，工欲善其事，必先利其器，而vim可以说就是这里面的尚方宝剑了。 话说我身边使用vim的人大致分为两种：第一类是由于特殊原因（比如在服务器）无法使用图形界面，所以被迫使用了这样的可以在命令汗工作的编辑工具；第二类是主动去学习这样一款“世界上最好的编辑器”，并真心觉得它很cool的人。我的这篇博客也是面对这样的人。 至于对vim">
+<meta name="twitter:image" content="http://odchpimz0.bkt.clouddn.com/20171008150746687987862.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chendagui16.github.io/2017/10/03/vim/"/>
+
+
+
+
+
+  <title>vim | Chen Dagui's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chen Dagui's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Machine Learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chendagui16.github.io/2017/10/03/vim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dagui Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chen Dagui's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vim</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-03T13:28:31+08:00">
+                2017-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software-setting/" itemprop="url" rel="index">
+                    <span itemprop="name">software setting</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/03/vim/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/03/vim/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/03/vim/" class="leancloud_visitors" data-flag-title="vim">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="实用的vim配置"><a href="#实用的vim配置" class="headerlink" title="实用的vim配置"></a>实用的vim配置</h1><hr>
+<p>作为一个工具控，平日里就喜欢配置一些好用的工具。俗话说，工欲善其事，必先利其器，而vim可以说就是这里面的尚方宝剑了。</p>
+<p>话说我身边使用vim的人大致分为两种：第一类是由于特殊原因（比如在服务器）无法使用图形界面，所以被迫使用了这样的可以在命令汗工作的编辑工具；第二类是主动去学习这样一款“世界上最好的编辑器”，并真心觉得它很cool的人。我的这篇博客也是面对这样的人。</p>
+<p>至于对vim的安利，我就不说了，网上搜索下来可以搜到一大把。我用我个人感受来描述它，就是：学会它，你会自愿抛弃所有其他的编辑器，你会变得更有效率，更cool！然而vim的使用效率是和你对它的配置能力成正比的，网上有很多分享vim配置的博客，但是对于大部分萌新来说，直接使用别人的配置文件确实上手很快，但是每个人的需求不同，不学会有效的自定义，怎么可能用好这一“神器”呢？这也成为我写这一片博客的目的了，不仅仅分享vim的配置，同时也会对配置进行一定的解析。<strong>当然，由于个人接触vim时间也不太长，所以对于高手来说，可能会觉得我写得比较菜，还望指正，共同学习</strong></p>
+<blockquote>
+<p>这篇博客主要是分享一些有用的vim插件，分享一些好的自定义配置。它适合的读者是已经对vim的一些基本操作比较熟悉，并渴望进一步玩转vim的人。</p>
+</blockquote>
+<p>主要配置参考<a href="https://github.com/DemonCloud/dotfile" target="_blank" rel="external">aixvim</a>.</p>
+<h2 id="安装我的配置"><a href="#安装我的配置" class="headerlink" title="安装我的配置"></a>安装我的配置</h2><h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><p>本文中的配置环境主要需要：</p>
+<ul>
+<li>vim8<ul>
+<li>python支持</li>
+</ul>
+</li>
+</ul>
+<p>为什么需要vim8？因为快！vim8可以支持并发，有很多好用的并发的插件不能用岂不是很可惜。至于python支持，主要是为了一些需要python的插件，尤其是youcompleteme，有了它，可以告别IDE了！</p>
+<h4 id="怎么看自己的环境是否满足要求？"><a href="#怎么看自己的环境是否满足要求？" class="headerlink" title="怎么看自己的环境是否满足要求？"></a>怎么看自己的环境是否满足要求？</h4><p>终端运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim --version</div></pre></td></tr></table></figure>
+<p>观察是否有</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">VIM - Vi IMproved 8.0</div></pre></td></tr></table></figure>
+<p>在feature是否有</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+python   # 加号表示支持这种特性</div></pre></td></tr></table></figure>
+<h4 id="如何获得vim8和python支持？"><a href="#如何获得vim8和python支持？" class="headerlink" title="如何获得vim8和python支持？"></a>如何获得vim8和python支持？</h4><p>对于mac，可以使用homebrew直接安装即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install vim</div></pre></td></tr></table></figure>
+<p>对于linux来说，使用apt-get安装时，默认情况下不会安装8.0，这里给出一个从源码编译的安装方式，可以方便定制。</p>
+<p><strong>安装依赖</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \</div><div class="line">    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \</div><div class="line">    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \</div><div class="line">    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git</div></pre></td></tr></table></figure>
+<p><strong>安装编译vim</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line">git clone https://github.com/vim/vim.git</div><div class="line">cd vim</div><div class="line">./configure --with-features=huge \</div><div class="line">            --enable-multibyte \</div><div class="line">            --enable-rubyinterp=yes \</div><div class="line">            --enable-pythoninterp=yes \</div><div class="line">            --with-python-config-dir=/usr/lib/python2.7/config \</div><div class="line">            --enable-perlinterp=yes \</div><div class="line">            --enable-luainterp=yes \</div><div class="line">            --enable-gui=gtk2 \</div><div class="line">            --enable-cscope \</div><div class="line">            --prefix=/usr/local</div></pre></td></tr></table></figure>
+<p>注意到上面开启了很多特性，包括ruby，python，lua等，如果不需要，可以去掉上面的选项。另外对于—with-python-config-dir的选项，需要将后面的路径选择成为自己电脑对应的选项，比如<code>/usr/lib64/python2.7/config-2.7m-x86_64-linux-gnu</code>.</p>
+<p>另外，如果要使用python3，需要将上面的有关python的选项替换为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">--enable-python3interp=yes \</div><div class="line">--with-python3-config-dir=/usr/lib/python3.5/config \</div></pre></td></tr></table></figure>
+<p>编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<p>按照这个流程，会将vim的命令安装在<code>/usr/local/bin</code>的路径下，确认该路径在PATH环境变量下。</p>
+<h5 id="没有权限？"><a href="#没有权限？" class="headerlink" title="没有权限？"></a>没有权限？</h5><p>有时，我们会碰到没有sudo权限的情况，比如在服务器上，我们只需要将上面configure命令下的选项替换成</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--prefix=$HOME</div></pre></td></tr></table></figure>
+<p>然后再编译，这时的vim命令会被安装到<code>$HOME/bin</code>中，将其加入PATH路径即可。（如果使用zsh，可以将.bashrc替换成.zshrc）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo 'export PATH="$HOME/bin:$PATH"' &gt;&gt; $HOME/.bashrc</div><div class="line">source $HOME/.bashrc</div></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>终端中输入</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -o install_vim.sh https://github.com/chendagui16/ConfigFile/blob/master/install_vim.sh</div><div class="line">sh install_vim.sh</div></pre></td></tr></table></figure>
+<ol>
+<li>进入vim，输入</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:PlugInstall</div></pre></td></tr></table></figure>
+<h3 id="针对的环境"><a href="#针对的环境" class="headerlink" title="针对的环境"></a>针对的环境</h3><hr>
+<p><strong>该配置文件使用于linux, mac操作系统，并针对这两个系统做了相对应的键位映射</strong>，为了简便，所有的配置均在<code>$HOME/.vimrc</code>的文件中.</p>
+<h2 id="通用设置"><a href="#通用设置" class="headerlink" title="通用设置"></a>通用设置</h2><p>以下是一些有用的通用设置，无关任何插件，自定义了一些快捷键，也打开了一些方便的功能。同时自定了一些有用的功能。</p>
+<p>这里主要介绍一些比较特殊的功能，一些比较常见的设置见vimrc的注释。</p>
+<h3 id="系统剪贴板"><a href="#系统剪贴板" class="headerlink" title="系统剪贴板"></a>系统剪贴板</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set clipboard=unnamed</div></pre></td></tr></table></figure>
+<p>我们经常会需要将vim中的内容复制到系统剪贴板，或者将系统剪贴板中的文字粘贴到vim中，这个时候我们就需要在复制，粘贴或者剪切时使用一个特殊的前缀<code>&quot;*</code>或者<code>&quot;+</code>, 比如：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"*yy  "</span>*<span class="keyword">p</span>  <span class="comment">"*dd </span></div><div class="line"><span class="string">"+yy  "</span>+<span class="keyword">p</span>  <span class="comment">"+dd</span></div></pre></td></tr></table></figure>
+<p>加入这个前缀就会使用系统的剪贴板。另外如果clipboard的选项中包含”unamed”的字符串，则就会默认使用系统的剪贴板，因此可以不用输入<code>&quot;*</code>或<code>&quot;+</code>。</p>
+<h3 id="Leader键"><a href="#Leader键" class="headerlink" title="Leader键"></a>Leader键</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let mapleader="\&lt;Space&gt;"</div><div class="line">let g:mapleader="\&lt;Space&gt;"</div></pre></td></tr></table></figure>
+<p>默认的leader键为<code>backslash</code>, 为了方便，我们把leader键改成了<code>Space</code>。</p>
+<h3 id="命令补全"><a href="#命令补全" class="headerlink" title="命令补全"></a>命令补全</h3><p>对于vim的命令是可以按<code>tab</code>键进行补全的，但是默认的补全确实不太方便。我们通过一些设置可以进行修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">set wildmenu</div><div class="line">set wildmode=longest,full</div><div class="line">set completeopt=menu,menuone,longest</div><div class="line">set completeopt+=preview</div></pre></td></tr></table></figure>
+<p>可以获得补全效果如下，可以按\<tab\>和\<shift\>+\<tab\>选择</tab\></shift\></tab\></p>
+<p><img src="http://odchpimz0.bkt.clouddn.com/20171008150746687987862.png" alt="vim-completation"></p>
+<h3 id="Undo"><a href="#Undo" class="headerlink" title="Undo"></a>Undo</h3><p>我们经常会碰到这样的情况，我们需要编辑完文件后退出，然后发现改错了，需要回退。然而使用vim中的<code>u</code>键回退，不能回退到过去的历史，因此我们设置如下配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set undofile</div><div class="line">set undodir=~/.vim/undo/</div></pre></td></tr></table></figure>
+<p>将所有的历史存储到了<code>~/.vim/undo</code>的文件夹。并可以支持无限回溯。</p>
+<h3 id="Tab与空格"><a href="#Tab与空格" class="headerlink" title="Tab与空格"></a>Tab与空格</h3><p>有时候，我们会对<code>tab</code>和空格进行区分，（比如在python里面，混合使用<code>tab</code>和空格作为缩进是会导致运行报错的）。因此我们这里提供了一些特殊的方法区分，并转换。</p>
+<p><strong>高亮Tab</strong></p>
+<p>为了区分<code>tab</code>和空格的显示，我们做了如下的设置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set list listchars=tab:-\ ,extends:&gt;,precedes:&lt;</div></pre></td></tr></table></figure>
+<p>显示的效果如下，<code>tab</code>会以一个短横线显示：</p>
+<p><img src="http://odchpimz0.bkt.clouddn.com/20171009150755168013935.png" alt="Tab"></p>
+<p><strong>Space2Tab, Tab2Space</strong></p>
+<p>同时为了也定义了一系列的函数可以转换Tab和Space：Space2Tab, Tab2Space。这两个函数可以支持命令补全，一键运行，可以将Space转换成Tab，也可以将Tab转换成Space。这两个命令不仅仅支持在normal模式下运行，同时也支持在visual模式下指定特殊的范围运行。</p>
+<h3 id="Split切换"><a href="#Split切换" class="headerlink" title="Split切换"></a>Split切换</h3><p>vim在不同窗口下切换的默认键位是<code>Ctrl-w</code>+<code>h(jkl)</code>，这里做了一些修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nnoremap &lt;leader&gt;hh &lt;C-w&gt;h</div><div class="line">nnoremap &lt;leader&gt;jj &lt;C-w&gt;j</div><div class="line">nnoremap &lt;leader&gt;kk &lt;C-w&gt;k</div><div class="line">nnoremap &lt;leader&gt;ll &lt;C-w&gt;l</div></pre></td></tr></table></figure>
+<h3 id="插入模式下的光标快速定位"><a href="#插入模式下的光标快速定位" class="headerlink" title="插入模式下的光标快速定位"></a>插入模式下的光标快速定位</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">inoremap &lt;C-e&gt; &lt;End&gt;</div><div class="line">inoremap &lt;C-f&gt; &lt;Home&gt;</div><div class="line">inoremap &lt;C-d&gt; &lt;Esc&gt;VypA</div><div class="line">inoremap &lt;C-w&gt; &lt;C-o&gt;w</div><div class="line">inoremap &lt;C-b&gt; &lt;C-o&gt;b</div></pre></td></tr></table></figure>
+<p>这里<code>Ctrl+d</code>可以快速复制当前行，并粘贴到下一行，类似于很多其他编辑器一样。</p>
+<h3 id="语法检查和纠正"><a href="#语法检查和纠正" class="headerlink" title="语法检查和纠正"></a>语法检查和纠正</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">" &lt;leader&gt;ss: Spell checking shortcuts</div><div class="line">" fold enable settings</div><div class="line">nnoremap &lt;leader&gt;ss :setlocal spell!&lt;CR&gt;</div><div class="line">nnoremap &lt;leader&gt;sj ]szz</div><div class="line">nnoremap &lt;leader&gt;sk [szz</div><div class="line">nnoremap &lt;leader&gt;sa zg]szz</div><div class="line">nnoremap &lt;leader&gt;sd 1z=</div><div class="line">nnoremap &lt;leader&gt;sf z=</div></pre></td></tr></table></figure>
+<p>在normal模式下使用<code>leader+ss</code>，可以开启或关闭拼写检查，<code>leader+sj(k)</code>，可以将光标定位到下一个（上一个）拼写错误的位置，使用<code>leader+sd</code>，表示自动纠正该错误，<code>leader+sf</code>可以提供可能的纠正列表，并可以选择纠正项。</p>
+<h2 id="配置和插件说明"><a href="#配置和插件说明" class="headerlink" title="配置和插件说明:"></a>配置和插件说明:</h2><h3 id="1-插件管理"><a href="#1-插件管理" class="headerlink" title="1. 插件管理"></a>1. 插件管理</h3><p>对于所有插件来说，最重要的也是最根本的插件就是管理插件了。老牌的管理插件包括<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">vundle</a>，和<a href="https://github.com/tpope/vim-pathogen" target="_blank" rel="external">pathogen</a>。而我这里要强烈推荐的是<a href="https://github.com/junegunn/vim-plug" target="_blank" rel="external">vim-plug</a>. 它包括以下几大优点：</p>
+<ul>
+<li><p>简单，易于安装，相比其他管理插件启动速度快。</p>
+</li>
+<li><p>支持github管理，要安装其他的插件只需要将该插件对应的github名字加入到vimrc即可。例如，你在github中发现了一个支持git的插件<strong>vim-git</strong>，然后要将这个插件加入管理只需要将其仓库名加入vimrc即可。例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">" vimrc中双引号后表示注释，tpope/vim-git表示其github的仓库名</div><div class="line">Plug 'tpope/vim-git'</div></pre></td></tr></table></figure>
+</li>
+<li><p>支持外部管理，可任意指定文件夹进行管理，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">call plug#begin('~/.vim/bundle')  "将.vim/bundle指定为插件管理文件</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>杀手锏</strong>，支持并发。这一点是传统的管理插件所不具备的，所有的插件均可以在并发的安装或更新，也就是说你只需要拥有一个配置文件，在网路好的情况下，可以在几分钟内在任何一台机器上安装完你的所有插件。节约下的时间就是金钱啊！</p>
+</li>
+</ul>
+<p>在vim的命令行输入:PlugInstall (可用<code>tab</code>补全），即可出现以下画面(以下gif来自官方github）：<br><img src="https://raw.githubusercontent.com/junegunn/i/master/vim-plug/installer.gif" alt="pluginstall"></p>
+<p>除了PlugInstall外，常用的命令还包括PlugUpdate和PlugClean，可以直接一键更新，clean掉vimrc中已经删除的插件条目。</p>
+<h3 id="2-主题"><a href="#2-主题" class="headerlink" title="2. 主题"></a>2. 主题</h3><p>主题的插件包括两个部分，第一个部分是颜色主题，由于我在linux，mac的终端上使用的色彩主题都是<a href="http://ethanschoonover.com/solarized" target="_blank" rel="external">solarized</a>的主题，为了保持习惯，这里我也使用了solarized的主题（个人推荐，看着很舒服）。这个主题包含两个配色方案，分别是dark和light。使用的方法是在vimrc中加入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">call plug#begin('~/.vim/bundle')</div><div class="line">... " 其他插件</div><div class="line">Plug 'altercation/vim-colors-solarized'  "添加插件</div><div class="line">...</div><div class="line">call plug#end()</div><div class="line">... " 其他配置</div><div class="line">colorscheme solarized     "使用主题</div><div class="line">set background=dark  "选择配色</div></pre></td></tr></table></figure>
+<p>另外需要注意的是，在tmux中使用vim的时候，可能会出现主题颜色失真的情况，这个时候需要设置终端为256色</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set term=screen-256color</div><div class="line">或</div><div class="line">set t_Co=256</div></pre></td></tr></table></figure>
+<h4 id="配色问题？"><a href="#配色问题？" class="headerlink" title="配色问题？"></a>配色问题？</h4><p>在终端中使用vim的时候，如果直接使用solarized的主题，有可能会碰到终端的颜色和vim的颜色叠加的情况，导致显示变得很怪。为了解决这个问题，可以先将终端改成solarized的配色。方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cd</div><div class="line">git clone git://github.com/seebi/dircolors-solarized.git </div><div class="line">cp ~/dircolors-solarized/dircolors.256dark ~/.dircolors</div><div class="line">eval ‘dircolors .dircolors’</div><div class="line">echo 'export TERM=xterm-256color' &gt;&gt; $HOME/.bashrc</div><div class="line">source $HOME/.bashrc</div><div class="line">git clone https://github.com/coolwanglu/gnome-terminal-colors-solarized</div><div class="line">cd gnome-terminal-colors-solarized</div><div class="line">./set_dark.sh</div></pre></td></tr></table></figure>
+<p>主题所包含的另一个部分是airline，这个主要是提供一个彩色的状态栏，除了好看之外，也能提供不少信息，其中能包括vim模式，文件名，git分支，是否修改，编码方式，结合一些语法插件，甚至可以显示语法错误等。功能比较丰富，推荐使用。使用效果如下：</p>
+<p><img src="https://camo.githubusercontent.com/eb64a0924422c0a70f86cd0c91697b5ff36e5d3f/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f3330363530322f313036303833312f30356330386161632d313162632d313165332d383437302d6135303661333033376634352e706e67" alt="airline"></p>
+<p>在我的配置中，使用airline如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">call plug#begin('~/.vim/bundle')</div><div class="line">... " 其他插件</div><div class="line">Plug 'vim-airline/vim-airline'  "添加插件</div><div class="line">Plug 'vim-airline/vim-airline-themes'</div><div class="line">...</div><div class="line">call plug#end()</div><div class="line">... " 其他配置</div><div class="line">colorscheme solarized     "使用主题</div><div class="line">set background=dark  "选择配色</div><div class="line">" AirLine Setting</div><div class="line">let g:airline_powerline_fonts = 1</div><div class="line">let g:airline_theme='serene'</div><div class="line">let g:airline_left_sep=''</div><div class="line">let g:airline_right_sep=''</div></pre></td></tr></table></figure>
+<p>这里的设置主要是因为我不太喜欢airline的箭头，所以把它取消了，效果如下：</p>
+<p><img src="http://odchpimz0.bkt.clouddn.com/20171005150719403895945.png" alt="my_airline"></p>
+<h4 id="字体不正确？"><a href="#字体不正确？" class="headerlink" title="字体不正确？"></a>字体不正确？</h4><p>airline使用了powerline的字体，其中包含了很多形象的符号字体，在使用airline时，如果终端中为包含该字体则需要安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/powerline/fonts.git --depth=1</div><div class="line">cd fonts</div><div class="line">./install.sh</div><div class="line">cd ..</div><div class="line">rm -rf fonts</div></pre></td></tr></table></figure>
+<p>然后需要在对应终端中选择powerline字体</p>
+<h3 id="3-文件搜索"><a href="#3-文件搜索" class="headerlink" title="3. 文件搜索"></a>3. 文件搜索</h3><p>文件搜索，常用的vim插件是<a href="https://github.com/kien/ctrlp.vim" target="_blank" rel="external">ctrlp</a>，ctrlp的使用方法非常简单，按下<code>ctrl+p</code>即可调出搜索框。支持模糊匹配，可以搜索文件，MRU（Most Recently Used), vim-buffer, tags等。</p>
+<p>不过我们这里推荐使用的一个插件叫<a href="https://github.com/junegunn/fzf" target="_blank" rel="external">fzf</a>，用Go语言实现，利用了vim8的并发机制，可以实现几万文件秒搜。效率感人。而且，它不仅仅支持vim中的使用，也可以支持shell中火tmux中的命令搜索等功能。</p>
+<p>在我的配置文件中，对于文件搜索的配置为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Plug 'junegunn/fzf', &#123; 'dir': '~/.fzf', 'do': './install --all' &#125;</div><div class="line">Plug 'ctrlpvim/ctrlp.vim'</div><div class="line">...</div><div class="line">set rtp+=~/.fzf</div><div class="line">nnoremap z, :FZF --no-mouse .&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>这里将搜索的快捷键改成了<code>z,</code>，不用同时按下，在vim的normal模式下，依次键入即可调出搜索框，尝试一下，你会亲身感受其速度的。</p>
+<p>另外，在终端下，使用<code>ctrl+r</code>可以搜索命令历史</p>
+<h4 id="内容搜索"><a href="#内容搜索" class="headerlink" title="内容搜索"></a>内容搜索</h4><p>一般来说，我们搜索文件时只会搜索文件名。但是经常的，我们会搜索文件内容。这时可以使用<a href="https://github.com/rking/ag.vim" target="_blank" rel="external">ag.vim</a> 可以批量搜索代码，搜索文件，支持模糊匹配，正则表达式，完爆各种IDE的搜索工具。<strong>需要安装<a href="https://github.com/ggreer/the_silver_searcher" target="_blank" rel="external">the_silver_searcher</a></strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Plug 'rking/ag.vim'</div><div class="line">...</div><div class="line">" Ag.vim Settings 官方推荐配置</div><div class="line">let g:ackprg = "ag --nocolor --nogroup --column"</div><div class="line">set grepprg=ag\ --nogroup\ --nocolor</div><div class="line">command -nargs=+ -complete=file -bar Ag silent! grep! &lt;args&gt;|cwindow|redraw!</div><div class="line">nnoremap \ :Ag&lt;SPACE&gt;  " 搜索快捷键改成了\</div></pre></td></tr></table></figure>
+<p>如下是我在一个工程目录下搜索show_info的结果</p>
+<p><img src="http://odchpimz0.bkt.clouddn.com/20171007150734916375512.png" alt="ag"></p>
+<p>这个窗口是可交互的，可以<code>Enter</code>进入相应的文件</p>
+<h3 id="4-文件buffer类插件"><a href="#4-文件buffer类插件" class="headerlink" title="4. 文件buffer类插件"></a>4. 文件buffer类插件</h3><p>这里使用了常用的<a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="external">nerdtree</a> , <a href="https://github.com/Xuyuanp/nerdtree-git-plugin" target="_blank" rel="external">nerdtree-git-plugin</a> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Plug 'scrooloose/nerdtree'</div><div class="line">Plug 'Xuyuanp/nerdtree-git-plugin'</div><div class="line">let g:NERDTreeRespectWildIgnore=1</div><div class="line">let g:NERDTreeDirArrows=0</div><div class="line">nnoremap &lt;F2&gt; :NERDTreeToggle&lt;CR&gt;</div><div class="line">" =============================== Ignore setting =========================</div><div class="line">set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing</div><div class="line">set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux</div><div class="line">set wildignore+=*DS_Store*</div><div class="line">set wildignore+=vendor/rails/**</div><div class="line">set wildignore+=vendor/cache/**</div><div class="line">set wildignore+=*.gem</div><div class="line">set wildignore+=log/**</div><div class="line">set wildignore+=tmp/**</div><div class="line">set wildignore+=*.png,*.jpg,*.gif</div><div class="line">set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**</div><div class="line">set wildignore+=*/.nx/**,*.app,*.git,.git</div></pre></td></tr></table></figure>
+<p>这里进行的主要的设置快捷键设置，<code>F2</code>可以打开或关闭nerdtree，同时设置了忽略文件加入buffer的管理。同时配合nerdtree-git-plugin插件，可以实现如下gif图显示的git相关操作</p>
+<p><img src="https://camo.githubusercontent.com/3fe0388df11cb787f36e1fa108398fd3f757eef4/687474703a2f2f692e696d6775722e636f6d2f6a534377476a552e6769663f31" alt="nerdtree-git-plugin"></p>
+<p>另外针对文件buffer，添加了<a href="https://github.com/yegappan/mru" target="_blank" rel="external">mru</a>和<a href="https://github.com/danro/rename.vim" target="_blank" rel="external">rename</a>的插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Plug 'yegappan/mru'</div><div class="line">Plug 'danro/rename.vim'</div><div class="line">nnoremap &lt;leader&gt;uh :MRU&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p><strong><code>leader</code>键在我的配置中改成了<code>Space</code></strong> 这两个插件的使用很简单，输入快捷键<code>leader+uh</code>（used history的简称），或在vim命令行输入:MRU，可以调出最近使用的文件名buffer，相当于IDE中的打开最近文件。</p>
+<p>rename插件的使用方式即在vim命令行中输入</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:<span class="built_in">rename</span> &#123;newname&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-Git类相关"><a href="#5-Git类相关" class="headerlink" title="5. Git类相关"></a>5. Git类相关</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Plug 'tpope/vim-git'</div><div class="line">Plug 'tpope/vim-fugitive'</div><div class="line">Plug 'gregsexton/gitv'</div><div class="line">Plug 'airblade/vim-gitgutter'</div><div class="line">Plug 'mhinz/vim-signify'</div></pre></td></tr></table></figure>
+<p>这里的<a href="https://github.com/tpope/vim-git" target="_blank" rel="external">vim-git</a> 服务于<a href="https://github.com/tpope/vim-fugitive" target="_blank" rel="external">vim-fugitive</a> ，而vim-fugitive可以说是最好用的有关git的vim插件了，它不仅仅提供了有关git的语法高亮，同时也提供了各种有关git的操作接口. 这个插件所包含的功能实在是难以简单的说明，观看其<a href="https://github.com/tpope/vim-fugitive" target="_blank" rel="external">github</a>中的screenshot可以了解其强大的功能</p>
+<p>常用的命令有：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">:Gedit :Gsplit :Gvsplit :Gtabedit</div><div class="line">:Gstatus (在弹出的窗口使用-, <span class="keyword">p</span>, C进行交互)</div><div class="line">:Gcommit</div><div class="line">:Gblame (在弹出的窗口中使用<span class="keyword">o</span>, :Gedit进行交互)</div><div class="line">:Ggrep</div><div class="line">:Glog</div><div class="line">:Gread :Gwrite</div><div class="line">:Gdiff</div><div class="line">:Gbrowse</div><div class="line">:Gmove :Gdelete</div><div class="line">...</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/gregsexton/gitv" target="_blank" rel="external">gitv</a> 是一个基于vim-fugitive的拓展，提供了一个命令:Gitv，这个拓展可以打开一个可以交互的git文件窗口，可以查看各种提交历史，diff等</p>
+<p><img src="https://camo.githubusercontent.com/353e531f32ee489c830236b6f8225cda271192cd/687474703a2f2f7261772e6769746875622e636f6d2f67726567736578746f6e2f676974762f6d61737465722f696d672f676974762d636f6d6d69742e706e67" alt="gitv"></p>
+<p><a href="https://github.com/airblade/vim-gitgutter" target="_blank" rel="external">vim-gitgutter</a>和<a href="https://github.com/mhinz/vim-signify" target="_blank" rel="external">vim-signfy</a>这两个插件提供了几乎一样的功能，但是vim-signify不仅仅支持git，还支持svn等.</p>
+<p>同时修改配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let g:gitgutter_sign_column_always = 0</div><div class="line">let g:gitgutter_max_signs = 99999</div></pre></td></tr></table></figure>
+<p>支持的效果图如下</p>
+<p><img src="https://camo.githubusercontent.com/f88161827e0cbb3144455b9e5c7582fdd5b5fc83/68747470733a2f2f7261772e6769746875622e636f6d2f616972626c6164652f76696d2d6769746775747465722f6d61737465722f73637265656e73686f742e706e67" alt="gitgutter"></p>
+<p>另外，这两个插件提供了<code>]c</code>,<code>[c</code>的命令，这两个命令在使用fugitive的Gdiff时，可以快速跳转到下一个(上一个)有diff的chrunk.</p>
+<h3 id="6-编程类插件"><a href="#6-编程类插件" class="headerlink" title="6. 编程类插件"></a>6. 编程类插件</h3><h4 id="语法检查"><a href="#语法检查" class="headerlink" title="语法检查"></a>语法检查</h4><p>传统的vim语法检查使用的是<a href="https://github.com/vim-syntastic/syntastic" target="_blank" rel="external">syntastic</a>，这个插件由于不是异步的，所以运行速度很慢，会很大程度上拖慢vim的运行速度。异步的语法检查插件推荐<a href="https://github.com/w0rp/ale" target="_blank" rel="external">ale</a>， 该插件只支持vim8，由于其运行是异步的，所以基本不会卡。</p>
+<p><img src="https://raw.githubusercontent.com/w0rp/ale/master/img/example.gif" alt="ale"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Plug 'w0rp/ale'</div><div class="line">" Set Ale Cheacker</div><div class="line">let g:ale_sign_error = 'o'</div><div class="line">let g:ale_sign_warning = '*'</div><div class="line">let g:ale_linters = &#123;</div><div class="line">	\'python': ['flake8']</div><div class="line">	\&#125;</div></pre></td></tr></table></figure>
+<p>ale不仅仅支持语法检查，还支持自动修正。而且支持大部分的语言，如C，C++，python，R，CUDA，Latex，Lua，Markdown，MATLAB，Java，Swift等，详情见<a href="https://github.com/w0rp/ale" target="_blank" rel="external">github</a> .</p>
+<h4 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h4><p><a href="https://github.com/tpope/vim-commentary" target="_blank" rel="external">vim-commentary</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plug 'tpope/vim-commentary'</div></pre></td></tr></table></figure>
+<p>一个快速对代码进行注释的插件，可以针对不同的文件进行不同的注释，而且在已经注释的情况下，运行相同的命令，可以uncomment. 常用的命令是</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gcc  " normal模式下，注释当前行(或清除注释)</div><div class="line">&#123;Visual&#125; gc  "Visual模式下，注释当前选中的范围（或清除当前范围的注释）</div></pre></td></tr></table></figure>
+<h4 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h4><p>代码对齐是一个常见的需求， 一个好用的代码对齐的插件是<a href="https://github.com/junegunn/vim-easy-align" target="_blank" rel="external">vim-easy-align</a> . 这个插件的使用效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/junegunn/i/master/vim-easy-align-slow.gif" alt="vim-easy-align"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Plug 'junegunn/vim-easy-align'</div><div class="line">" EasyAlign</div><div class="line">nmap ga &lt;Plug&gt;(EasyAlign)</div><div class="line">xmap ga &lt;Plug&gt;(EasyAlign)</div></pre></td></tr></table></figure>
+<p>按照官方的推荐设置，我们使用<code>ga</code>作为对齐的键位映射。</p>
+<p>这个插件有两种使用方式，一种为交互式，一种是live交互式。同时该插件也可以通过命令的方式调用。我个人喜欢在visual模式下，键入<code>ga</code>来启动交互式对齐，然后在交互式对齐中输入命令。常见的命令如下（其他使用方式参见该插件的help文档）：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">visual模式后进入交互式</th>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">等效的命令行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">在第一个等号周围对齐</td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign=</td>
+</tr>
+<tr>
+<td style="text-align:center">2=</td>
+<td style="text-align:center">在第二个等号周围对齐</td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign2=</td>
+</tr>
+<tr>
+<td style="text-align:center">-=</td>
+<td style="text-align:center">在最后一个等号周围对齐</td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign-=</td>
+</tr>
+<tr>
+<td style="text-align:center">*=</td>
+<td style="text-align:center">在所有等号周围对齐</td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign*=</td>
+</tr>
+<tr>
+<td style="text-align:center">**=</td>
+<td style="text-align:center">等号周围的内容自动调节</td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign**=</td>
+</tr>
+<tr>
+<td style="text-align:center">\<enter\> + 其他命令</enter\></td>
+<td style="text-align:center">\<enter\>可以切换对齐模式，包括做左对齐（默认），右对齐，中心对齐，可重复按下切换</enter\></td>
+<td style="text-align:center">右对齐:’&lt;,’&gt;EasyAlign!=中心对齐：:’&lt;,’&gt;EasyAlign!!=</td>
+</tr>
+<tr>
+<td style="text-align:center">\<right\>+其他命令</right\></td>
+<td style="text-align:center">对齐的分隔符右方的文字align到分隔符上，\<left\>则为左边的文字</left\></td>
+<td style="text-align:center">:’&lt;,’&gt;EasyAlign=&lt;l1</td>
+</tr>
+<tr>
+<td style="text-align:center">\<down\>+其他命令</down\></td>
+<td style="text-align:center">对齐的分隔符与对齐的文字之间无间隔</td>
+</tr>
+</tbody>
+</table>
+<p>该插件的功能远不止于此，还可以自定义对齐的方式，详情可在vim中输入:h vim-easy-align查看</p>
+<h4 id="不同语言的插件"><a href="#不同语言的插件" class="headerlink" title="不同语言的插件"></a>不同语言的插件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Plug 'kh3phr3n/python-syntax'</div><div class="line">Plug 'elzr/vim-json'</div><div class="line">Plug 'plasticboy/vim-markdown'</div><div class="line">Plug 'vim-latex/vim-latex'</div></pre></td></tr></table></figure>
+<p>我的配置文件里面还包含了有关不同语法的插件，这些插件针对不同的文件类型提供了不同的功能，有些只是为了语法高亮，有些则是为了提供快捷编辑，用户可以根据需求来选择添加或删除。</p>
+<h3 id="7-补全"><a href="#7-补全" class="headerlink" title="7. 补全"></a>7. 补全</h3><h4 id="emmet-vim"><a href="#emmet-vim" class="headerlink" title="emmet-vim"></a>emmet-vim</h4><p><a href="https://github.com/mattn/emmet-vim" target="_blank" rel="external">emmet-vim</a> 是一个用来在html格式下补全的插件，一个官方的演示如下：</p>
+<p><img src="https://raw.githubusercontent.com/mattn/emmet-vim/master/doc/screenshot.gif" alt="emmet"></p>
+<p>配置如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Plug 'mattn/emmet-vim'</div><div class="line">...</div><div class="line">" Emmet Config</div><div class="line">" change &lt;Tab&gt; config , if use [YouCompleteMe]</div><div class="line">let g:user_emmet_expandabbr_key ='&lt;Tab&gt;'</div><div class="line"></div><div class="line">let g:user_emmet_settings = &#123;</div><div class="line">			\ 'php'     : &#123;</div><div class="line">			\ 'extends' : 'html',</div><div class="line">			\ 'filters' : 'c',</div><div class="line">			\ &#125;,</div><div class="line">			\ 'xml'     : &#123;</div><div class="line">			\ 'extends' : 'html',</div><div class="line">			\ &#125;,</div><div class="line">			\ 'haml'    : &#123;</div><div class="line">			\ 'extends' : 'html',</div><div class="line">			\ &#125;,</div><div class="line">			\ 'phtml'    : &#123;</div><div class="line">			\ 'extends' : 'html',</div><div class="line">			\ &#125;</div><div class="line">			\&#125;</div><div class="line">imap &lt;expr&gt; &lt;tab&gt; emmet#expandAbbrIntelligent("\&lt;tab&gt;")</div></pre></td></tr></table></figure>
+<p>这里将补全的快捷键设置成了<code>tab</code>键，当输入“aa/bb/cc”后键入<code>tab</code>可以自动拓展为如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">aa</span>&gt;</span><span class="tag">&lt;/<span class="name">aa</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bb</span>&gt;</span><span class="tag">&lt;/<span class="name">bb</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">cc</span>&gt;</span><span class="tag">&lt;/<span class="name">cc</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>由于这里使用了<code>tab</code>进行补全拓展，所以在youcompleteme中禁用了<code>tab</code></strong></p>
+<h4 id="YouCompleteMe"><a href="#YouCompleteMe" class="headerlink" title="YouCompleteMe"></a>YouCompleteMe</h4><p><a href="https://github.com/Valloric/YouCompleteMe" target="_blank" rel="external">YouCompleteMe</a> 是一款基于语义的补全插件，其补全功能丝毫不逊色任何IDE，不仅仅可以补全，还可以进行定义，声明的跳转。</p>
+<p><img src="https://camo.githubusercontent.com/1f3f922431d5363224b20e99467ff28b04e810e2/687474703a2f2f692e696d6775722e636f6d2f304f50346f6f642e676966" alt="YouCompleteMe"></p>
+<p><a href="https://github.com/Valloric/YouCompleteMe" target="_blank" rel="external">YouCompleteMe</a>是一款需要编译的插件，如果使用vim8，并添加了python支持后，可以使用如下命令进行编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.vim/bundle/YouCompleteMe</div><div class="line">python install.py --clang-completer</div></pre></td></tr></table></figure>
+<p>YouCompleteMe的配置相对比较复杂，如果按照上述命令编译出现问题，可以参考官方<a href="https://github.com/Valloric/YouCompleteMe" target="_blank" rel="external">build文档</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">Plug 'Valloric/YouCompleteMe'</div><div class="line">Plug 'rdnetto/YCM-Generator', &#123; 'branch': 'stable'&#125;</div><div class="line">...</div><div class="line">"------------------ YouCompleteMe -------------------</div><div class="line">" Linux vim &amp;&amp; NeoVim Using YouCompleteMe</div><div class="line">if(has("mac"))</div><div class="line">	let g:ycm_python_binary_path='/usr/local/bin/python'</div><div class="line">else</div><div class="line">	let g:ycm_server_python_interpreter='/usr/bin/python'</div><div class="line">endif</div><div class="line">let g:ycm_auto_trigger = 1</div><div class="line">let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"</div><div class="line">let g:ycm_collect_identifiers_from_tags_files = 0</div><div class="line">let g:ycm_add_preview_to_completeopt = 5</div><div class="line">let g:ycm_use_ultisnips_completer = 1</div><div class="line">let g:ycm_cache_omnifunc = 1</div><div class="line">let g:ycm_max_diagnostics_to_display = 0</div><div class="line">let g:ycm_key_list_select_completion = ['&lt;C-n&gt;', '&lt;C-j&gt;']</div><div class="line">let g:ycm_key_list_previous_completion = ['&lt;C-p&gt;', '&lt;C-k&gt;']</div><div class="line">let g:ycm_filetype_blacklist = &#123;</div><div class="line">			\ 'tagbar' : 1,</div><div class="line">			\ 'qf' : 1,</div><div class="line">			\ 'notes' : 1,</div><div class="line">			\ 'unite' : 1,</div><div class="line">			\ 'text' : 1,</div><div class="line">			\ 'vimwiki' : 1,</div><div class="line">			\ 'pandoc' : 1,</div><div class="line">			\ 'infolog' : 1,</div><div class="line">			\ 'mail' : 1,</div><div class="line">			\ 'mundo': 1,</div><div class="line">			\ 'fzf': 1,</div><div class="line">			\ 'ctrlp' : 1</div><div class="line">			\&#125;</div><div class="line"></div><div class="line">let g:ycm_error_symbol = '&gt;&gt;'</div><div class="line">let g:ycm_warning_symbol = '&gt;*'</div><div class="line"></div><div class="line">nnoremap &lt;leader&gt;gl :YcmCompleter GoToDeclaration&lt;CR&gt;</div><div class="line">nnoremap &lt;leader&gt;gf :YcmCompleter GoToDefinition&lt;CR&gt;</div><div class="line">nnoremap &lt;leader&gt;gg :YcmCompleter GoToDefinitionElseDeclaration&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>配置说明：</p>
+<ul>
+<li>对于C-family的工程，使用YCM-Generator来生成补全的tag</li>
+<li>针对不同的配置，可能需要自己手动指定python的位置</li>
+<li>使用<code>Ctrl+n(p)</code>或<code>Ctrl+j(k)</code>来选择补全（<strong>由于emmet中使用了<code>tab</code>，所以这里禁用了<code>tab</code></strong>）</li>
+<li>对于黑名单中的文件，不进行补全</li>
+<li>开启了来自ultisnips插件的补全，可以自动拓展成代码片段</li>
+<li>使用快捷键可以跳转到定义，声明</li>
+</ul>
+<h4 id="代码拓展"><a href="#代码拓展" class="headerlink" title="代码拓展"></a>代码拓展</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Plug 'sirver/ultisnips'</div><div class="line">Plug 'honza/vim-snippets'</div><div class="line">...</div><div class="line">let g:UltiSnipsExpandTrigger="&lt;S-tab&gt;"</div></pre></td></tr></table></figure>
+<p>使用<a href="https://github.com/SirVer/ultisnips" target="_blank" rel="external">ultisnips</a> 和<a href="https://github.com/honza/vim-snippets" target="_blank" rel="external">vim-snippets</a> 来进行代码拓展，其中vim-snippets是代码拓展的引擎，ultisnips是一些可拓展的代码。两者结合，可以产生如下的效果</p>
+<p><img src="https://camo.githubusercontent.com/296aecf30e1607233814196db6bd3f5f47e70c73/68747470733a2f2f7261772e6769746875622e636f6d2f5369725665722f756c7469736e6970732f6d61737465722f646f632f64656d6f2e676966" alt="snips"></p>
+<p>在这份配置里面使用<code>Shift+tab</code>可以拓展。</p>
+<h3 id="8-通用插件"><a href="#8-通用插件" class="headerlink" title="8. 通用插件"></a>8. 通用插件</h3><h4 id="smooth-scoll"><a href="#smooth-scoll" class="headerlink" title="smooth-scoll"></a><a href="https://github.com/terryma/vim-smooth-scroll" target="_blank" rel="external">smooth-scoll</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Plug 'terryma/vim-smooth-scroll'</div><div class="line">...</div><div class="line">" Smooth Scroll the terminal</div><div class="line">nnoremap &lt;silent&gt; &lt;C-u&gt; :call smooth_scroll#up(&amp;scroll, 0, 2)&lt;CR&gt;</div><div class="line">nnoremap &lt;silent&gt; &lt;C-d&gt; :call smooth_scroll#down(&amp;scroll, 0, 2)&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>使用这个插件，可以按下<code>Ctrl-u</code>, <code>Ctrl-d</code>来平滑的翻页，类似于滚动的效果。</p>
+<h4 id="Multiple-cursors"><a href="#Multiple-cursors" class="headerlink" title="Multiple-cursors"></a><a href="https://github.com/terryma/vim-multiple-cursors" target="_blank" rel="external">Multiple-cursors</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Plug 'terryma/vim-multiple-cursors'</div><div class="line">...</div><div class="line">" Multip Cursor</div><div class="line">" Default mapping</div><div class="line">let g:multi_cursor_next_key='&lt;C-n&gt;'</div><div class="line">let g:multi_cursor_prev_key='&lt;C-p&gt;'</div><div class="line">let g:multi_cursor_skip_key='&lt;C-x&gt;'</div><div class="line">let g:multi_cursor_quit_key='&lt;Esc&gt;'</div></pre></td></tr></table></figure>
+<p>可以同时编辑多个地方，如下</p>
+<p><img src="https://raw.githubusercontent.com/terryma/vim-multiple-cursors/master/assets/example1.gif" alt="multiple-cursors"></p>
+<h4 id="expand-region"><a href="#expand-region" class="headerlink" title="expand-region"></a><a href="https://github.com/terryma/vim-expand-region" target="_blank" rel="external">expand-region</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Plug 'terryma/vim-expand-region'</div><div class="line">...</div><div class="line">map KK &lt;Plug&gt;(expand_region_expand)</div><div class="line">map JJ &lt;Plug&gt;(expand_region_shrink)</div></pre></td></tr></table></figure>
+<p>在visualize的模式下，按<code>KK</code>或<code>JJ</code>可以拓展或收缩选中的区域</p>
+<p><img src="https://camo.githubusercontent.com/64655fb5626161f9245df9b562ff8584fc61067f/68747470733a2f2f7261772e6769746875622e636f6d2f74657272796d612f76696d2d657870616e642d726567696f6e2f6d61737465722f657870616e642d726567696f6e2e676966" alt="expand-region"></p>
+<h4 id="复制的区域闪烁"><a href="#复制的区域闪烁" class="headerlink" title="复制的区域闪烁"></a>复制的区域闪烁</h4><p>这里使用了两个轻量的插件，实现了使得复制时，所选择内容闪烁。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Plug 'kana/vim-operator-user'</div><div class="line">Plug 'haya14busa/vim-operator-flashy'</div><div class="line">...</div><div class="line">map y &lt;Plug&gt;(operator-flashy)</div><div class="line">nmap Y &lt;Plug&gt;(operator-flashy)$</div></pre></td></tr></table></figure>
+<h4 id="incsearch"><a href="#incsearch" class="headerlink" title="incsearch"></a><a href="https://github.com/haya14busa/incsearch.vim" target="_blank" rel="external">incsearch</a></h4><p>这个属于增强vim的默认搜索的插件，使用起来跟默认的搜索一样，但是在显示上会比较友好。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Plug 'haya14busa/incsearch.vim'</div><div class="line">...</div><div class="line">" Vim incsearch</div><div class="line">let g:vim_search_pulse_disable_auto_mappings = 1</div><div class="line">let g:incsearch#auto_nohlsearch = 1</div><div class="line">map / &lt;Plug&gt;(incsearch-forward)</div><div class="line">map ? &lt;Plug&gt;(incsearch-backward)</div><div class="line">map g/ &lt;Plug&gt;(incsearch-stay)</div><div class="line"></div><div class="line">map n &lt;Plug&gt;(incsearch-nohl-n)zzzv</div><div class="line">map N &lt;Plug&gt;(incsearch-nohl-N)zzzv</div><div class="line">map * &lt;Plug&gt;(incsearch-nohl-*)zzzv</div><div class="line">map # &lt;Plug&gt;(incsearch-nohl-#)zzzv</div><div class="line">map g* &lt;Plug&gt;(incsearch-nohl-g*)zzzv</div><div class="line">map g# &lt;Plug&gt;(incsearch-nohl-g#)zzzv</div></pre></td></tr></table></figure>
+<p>这里的配置是将incsearch的搜索替换默认的搜索。</p>
+<h4 id="surround"><a href="#surround" class="headerlink" title="surround"></a><a href="https://github.com/tpope/vim-surround" target="_blank" rel="external">surround</a></h4><p>一个快速编辑surround的插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plug 'tpope/vim-surround'</div></pre></td></tr></table></figure>
+<p>使用方法非常简单，参见其<a href="https://github.com/tpope/vim-surround" target="_blank" rel="external">github</a>。常用的命令，比如针对hello，我们想给其加双引号，只需要按下<code>ysiw&quot;</code>，即可编程“hello”，然后在其上按下<code>cs“)</code>，即可其替换成（hello）。</p>
+<h4 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a><a href="https://github.com/tpope/vim-repeat" target="_blank" rel="external">repeat</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plug 'tpope/vim-repeat'</div></pre></td></tr></table></figure>
+<p>我们经常会使用<code>.</code>来重复上次的命令，然而，使用这个操作是不能重复Plugin map的操作，使用这个插件，即可完成这样的功能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/Wechat_pay.jpeg" alt="Dagui Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/work-tips/" rel="tag"># work tips</a>
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/31/option-framework/" rel="next" title="option-framework">
+                <i class="fa fa-chevron-left"></i> option-framework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Dagui Chen" />
+          <p class="site-author-name" itemprop="name">Dagui Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">goblin_chen@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chendagui16" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      Github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://mail.163.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.google.com" target="_blank" title="Google">
+                  
+                    <i class="fa fa-fw fa-google"></i>
+                  
+                    
+                      Google
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实用的vim配置"><span class="nav-number">1.</span> <span class="nav-text">实用的vim配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装我的配置"><span class="nav-number">1.1.</span> <span class="nav-text">安装我的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#要求"><span class="nav-number">1.1.1.</span> <span class="nav-text">要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么看自己的环境是否满足要求？"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">怎么看自己的环境是否满足要求？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何获得vim8和python支持？"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">如何获得vim8和python支持？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#没有权限？"><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">没有权限？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对的环境"><span class="nav-number">1.1.3.</span> <span class="nav-text">针对的环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用设置"><span class="nav-number">1.2.</span> <span class="nav-text">通用设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统剪贴板"><span class="nav-number">1.2.1.</span> <span class="nav-text">系统剪贴板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Leader键"><span class="nav-number">1.2.2.</span> <span class="nav-text">Leader键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令补全"><span class="nav-number">1.2.3.</span> <span class="nav-text">命令补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo"><span class="nav-number">1.2.4.</span> <span class="nav-text">Undo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab与空格"><span class="nav-number">1.2.5.</span> <span class="nav-text">Tab与空格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Split切换"><span class="nav-number">1.2.6.</span> <span class="nav-text">Split切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入模式下的光标快速定位"><span class="nav-number">1.2.7.</span> <span class="nav-text">插入模式下的光标快速定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法检查和纠正"><span class="nav-number">1.2.8.</span> <span class="nav-text">语法检查和纠正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置和插件说明"><span class="nav-number">1.3.</span> <span class="nav-text">配置和插件说明:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-插件管理"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 插件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-主题"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配色问题？"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">配色问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体不正确？"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">字体不正确？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-文件搜索"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 文件搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内容搜索"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">内容搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-文件buffer类插件"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 文件buffer类插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Git类相关"><span class="nav-number">1.3.5.</span> <span class="nav-text">5. Git类相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-编程类插件"><span class="nav-number">1.3.6.</span> <span class="nav-text">6. 编程类插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法检查"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">语法检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码注释"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">代码注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对齐"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">对齐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同语言的插件"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">不同语言的插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-补全"><span class="nav-number">1.3.7.</span> <span class="nav-text">7. 补全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#emmet-vim"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">emmet-vim</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YouCompleteMe"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">YouCompleteMe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码拓展"><span class="nav-number">1.3.7.3.</span> <span class="nav-text">代码拓展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-通用插件"><span class="nav-number">1.3.8.</span> <span class="nav-text">8. 通用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#smooth-scoll"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">smooth-scoll</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multiple-cursors"><span class="nav-number">1.3.8.2.</span> <span class="nav-text">Multiple-cursors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expand-region"><span class="nav-number">1.3.8.3.</span> <span class="nav-text">expand-region</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制的区域闪烁"><span class="nav-number">1.3.8.4.</span> <span class="nav-text">复制的区域闪烁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#incsearch"><span class="nav-number">1.3.8.5.</span> <span class="nav-text">incsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#surround"><span class="nav-number">1.3.8.6.</span> <span class="nav-text">surround</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repeat"><span class="nav-number">1.3.8.7.</span> <span class="nav-text">repeat</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dagui Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chendagui16.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://chendagui16.github.io/2017/10/03/vim/';
+          this.page.identifier = '2017/10/03/vim/';
+          this.page.title = 'vim';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chendagui16.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EBGhKsUAdOaiKk5kvy8kb0PP-gzGzoHsz", "ivIdVN2sK9gmjd0kiXclUVLx");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
