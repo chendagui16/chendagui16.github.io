@@ -122,7 +122,8 @@ source $HOME/.bashrc
 1. 终端中输入
 
 ```shell
-curl -o install_vim.sh sh https://raw.githubusercontent.com/chendagui16/ConfigFile/master/install_vim.sh
+curl -o install_vim.sh https://raw.githubusercontent.com/chendagui16/ConfigFile/master/install_vim.sh
+sh install_vim.sh
 ```
 
 2. 进入vim，输入
